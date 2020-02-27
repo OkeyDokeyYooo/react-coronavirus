@@ -1,16 +1,16 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Container, Row, Col} from 'reactstrap'
 
 function Footer() {
 
     return (
         <footer className="mt-5 footer">
-            <Container fluid>
+            <Container fluid light>
                 <Row xs="3" className="border-top justify-content-between p-3">
-                    <Col className="p-0" sm="12" md="1">
+                    <Col className="p-0" xs="auto">
                         COVID-19
                     </Col>
-                    <Col className="p-0 justify-content-end">
+                    <Col className="p-0 justify-content-end" xs="auto">
                         This site is made by OkeyDokeyYooo Team
                     </Col>
                 </Row>

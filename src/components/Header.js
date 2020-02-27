@@ -17,7 +17,7 @@ function Header() {
                     <Link className="nav-link" to="/"> Data </Link>
                 </NavItem>
                 <NavItem>
-                    <Link className="nav-link" to="/News"> News </Link>
+                    <Link className="nav-link" to="/news"> News </Link>
                 </NavItem>
                 </Nav>
                 </Collapse>

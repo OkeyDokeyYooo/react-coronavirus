@@ -1,24 +1,28 @@
 import React, {Component} from 'react';
-// import {Container ,NavbarBrand, Navbar, NavbarToggler,Collapse, NavItem,Nav } from 'reactstrap';
-// import {Link} from 'react-router-dom';
+import { Route, Switch} from 'react-router-dom';
 import './App.css';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
+import Data   from './components/Data';
+import News   from './components/News';
 
 
 class App extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      isOpen: false,
-    }
-  }
+  // constructor(props){
+  //   super(props);
+  // }
 
   render(){
     return (
       <div className="App">
         <Header/>
+          <Route exact path="/">
+            <Data/>
+          </Route>
+          <Route path="/news">
+            <News/>
+          </Route>
         <Footer/>
       </div>
     )
