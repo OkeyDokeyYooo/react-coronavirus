@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Route } from 'react-router-dom';
-import {Row} from 'reactstrap';
+import {Row, Container} from 'reactstrap';
 
 import News   from './News';
 import Map    from './Map';
@@ -12,10 +12,12 @@ class Page extends Component {
         return (
             <div>
                 <Route exact path="/">
-                    <Row fluid>
-                        <Chart />
-                        <Map />
-                    </Row>
+                    <Container fluid>
+                        <Row>
+                            <Chart />
+                            <Map />
+                        </Row>
+                    </Container>
                 </Route>
                 <Route path="/news">
                     <News/>

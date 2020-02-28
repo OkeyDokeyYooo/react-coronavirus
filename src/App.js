@@ -16,7 +16,7 @@ class App extends Component{
       <div>
         <Header/>
         <Page/>
-        <Footer/>
+        {/* <Footer/> */}
       </div>
     )
   }
