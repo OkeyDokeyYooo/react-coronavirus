@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import { Route, Switch} from 'react-router-dom';
 import './App.css';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Data   from './components/Data';
-import News   from './components/News';
+import Page   from './components/Page';
 
 
 class App extends Component{
@@ -15,14 +13,9 @@ class App extends Component{
 
   render(){
     return (
-      <div className="App">
+      <div>
         <Header/>
-          <Route exact path="/">
-            <Data/>
-          </Route>
-          <Route path="/news">
-            <News/>
-          </Route>
+        <Page/>
         <Footer/>
       </div>
     )
