@@ -9,8 +9,26 @@ const tableStyle = {
     height: "60rem"
 }
 
-class Chart extends Component {
 
+
+class Chart extends Component {
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         data: []
+    //     }
+    //     this.callAPI = this.callAPI.bind(this)
+    // }
+
+    // callAPI() {
+    //     fetch("http://localhost:9000/")
+    //         .then(res => console.log(res))
+    //         // .then(res => this.setState({data: res}))
+    // }
+
+    // componentWillMount() {
+    //     this.callAPI()
+    // }
     
     render() {
         return (
