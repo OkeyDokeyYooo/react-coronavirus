@@ -40,8 +40,8 @@ class News extends Component {
                 const topNewsObj = topThreeNews.map(obj => {
                     return ({
                         src: obj.urlToImage,
-                        altText: obj.title,
-                        caption: obj.description
+                        altText: obj.description,
+                        caption: obj.title
                     })
                 })
                 this.setState({
