@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {url} from '../config/news_config'
 import axios from 'axios';
-import { UncontrolledCarousel } from 'reactstrap'
+import { UncontrolledCarousel, Container, Col, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap'
 
     
 
@@ -59,7 +59,27 @@ class News extends Component {
     render () {
         return (
             <div>
-                <UncontrolledCarousel items={this.state.topThreeNews}/>
+                <Container >
+                    <Col xs="12">
+                        <UncontrolledCarousel items={this.state.topThreeNews}/>
+                    </Col>
+                </Container>
+                {this.state.news.map((news) => {
+                    return (
+                        <Container xs="6">
+                            <Col xs="6">
+                                <Card>
+                                    <CardImg top width="100%" src={news.urlToImage}/>
+                                    <CardBody>
+                                    <CardTitle>{news.title}</CardTitle>
+                                    <CardText>{news.description}</CardText>
+                                    </CardBody>
+                                </Card>
+                            </Col>
+                        </Container>
+
+                    )
+                })}
             </div>
         )
     }
