@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     '&:hover' : {
       backgroundColor: 'transparent',
-      color : 'white'
+      color : 'black'
     }
     },
     menuButton: {
@@ -54,7 +54,7 @@ function Header(props) {
                         <Typography variant="h6" className={classes.title}>
                             COVID-19
                         </Typography>
-                        <Tabs value={value} onChange={handleChange} >
+                        <Tabs value={value} onChange={handleChange}>
                             <Tab label="Data" component={Link} to="/" className={classes.root}/>
                             <Tab label="News" component={Link} to="/news" className={classes.root}/>
                         </Tabs>

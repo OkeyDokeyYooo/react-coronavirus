@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {url} from '../../config/news_config'
 import axios from 'axios';
 import { UncontrolledCarousel} from 'reactstrap'
-import { withStyles, Grid} from '@material-ui/core'
+import { withStyles, Grid, Container} from '@material-ui/core'
 import moment from 'moment'
 
 import NewsCard from './NewsCard'
@@ -37,12 +37,12 @@ class News extends Component {
                         key: i,
                         header: obj.title,
                         caption: moment(obj.publishedAt).format("YYYY MMMM DD"),
-                        url: news.url
+                        url: news.url,
                     })
                 })
                 this.setState({
                     news: news.slice(numOfTopNews),
-                    topThreeNews: topNewsObj
+                    topThreeNews: topNewsObj,
                 })
             })
     }
@@ -51,17 +51,15 @@ class News extends Component {
         this.getNews();
     }
 
-
-
     render () {
         const classes = this.props;
 
         return (
             <div className={classes.root}>
-                <Grid container spacing={3} direction="row" justify="space-flex-start" alignItems="flex-start">
-                    <Grid item xs={12}>
-                        <UncontrolledCarousel items={this.state.topThreeNews} href={this.state.url}/>
-                    </Grid>
+                <Container maxWidth="xl">
+                    <UncontrolledCarousel items={this.state.topThreeNews}/>
+                </Container>
+                <Grid container spacing={3} direction="row" justify="space-flex-start" alignItems="flex-start" style={{padding: '25px'}}>
                     {this.state.news.map((news) => {
                     return (
                         <Grid item xs={3} >
@@ -76,7 +74,6 @@ class News extends Component {
                         </Grid>
                     )})}
                 </Grid>
-
             </div>
         )
     }
