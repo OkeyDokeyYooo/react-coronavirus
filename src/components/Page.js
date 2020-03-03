@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Route } from 'react-router-dom';
 import {Row, Container} from 'reactstrap';
 
-import News   from './News';
+import News   from './News/News';
 import Map    from './Map';
 import Chart from './Chart';
 
