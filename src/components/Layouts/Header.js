@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 // import {NavbarBrand, Navbar, NavbarToggler,Collapse, NavItem,Nav } from 'reactstrap';
 import {Link} from 'react-router-dom';
@@ -31,6 +31,10 @@ function HideOnScroll(props) {
 const useStyles = makeStyles(theme => ({
     root: {
     flexGrow: 1,
+    '&:hover' : {
+      backgroundColor: 'transparent',
+      color : 'white'
+    }
     },
     menuButton: {
     marginRight: theme.spacing(2),
@@ -58,9 +62,9 @@ function Header(props) {
                         <Typography variant="h6" className={classes.title}>
                             COVID-19
                         </Typography>
-                        <Tabs value={value} onChange={handleChange}>
-                            <Tab label="Data" component={Link} to="/"/>
-                            <Tab label="News" component={Link} to="/news" />
+                        <Tabs value={value} onChange={handleChange} >
+                            <Tab label="Data" component={Link} to="/" className={classes.root}/>
+                            <Tab label="News" component={Link} to="/news" className={classes.root}/>
                         </Tabs>
                     </Toolbar>
                 </AppBar>
