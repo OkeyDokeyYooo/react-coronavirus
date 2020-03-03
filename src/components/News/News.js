@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {url} from '../../config/news_config'
 import axios from 'axios';
-import { UncontrolledCarousel, Container, Col} from 'reactstrap'
+import { UncontrolledCarousel} from 'reactstrap'
 import { withStyles, Grid} from '@material-ui/core'
+import moment from 'moment'
 
 import NewsCard from './NewsCard'
 
@@ -11,6 +12,8 @@ const useStyles = theme => ({
       flexGrow: 1,
     },
   });
+
+const numOfTopNews = 3;
 
 
 class News extends Component {
@@ -27,16 +30,18 @@ class News extends Component {
         axios.get(url)
             .then(res => {
                 const news = res.data.articles
-                const topThreeNews = news.slice(0,3)
-                const topNewsObj = topThreeNews.map(obj => {
+                const topThreeNews = news.slice(0,numOfTopNews)
+                const topNewsObj = topThreeNews.map((obj, i) => {
                     return ({
                         src: obj.urlToImage,
-                        altText: obj.description,
-                        caption: obj.title
+                        key: i,
+                        header: obj.title,
+                        caption: moment(obj.publishedAt).format("YYYY MMMM DD"),
+                        url: news.url
                     })
                 })
                 this.setState({
-                    news: news,
+                    news: news.slice(numOfTopNews),
                     topThreeNews: topNewsObj
                 })
             })
@@ -53,9 +58,9 @@ class News extends Component {
 
         return (
             <div className={classes.root}>
-                <Grid container spacing={3} direction="row" justify="space-evenly" alignItems="flex-start">
+                <Grid container spacing={3} direction="row" justify="space-flex-start" alignItems="flex-start">
                     <Grid item xs={12}>
-                        <UncontrolledCarousel items={this.state.topThreeNews}/>
+                        <UncontrolledCarousel items={this.state.topThreeNews} href={this.state.url}/>
                     </Grid>
                     {this.state.news.map((news) => {
                     return (

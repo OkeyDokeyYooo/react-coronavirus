@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles, Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography} from '@material-ui/core';
+import Moment from 'react-moment';
+
 
 const userStyles = makeStyles({
     root: {
@@ -26,10 +28,9 @@ function NewsCard(props) {
                         {props.description}
                     </Typography>
                     <Typography variant="caption" color="textSecondary" component="p" gutterBottom>
-                        {props.date}
-                    </Typography>
-                    <Typography variant="caption" color="textSecondary" component="b">
-                        {props.source}
+                        <Moment format="YYYY MMMM DD">
+                            {props.date}
+                        </Moment>
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -39,6 +40,9 @@ function NewsCard(props) {
                         Learn More
                     </Button>
                 </a>
+                <Typography variant="caption" color="textSecondary" component="b">
+                        {props.source}
+                </Typography>
             </CardActions>
         </Card>
     )

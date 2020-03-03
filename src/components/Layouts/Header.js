@@ -19,14 +19,6 @@ function HideOnScroll(props) {
     );
   }
   
-  HideOnScroll.propTypes = {
-    children: PropTypes.element.isRequired,
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    window: PropTypes.func,
-  };
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -57,7 +49,7 @@ function Header(props) {
         <React.Fragment>
             <CssBaseline />
             <HideOnScroll {...props}>
-                <AppBar position="sticky">
+                <AppBar position="sticky" color="white">
                     <Toolbar variant="dense">
                         <Typography variant="h6" className={classes.title}>
                             COVID-19
