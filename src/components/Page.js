@@ -17,7 +17,7 @@ class Page extends Component {
     }
 
     componentDidMount(){
-        Axios.get("http://localhost:5000/entries/")
+        Axios.get("http://localhost:8080/entries/")
             .then(res => {
                 if (res.data.length > 0) {
                     console.log(res.data[0].trk)

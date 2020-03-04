@@ -77,11 +77,11 @@ class News extends Component {
                         </Grid>
                     )})}
                     </Grid>
-                    {/* <Grid container justify="center">
+                    <Grid container justify="center">
                         <Pagination count={10} shape="rounded" onChange={(obj, page) => {
-xw
+                            console.log(page)
                         }}/>
-                    </Grid> */}
+                    </Grid>
                 </Container>
             </div>
         )

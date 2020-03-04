@@ -1,20 +1,3 @@
-// import React, {Component} from 'react';
-// import { Col } from 'reactstrap';
-
-
-// class Map extends Component {
-    
-//     render() {
-//         return (
-//             <Col xs="6">
-//                 <h3> Map </h3>
-//             </Col>
-//         )
-//     }
-// }
-
-// export default Map;
-
 import React, {Component} from 'react';
 import { Col } from 'reactstrap';
 import * as am4core from "@amcharts/amcharts4/core";
@@ -22,7 +5,6 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import data from '../data.json'
 
 am4core.useTheme(am4themes_animated);
 
