@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Table, Col, Container} from 'reactstrap'
-import Data from '../data.json';
 
 const tableStyle = {
     // overflowY: "auto",
@@ -11,25 +10,7 @@ const tableStyle = {
 
 
 
-class Chart extends Component {
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         data: []
-    //     }
-    //     this.callAPI = this.callAPI.bind(this)
-    // }
-
-    // callAPI() {
-    //     fetch("http://localhost:9000/")
-    //         .then(res => console.log(res))
-    //         // .then(res => this.setState({data: res}))
-    // }
-
-    // componentWillMount() {
-    //     this.callAPI()
-    // }
-    
+class Chart extends Component {    
     render() {
         return (
             <Col xs="6" style={tableStyle}>
@@ -43,21 +24,19 @@ class Chart extends Component {
                             <th>NewDeaths</th>
                             <th>TotalRecovered</th>
                             <th>Critical</th>
-                            <th>Region</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {Data.map((Detail) => {
+                        {this.props.data.map((Detail) => {
                             return (
                                 <tr>
-                                    <td> {Detail["Country,Other"]}</td>
-                                    <td> {Detail["Total Cases"]}</td>
-                                    <td> {Detail.NewCases}</td>
-                                    <td> {Detail.TotalDeaths}</td>
-                                    <td> {Detail.NewDeaths}</td>
-                                    <td> {Detail.TotalRecovered}</td>
-                                    <td> {Detail["Serious,Critical"]}</td>
-                                    <td> {Detail["Region"]}</td>
+                                    <td> {Detail["name"]}</td>
+                                    <td> {Detail["TotalCases"]}</td>
+                                    <td> {Detail["NewCases"]}</td>
+                                    <td> {Detail["TotalDeaths"]}</td>
+                                    <td> {Detail["NewDeaths"]}</td>
+                                    <td> {Detail["TotalRecovered"]}</td>
+                                    <td> {Detail["Serious"]}</td>
                                 </tr>
                             )})}
                     </tbody>

@@ -23,12 +23,12 @@ function NewsCard(props) {
                     image={props.img === null ? "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Global_News.svg/1280px-Global_News.svg.png" : props.img}
                 />
                 <CardContent >
-                    <Typography gutterBottom variant="h6" component="h5">
+                    <Typography gutterBottom variant="h6" component="h5" style={{}}>
                         {props.title}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
+                    {/* <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
                         {props.description}
-                    </Typography>
+                    </Typography> */}
                     <Typography variant="caption" color="textSecondary" component="p" gutterBottom>
                         <Moment format="YYYY MMMM DD">
                             {props.date}
@@ -42,7 +42,7 @@ function NewsCard(props) {
                         Learn More
                     </Button>
                 </a>
-                <Typography variant="caption" color="textSecondary" component="b">
+                <Typography variant="caption" color="textPrimary" component="b">
                         {props.source}
                 </Typography>
             </CardActions>

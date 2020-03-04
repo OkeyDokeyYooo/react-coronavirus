@@ -3,6 +3,7 @@ import {url} from '../../config/news_config'
 import axios from 'axios';
 import { UncontrolledCarousel} from 'reactstrap'
 import { withStyles, Grid, Container} from '@material-ui/core'
+import {Pagination} from '@material-ui/lab'
 import moment from 'moment'
 
 import NewsCard from './NewsCard'
@@ -10,10 +11,13 @@ import NewsCard from './NewsCard'
 const useStyles = theme => ({
     root: {
       flexGrow: 1,
+      '& > *':{
+          marginTop: theme.spacing(5),
+      },
     },
   });
 
-const numOfTopNews = 3;
+const numOfTopNews = 4;
 
 
 class News extends Component {
@@ -56,12 +60,12 @@ class News extends Component {
 
         return (
             <div className={classes.root}>
-                <Container maxWidth="xl">
-                    <UncontrolledCarousel items={this.state.topThreeNews}/>
-                    <Grid container spacing={3} direction="row" justify="center" alignItems="flex-start" style={{padding: '25px'}}>
+                <Container maxWidth="lg">
+                    <UncontrolledCarousel items={this.state.topThreeNews}/> 
+                    <Grid container spacing={3} direction="row" justify="flex-start" alignItems="flex-start" style={{padding: '30px'}}>
                     {this.state.news.map((news) => {
                     return (
-                        <Grid item xs={3} justify="center" >
+                        <Grid item xs={6} sm={4} lg={3} justify="center" >
                             <NewsCard 
                                 img={news.urlToImage} 
                                 title={news.title} 
@@ -73,8 +77,12 @@ class News extends Component {
                         </Grid>
                     )})}
                     </Grid>
+                    {/* <Grid container justify="center">
+                        <Pagination count={10} shape="rounded" onChange={(obj, page) => {
+xw
+                        }}/>
+                    </Grid> */}
                 </Container>
-
             </div>
         )
     }
