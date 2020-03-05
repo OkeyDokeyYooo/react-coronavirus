@@ -1,16 +1,18 @@
 import React from 'react';
 import {makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel,} from '@material-ui/core'
 import {connect} from 'react-redux'
+
 // Table header List
 // ID will be used for List comparison
+// ID MUST be same as the obj's keys
 const headCells = [
-    { id: "Country", numeric: false,disablePadding: true,label: "Country"},
-    { id: "Total Cases", numeric: true, disablePadding: false, label: "Total Cases" },
+    { id: "name", numeric: false,disablePadding: true,label: "Country"},
+    { id: "TotalCases", numeric: true, disablePadding: false, label: "Total Cases" },
     { id: "NewCases", numeric: true, disablePadding: false, label: "NewCases" },
     { id: "TotalDeaths", numeric: true, disablePadding: false, label: "TotalDeaths" },
     { id: "NewDeaths", numeric: true, disablePadding: false, label: "NewDeaths" },    
     { id: "TotalRecovered", numeric: true, disablePadding: false, label: "TotalRecovered" },
-    { id: "Critical", numeric: true, disablePadding: false, label: "Critical" }
+    { id: "Serious", numeric: true, disablePadding: false, label: "Critical" }
 ];
 
 // Creating the Table Header which has sorted label 
@@ -90,7 +92,7 @@ const useStyles = makeStyles(theme => ({
 function Chart (props) { 
     const classes = useStyles();
     const [order, setOrder] = React.useState("asc");
-    const [orderBy, setOrderBy] = React.useState("country");
+    const [orderBy, setOrderBy] = React.useState("Country");
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === "asc";
