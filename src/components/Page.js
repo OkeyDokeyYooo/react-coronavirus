@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import { Route } from 'react-router-dom';
 import {Row, Container} from 'reactstrap';
 import Axios from 'axios';
+import moment from 'moment'
 
 import News   from './News/News';
 import Map    from './Map';
 import Chart from './Chart';
+
 
 
 class Page extends Component {
@@ -17,12 +19,14 @@ class Page extends Component {
     }
 
     componentDidMount(){
-        Axios.get("http://localhost:8080/entries/")
+        const today = moment(new Date()).format('YYYY-MM-DD')
+        console.log(today);
+        Axios.get("http://localhost:8080/entries/" + today)
             .then(res => {
-                if (res.data.length > 0) {
-                    console.log(res.data[0].trk)
+                // console.log(res)
+                if (res.data != null) {
                     this.setState({
-                        trk: res.data[0].trk
+                        trk: res.data.trk
                     })
                 }
             })
