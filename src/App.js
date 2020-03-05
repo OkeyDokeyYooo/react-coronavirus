@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
+import {ThemeProvider, createMuiTheme} from '@material-ui/core'
+
 import './App.css';
 
 // import Footer from './components/Layouts/Footer';
@@ -6,20 +8,25 @@ import Header from './components/Layouts/Header';
 import Page   from './components/Page';
 
 
-class App extends Component{
-  // constructor(props){
-  //   super(props);
-  // }
+const darkTheme = createMuiTheme({
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#ffffff'
+    }
+  },
+});
 
-  render(){
-    return (
-      <div>
+export default function App() {
+
+  return (
+    <div>
+      <ThemeProvider theme={darkTheme}>
         <Header/>
         <Page/>
-        {/* <Footer/> */}
-      </div>
-    )
-  }
-}
+      </ThemeProvider>
 
-export default App;
+      {/* <Footer/> */}
+    </div>
+  )
+}

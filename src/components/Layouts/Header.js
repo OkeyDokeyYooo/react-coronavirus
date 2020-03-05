@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {Tabs, Tab, CssBaseline, useScrollTrigger, Typography, Toolbar, AppBar, Slide, makeStyles} from '@material-ui/core';
 
@@ -47,7 +46,7 @@ function Header(props) {
         <React.Fragment>
             <CssBaseline />
             <HideOnScroll {...props}>
-                <AppBar position="sticky" color="white">
+                <AppBar position="sticky" className={classes.AppBar}>
                     <Toolbar variant="dense">
                         <Typography variant="h6" className={classes.title}>
                             COVID-19

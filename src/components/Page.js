@@ -3,34 +3,23 @@ import { Route } from 'react-router-dom';
 import {Row, Container} from 'reactstrap';
 import Axios from 'axios';
 import moment from 'moment'
+import { connect } from 'react-redux'
 
 import News   from './News/News';
 import Map    from './Map';
 import Chart from './Chart';
 
-
-
 class Page extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            trk: [],
-        }
-    }
-
     componentDidMount(){
         const today = moment(new Date()).format('YYYY-MM-DD')
-        console.log(today);
         Axios.get("http://localhost:8080/entries/" + today)
             .then(res => {
-                // console.log(res)
                 if (res.data != null) {
-                    this.setState({
-                        trk: res.data.trk
-                    })
+                    this.props.updateData(res.data.trk)
                 }
             })
     }
+
 
     render() {
         return (
@@ -38,17 +27,25 @@ class Page extends Component {
                 <Route exact path="/">
                     <Container fluid>
                         <Row>
-                            <Chart data={this.state.trk}/>
-                            <Map data={this.state.trk}/>
+                            <Chart />
+                            <Map data={this.props.data}/>
                         </Row>
                     </Container>
                 </Route>
                 <Route path="/news">
                     <News/>
                 </Route>
-            </div>
+            </div>    
         )
     }
 }
 
-export default Page;
+const mapState = state => ({
+    data: state.Data.trk
+})
+
+const mapDispatch = dispatch => ({
+    updateData: (data) => dispatch.Data.updateData(data)
+})
+
+export default connect(mapState, mapDispatch)(Page);
