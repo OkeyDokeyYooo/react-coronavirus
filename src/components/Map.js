@@ -5,7 +5,7 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import connect from 'react-moment'
+import {connect} from 'react-redux'
 
 am4core.useTheme(am4themes_animated);
 
@@ -93,5 +93,9 @@ class Map extends Component {
     }
 }
 
+const mapState = state => ({
+  data: state.Data.trk
+})
 
-export default Map;
+
+export default connect(mapState, null)(Map);

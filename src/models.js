@@ -1,11 +1,14 @@
 export const Data = {
     state: {
-        trk: []
+        trk: [],
+        total: {}
     },
     reducers: {
         updateData : (state, data) => {
+            let totalSummary = data.pop()
             return ({
-                trk: data
+                trk: data,
+                total: totalSummary
             })
         },
     },

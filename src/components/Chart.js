@@ -85,7 +85,7 @@ const useStyles = makeStyles(theme => ({
       minWidth: 750
     },
     container: {
-        maxHeight: 440,
+        maxHeight: 600,
     }
 }));
 
@@ -132,6 +132,17 @@ function Chart (props) {
                                 )
                             })}                       
                     </TableBody>
+                    <TableHead >
+                        <TableRow>
+                            <TableCell> {props.total["name"]}</TableCell>
+                            <TableCell> {props.total["TotalCases"]}</TableCell>
+                            <TableCell> {props.total["NewCases"]}</TableCell>
+                            <TableCell> {props.total["TotalDeaths"]}</TableCell>
+                            <TableCell> {props.total["NewDeaths"]}</TableCell>
+                            <TableCell> {props.total["TotalRecovered"]}</TableCell>
+                            <TableCell> {props.total["Serious"]}</TableCell>
+                        </TableRow>
+                    </TableHead>
                 </Table>
             </TableContainer>
         </div>
@@ -139,7 +150,8 @@ function Chart (props) {
 }
 
 const mapState = state => ({
-    data: state.Data.trk
+    data: state.Data.trk,
+    total: state.Data.total
 })
 
 export default connect(mapState, null)(Chart);
