@@ -10,16 +10,25 @@ import Map    from './Map';
 import Chart from './Chart';
 
 class Page extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            data: null,
+        }
+    }
+
     componentDidMount(){
         const today = moment(new Date()).format('YYYY-MM-DD')
         Axios.get("http://localhost:8080/entries/" + today)
             .then(res => {
                 if (res.data != null) {
                     this.props.updateData(res.data.trk)
+                    this.setState({
+                        data: res.data.trk
+                    })
                 }
             })
     }
-
 
     render() {
         return (
@@ -28,7 +37,10 @@ class Page extends Component {
                     <Container fluid>
                         <Row>
                             <Chart />
-                            <Map />
+                            {
+                                this.state.data &&
+                                <Map input={ this.state.data}/>
+                            }
                         </Row>
                     </Container>
                 </Route>

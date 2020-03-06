@@ -38,7 +38,7 @@ function NewsCard(props) {
             </CardActionArea>
             <CardActions>
                 <a href={props.link} target="_blank" rel="noreferrer noopener">
-                    <Button size="small" color="primary">
+                    <Button size="small" color="secondary">
                         Learn More
                     </Button>
                 </a>

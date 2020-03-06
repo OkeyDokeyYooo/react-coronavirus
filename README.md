@@ -9,22 +9,28 @@
 
 - [x] front-end would able to get access to the database (Due March 3rd)
 
-- [ ] Table header can be choose, sorted table (Due March 4th, before meeting)
+- [X] Table header can be choose, sorted table (Due March 4th, before meeting)
 
 - [ ] Making the Table and the Map interactive with each other (using Rematch? Due: 4th)
+
+- [ ] Making a Picture Slider on New's Page
+
+- [ ] Making Search In News Section
+
+- [ ] adding pagination (Due: March 4th)
+
 
 --------------
 
 ### Lower Priority
 1. NEWS
     - [x] Updating UI
-      - [ ] Making the UI looks more elegant 
-    - [ ] Making Search In News Section
+      - [x] Making the UI looks more elegant 
     - [ ] flittering the data from News, trying to remove the duplicating object from the data (Due: March 4th)
-    - [ ] adding pagination (Due: March 4th)
     - [ ] changing the slider View, now they can not be clickable, which is sucks!!! 
 
 
 ### Nice to have
-- [ ] error handling ?
+- [ ] error handling ? error page
 - [ ] reference: better say the source location
+- [ ] having search on the News page ?
