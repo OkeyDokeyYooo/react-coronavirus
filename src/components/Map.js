@@ -4,23 +4,16 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+
 am4core.useTheme(am4themes_animated);
-
-// function handleHover(mapPolygon) {
-//   if (!isNaN(mapPolygon.dataItem.value)) {
-//     heatLegend.valueAxis.showTooltipAt(mapPolygon.dataItem.value);
-//   } else {
-//     heatLegend.valueAxis.hideTooltip();
-//   }
-// }
-
 
 
 class Map extends Component {
 
   componentDidMount() {
-    // Create map instance    
-    this.props.input.map(obj => {
+    // Create map instance  
+    let mapData = this.props.input  
+    mapData.map(obj => {
       obj['value'] = obj['TotalCases']
       // obj['color'] = '#8ac6d1'
     })
@@ -113,7 +106,7 @@ class Map extends Component {
     chart.zoomControl.valign = "top"; 
 
 
-    polygonSeries.data = this.props.input
+    polygonSeries.data = mapData
     polygonSeries.dataFields.value = "value"
 
     polygonSeries.exclude = ["AQ"];

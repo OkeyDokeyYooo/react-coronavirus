@@ -15,9 +15,15 @@ class Page extends Component {
         super(props);
         this.state = {
             data: null,
-            summary: null
+            summary: null,
+            choosenCategory : 'TotalCases',
+            choosenCategoryData: null,
         }
     }
+
+    // handleChildFun(catorgry){
+
+    // }
 
     componentDidMount(){
         const today = moment(new Date()).format('YYYY-MM-DD')
@@ -26,26 +32,29 @@ class Page extends Component {
                 if (res.data != null) {
                     this.props.updateData(res.data.trk)
                     let summary = res.data.trk.pop()
+                    let choosenCategory = this.state.choosenCategory
                     this.setState({
                         data: res.data.trk,
-                        summary: summary
+                        summary: summary,
+                        choosenCategoryData: summary[choosenCategory]
                     })
                 }
             })
     }
 
     render() {
+        console.log(this.state.data)
         return (
             <div>
                 <Route exact path="/">
                     <Container fluid>
                         <Row xs={12}>
-                            <SummaryBoard />
+                            <SummaryBoard input={this.state.choosenCategoryData}/>
                         </Row>
                         <Row>
                             <Chart />
                             {
-                                this.state.data &&
+                             this.state.data &&
                                 <Map input={ this.state.data}/>
                             }
                         </Row>
