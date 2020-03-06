@@ -28,7 +28,7 @@ class Page extends Component {
                     <Container fluid>
                         <Row>
                             <Chart />
-                            <Map data={this.props.data}/>
+                            <Map />
                         </Row>
                     </Container>
                 </Route>
