@@ -39,8 +39,10 @@ class Page extends Component {
             <div>
                 <Route exact path="/">
                     <Container fluid>
-                        <Row>
+                        <Row xs={12}>
                             <SummaryBoard />
+                        </Row>
+                        <Row>
                             <Chart />
                             {
                                 this.state.data &&

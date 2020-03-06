@@ -17,7 +17,9 @@
 
 - [ ] Making Search In News Section
 
-- [ ] adding pagination (Due: March 4th)
+- [ ] adding pagination
+
+- [ ] Adding new Summary Board into Data Section
 
 
 --------------

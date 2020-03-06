@@ -86,6 +86,7 @@ const useStyles = makeStyles(theme => ({
     },
     container: {
         maxHeight: 600,
+        margin: 50
     }
 }));
 
