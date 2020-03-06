@@ -11,6 +11,10 @@
 
 - [X] Table header can be choose, sorted table (Due March 4th, before meeting)
 
+- [x] Change the map into heat map and add map legend
+
+- [ ] Move the Heat legend bar on the side, change it to veritcal ?
+
 - [ ] Making the Table and the Map interactive with each other (using Rematch? Due: 4th)
 
 - [ ] Making a Picture Slider on New's Page

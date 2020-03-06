@@ -133,7 +133,7 @@ function Chart (props) {
                                 )
                             })}                       
                     </TableBody>
-                    <TableHead >
+                    {/* <TableHead >
                         <TableRow>
                             <TableCell> {props.total["name"]}</TableCell>
                             <TableCell> {props.total["TotalCases"]}</TableCell>
@@ -143,7 +143,7 @@ function Chart (props) {
                             <TableCell> {props.total["TotalRecovered"]}</TableCell>
                             <TableCell> {props.total["Serious"]}</TableCell>
                         </TableRow>
-                    </TableHead>
+                    </TableHead> */}
                 </Table>
             </TableContainer>
         </div>
