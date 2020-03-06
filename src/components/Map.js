@@ -4,7 +4,6 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import {connect} from 'react-redux'
 
 am4core.useTheme(am4themes_animated);
 
@@ -16,6 +15,8 @@ class Map extends Component {
       obj['value'] = obj['TotalCases']
       obj['color'] = '#8ac6d1'
     })
+
+    console.log(this.props.input)
 
     let chart = am4core.create("chartdiv", am4maps.MapChart);
 

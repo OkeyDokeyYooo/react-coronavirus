@@ -8,12 +8,14 @@ import { connect } from 'react-redux'
 import News   from './News/News';
 import Map    from './Map';
 import Chart from './Chart';
+import SummaryBoard from './SummaryBoard/SummaryBoard'
 
 class Page extends Component {
     constructor(props){
         super(props);
         this.state = {
             data: null,
+            summary: null
         }
     }
 
@@ -23,8 +25,10 @@ class Page extends Component {
             .then(res => {
                 if (res.data != null) {
                     this.props.updateData(res.data.trk)
+                    let summary = res.data.trk.pop()
                     this.setState({
-                        data: res.data.trk
+                        data: res.data.trk,
+                        summary: summary
                     })
                 }
             })
@@ -36,6 +40,7 @@ class Page extends Component {
                 <Route exact path="/">
                     <Container fluid>
                         <Row>
+                            <SummaryBoard />
                             <Chart />
                             {
                                 this.state.data &&
