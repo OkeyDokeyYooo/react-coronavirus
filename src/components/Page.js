@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Route } from 'react-router-dom';
 import {Row, Container} from 'reactstrap';
 import Axios from 'axios';
-import moment from 'moment'
+import moment from 'moment-timezone';
 
 import News   from './News/News';
 import Map    from './Map';
@@ -16,21 +16,22 @@ class Page extends Component {
             data: null,
             summary: null,
             choosenCategory : 'TotalCases',
-            choosenColor: '#ee3e32'
+            maxColor: '#660000',
+            minColor: '#FFCCCC'
         }
         this.handleClick = this.handleClick.bind(this)
     }
 
-    handleClick(catorgry, color){
-        // console.log(catorgry, color)
+    handleClick(catorgry, maxColor, minColor){
         this.setState({
             choosenCategory: catorgry,
-            choosenColor: color
+            maxColor: maxColor,
+            minColor: minColor
         })
     }
 
     componentDidMount(){
-        const today = moment(new Date()).format('YYYY-MM-DD')
+        const today = moment.utc().format('YYYY-MM-DD')
         Axios.get("http://localhost:8080/entries/" + today)
             .then(res => {
                 if (res.data != null) {
@@ -62,7 +63,7 @@ class Page extends Component {
                             }
                             {
                              this.state.data &&
-                                <Map input={ this.state.data} catorgry={this.state.choosenCategory} color={this.state.choosenColor}/>
+                                <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
                             }
                         </Row>
                     </Container>

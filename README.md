@@ -2,9 +2,13 @@
 
 ### High Priority
 
-- [ ] Move the Heat legend bar on the side, change it to veritcal ?
+- [x] Move the Heat legend bar on the side, change it to veritcal ?
 
 - [x] Making the Table and the Map interactive with each other (using Rematch? Due: 4th)
+
+- [x] Normalize Dat (done by filer the outliers)
+
+- [ ] Change the time zone (same as the website) 
 
 - [ ] Making a Picture Slider on New's Page
 

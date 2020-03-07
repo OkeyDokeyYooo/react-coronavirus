@@ -7,12 +7,13 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 am4core.useTheme(am4themes_animated);
 
-function initMap(data, color){
+function initMap(data, maxColor, minColor, inputTitle, inputMinVal, inputMaxVal){
   let chart = am4core.create("chartdiv", am4maps.MapChart);
   chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
+  console.log(inputTitle)
   let title = chart.titles.create();
-  title.text = "TBD";
+  title.text = inputTitle;
   title.textAlign = "center";
   title.fontSize= 40;
 
@@ -33,18 +34,19 @@ function initMap(data, color){
   polygonSeries.heatRules.push({
     property: "fill",
     target: polygonSeries.mapPolygons.template,
-    min: am4core.color("#ffffff"),
-    max: am4core.color(color)
+    min: am4core.color(minColor),
+    max: am4core.color(maxColor),
+    minValue: inputMinVal,
+    maxValue: inputMaxVal
   });
   polygonSeries.useGeodata = true;
 
   // Heat Lengnd, change the style here 
   let heatLegend = chart.createChild(am4charts.HeatLegend);
-  // heatLegend.orientation = "vertical";
-  heatLegend.align = "right";
+  heatLegend.orientation = "vertical";
   heatLegend.valign = "bottom";
-  heatLegend.minValue = 0;
-  heatLegend.maxValue = 100;
+  heatLegend.minValue = inputMinVal;
+  heatLegend.maxValue = inputMaxVal;
   heatLegend.width = am4core.percent(100);
   heatLegend.series = polygonSeries;
   heatLegend.padding(20, 20, 20, 20);
@@ -88,29 +90,73 @@ function initMap(data, color){
   return chart;
 }
 
+// import this from https://stackoverflow.com/questions/20811131/javascript-remove-outlier-from-an-array
+function filterOutliers(someArray) {
+
+  if(someArray.length < 4)
+    return someArray;
+
+  let values, q1, q3, iqr, maxValue, minValue;
+
+  values = someArray.slice().sort( (a, b) => a - b);//copy array fast and sort
+
+  if((values.length / 4) % 1 === 0){//find quartiles
+    q1 = 1/2 * (values[(values.length / 4)] + values[(values.length / 4) + 1]);
+    q3 = 1/2 * (values[(values.length * (3 / 4))] + values[(values.length * (3 / 4)) + 1]);
+  } else {
+    q1 = values[Math.floor(values.length / 4 + 1)];
+    q3 = values[Math.ceil(values.length * (3 / 4) + 1)];
+  }
+
+  iqr = q3 - q1;
+  maxValue = q3 + iqr * 1.5;
+  minValue = q1 - iqr * 1.5;
+
+  return values.filter((x) => (x >= minValue) && (x <= maxValue));
+}
+
 
 class Map extends Component {
 
   componentDidUpdate(){
-    console.log("at revice props", this.props.color, this.props.catorgry)
+    // console.log("at revice props", this.props.color, this.props.catorgry)
     if(this.chart) this.chart.dispose()
     let mapData = this.props.input  
+    let dataArray = []
+    let fullObj = this.props.input
+
     mapData.map(obj => {
       obj['value'] = obj[this.props.catorgry]
     })
 
-    this.chart = initMap(mapData, this.props.color);
+    // Get all the value with the current catorgry
+    fullObj.map(obj => {
+      if (obj[this.props.catorgry]) dataArray.push(obj[this.props.catorgry])
+    })
+
+    dataArray = filterOutliers(dataArray)
+
+    this.chart = initMap(mapData, this.props.maxColor, this.props.minColor, this.props.catorgry, dataArray[0], dataArray[dataArray.length-1]);
   }
 
   componentDidMount() {
-    console.log("at did mount", this.props.color, this.props.catorgry)
     // Create map instance  
-    let mapData = this.props.input  
+    let mapData = this.props.input 
+    let dataArray = []
+    let fullObj = this.props.input
     mapData.map(obj => {
       obj['value'] = obj[this.props.catorgry]
     })
 
-    this.chart = initMap(mapData, this.props.color);
+    // Get all the value with the current catorgry
+    fullObj.map(obj => {
+      if (obj[this.props.catorgry]) dataArray.push(obj[this.props.catorgry])
+    })
+
+    //Filter out all the out liers
+    dataArray = filterOutliers(dataArray)
+
+    this.chart = initMap(mapData, this.props.maxColor, this.props.minColor, this.props.catorgry, dataArray[0], dataArray[dataArray.length-1]);
   }
 
   componentWillUnmount() {
