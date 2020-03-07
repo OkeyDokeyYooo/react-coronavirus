@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import {Row, Container} from 'reactstrap';
 import Axios from 'axios';
 import moment from 'moment'
-import { connect } from 'react-redux'
 
 import News   from './News/News';
 import Map    from './Map';
@@ -17,45 +16,53 @@ class Page extends Component {
             data: null,
             summary: null,
             choosenCategory : 'TotalCases',
-            choosenCategoryData: null,
+            choosenColor: '#ee3e32'
         }
+        this.handleClick = this.handleClick.bind(this)
     }
 
-    // handleChildFun(catorgry){
-
-    // }
+    handleClick(catorgry, color){
+        // console.log(catorgry, color)
+        this.setState({
+            choosenCategory: catorgry,
+            choosenColor: color
+        })
+    }
 
     componentDidMount(){
         const today = moment(new Date()).format('YYYY-MM-DD')
         Axios.get("http://localhost:8080/entries/" + today)
             .then(res => {
                 if (res.data != null) {
-                    this.props.updateData(res.data.trk)
-                    let summary = res.data.trk.pop()
-                    let choosenCategory = this.state.choosenCategory
+                    const localData = res.data.trk;
+                    let summary = localData.pop()
                     this.setState({
-                        data: res.data.trk,
+                        data: localData,
                         summary: summary,
-                        choosenCategoryData: summary[choosenCategory]
                     })
                 }
             })
     }
 
     render() {
-        console.log(this.state.data)
         return (
             <div>
                 <Route exact path="/">
                     <Container fluid>
                         <Row xs={12}>
-                            <SummaryBoard input={this.state.choosenCategoryData}/>
+                            {
+                                this.state.summary &&
+                                <SummaryBoard input={this.state.summary} handleClick={this.handleClick}/>
+                            }
                         </Row>
                         <Row>
-                            <Chart />
+                            {
+                                this.state.data &&
+                                <Chart data={this.state.data} />
+                            }
                             {
                              this.state.data &&
-                                <Map input={ this.state.data}/>
+                                <Map input={ this.state.data} catorgry={this.state.choosenCategory} color={this.state.choosenColor}/>
                             }
                         </Row>
                     </Container>
@@ -68,12 +75,4 @@ class Page extends Component {
     }
 }
 
-const mapState = state => ({
-    data: state.Data.trk
-})
-
-const mapDispatch = dispatch => ({
-    updateData: (data) => dispatch.Data.updateData(data)
-})
-
-export default connect(mapState, mapDispatch)(Page);
+export default Page;

@@ -1,6 +1,19 @@
 # TODO's List
 
 ### High Priority
+
+- [ ] Move the Heat legend bar on the side, change it to veritcal ?
+
+- [x] Making the Table and the Map interactive with each other (using Rematch? Due: 4th)
+
+- [ ] Making a Picture Slider on New's Page
+
+- [ ] Making Search In News Section
+
+- [ ] adding pagination on News
+
+- [x] Adding new Summary Board into Data Section
+
 - [x] Creating Database and running script in the back-end 
     - [x] Mongoose: remember to whitelist
     - [x] Express 
@@ -12,19 +25,6 @@
 - [X] Table header can be choose, sorted table (Due March 4th, before meeting)
 
 - [x] Change the map into heat map and add map legend
-
-- [ ] Move the Heat legend bar on the side, change it to veritcal ?
-
-- [ ] Making the Table and the Map interactive with each other (using Rematch? Due: 4th)
-
-- [ ] Making a Picture Slider on New's Page
-
-- [ ] Making Search In News Section
-
-- [ ] adding pagination
-
-- [ ] Adding new Summary Board into Data Section
-
 
 --------------
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import {makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel,} from '@material-ui/core'
-import {connect} from 'react-redux'
 
 // Table header List
 // ID will be used for List comparison
@@ -133,26 +132,10 @@ function Chart (props) {
                                 )
                             })}                       
                     </TableBody>
-                    {/* <TableHead >
-                        <TableRow>
-                            <TableCell> {props.total["name"]}</TableCell>
-                            <TableCell> {props.total["TotalCases"]}</TableCell>
-                            <TableCell> {props.total["NewCases"]}</TableCell>
-                            <TableCell> {props.total["TotalDeaths"]}</TableCell>
-                            <TableCell> {props.total["NewDeaths"]}</TableCell>
-                            <TableCell> {props.total["TotalRecovered"]}</TableCell>
-                            <TableCell> {props.total["Serious"]}</TableCell>
-                        </TableRow>
-                    </TableHead> */}
                 </Table>
             </TableContainer>
         </div>
     )
 }
 
-const mapState = state => ({
-    data: state.Data.trk,
-    total: state.Data.total
-})
-
-export default connect(mapState, null)(Chart);
+export default Chart;
