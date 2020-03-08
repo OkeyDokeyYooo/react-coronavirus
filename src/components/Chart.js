@@ -117,9 +117,10 @@ function Chart (props) {
                         {stableSort(props.data, getComparator(order, orderBy))
                             .map((row, index) => {
                                 return (
+                                    row['TotalCases'] &&
                                     <TableRow
                                     hover
-                                    key={row["name"]}
+                                    key={row["name"] + index}
                                     >
                                         <TableCell> {row["name"]}</TableCell>
                                         <TableCell> {row["TotalCases"]}</TableCell>

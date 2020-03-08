@@ -35,6 +35,7 @@ class Page extends Component {
         Axios.get("http://localhost:8080/entries/" + today)
             .then(res => {
                 if (res.data != null) {
+                    // console.log(res.data)
                     const localData = res.data.trk;
                     let summary = localData.pop()
                     this.setState({

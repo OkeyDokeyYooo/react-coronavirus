@@ -8,6 +8,7 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 am4core.useTheme(am4themes_animated);
 
 function initMap(data, maxColor, minColor, inputTitle, inputMinVal, inputMaxVal){
+  let inputData = data
   let chart = am4core.create("chartdiv", am4maps.MapChart);
   chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
@@ -82,7 +83,7 @@ function initMap(data, maxColor, minColor, inputTitle, inputMinVal, inputMaxVal)
   chart.zoomControl.valign = "top"; 
 
 
-  polygonSeries.data = data
+  polygonSeries.data = inputData
   polygonSeries.dataFields.value = "value"
 
   polygonSeries.exclude = ["AQ"];
@@ -140,7 +141,7 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    // Create map instance  
+    // Create map instance 
     let mapData = this.props.input 
     let dataArray = []
     let fullObj = this.props.input

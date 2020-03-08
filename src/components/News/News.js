@@ -24,18 +24,21 @@ class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            news: [],
-            topThreeNews:[],
+            news: null,
+            topThreeNews: [],
         }
+        this.getNews = this.getNews.bind(this)
     }
 
     // get all the news from calling the api and take the first three news from the obj and render it to the slider
-    getNews() {
-        axios.get(url)
+    getNews(pageNum) {
+        axios.get(url + "&page=" + pageNum)
             .then(res => {
-                const news = res.data.articles
-                const topThreeNews = news.slice(0,numOfTopNews)
-                const topNewsObj = topThreeNews.map((obj, i) => {
+                console.log("getNews", pageNum)
+                console.log(res.data.articles)
+                let news = res.data.articles
+                let topThreeNews = news.slice(0,numOfTopNews)
+                let topNewsObj = topThreeNews.map((obj, i) => {
                     return ({
                         src: obj.urlToImage,
                         key: i,
@@ -49,11 +52,13 @@ class News extends Component {
                     topThreeNews: topNewsObj,
                 })
             })
+        window.scrollTo(0,0)
     }
 
-    componentWillMount () {
-        this.getNews();
+    componentDidMount(){
+        if (!this.state.new) this.getNews(1)
     }
+
 
     render () {
         const classes = this.props;
@@ -61,27 +66,39 @@ class News extends Component {
         return (
             <div className={classes.root}>
                 <Container maxWidth="lg">
-                    <UncontrolledCarousel items={this.state.topThreeNews}/> 
+                    {/* <PictureCarousel topThreeNews={this.state.topThreeNews}/> */}
+                    {/* {console.log(this.state.topThreeNews)} */}
+                    <UncontrolledCarousel items={this.state.topThreeNews} 
+                                            cssModule={{
+                                                maxHeight: "500px"
+                                            }}/> 
                     <Grid container spacing={3} direction="row" justify="flex-start" alignItems="flex-start" style={{padding: '30px'}}>
-                    {this.state.news.map((news) => {
-                    return (
-                        <Grid item xs={6} sm={4} lg={3} justify="center" >
-                            <NewsCard 
-                                img={news.urlToImage} 
-                                title={news.title} 
-                                description={news.description} 
-                                date={news.publishedAt} 
-                                source={news.source.name}
-                                link={news.url}
-                            />
-                        </Grid>
+                    {
+                        this.state.news &&
+                        this.state.news.map((news) => {
+                        return (
+                            <Grid item xs={6} sm={4} lg={3} key={news.title}>
+                                <NewsCard 
+                                    img={news.urlToImage} 
+                                    title={news.title} 
+                                    description={news.description} 
+                                    date={news.publishedAt} 
+                                    source={news.source.name}
+                                    link={news.url}
+                                />
+                            </Grid>
                     )})}
                     </Grid>
-                    <Grid container justify="center">
-                        <Pagination count={10} shape="rounded" onChange={(obj, page) => {
-                            console.log(page)
-                        }}/>
-                    </Grid>
+                    {
+                        this.state.news &&
+                        <Grid container justify="center">
+                            <Pagination count={10} shape="rounded" onChange={(obj, page) => {
+                                this.getNews(page)
+                            }}/>
+                        </Grid>
+
+                    }
+
                 </Container>
             </div>
         )
