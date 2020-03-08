@@ -1,0 +1,5 @@
+.peopleCarouselImg img {
+  width: auto;
+  height: 225px, important;
+  max-height: 225px;
+}

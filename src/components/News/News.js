@@ -5,6 +5,7 @@ import { UncontrolledCarousel} from 'reactstrap'
 import { withStyles, Grid, Container} from '@material-ui/core'
 import {Pagination} from '@material-ui/lab'
 import moment from 'moment'
+import './News.css'
 
 import NewsCard from './NewsCard'
 
@@ -82,7 +83,8 @@ class News extends Component {
                 <Container maxWidth="lg">
                     {/* <PictureCarousel topThreeNews={this.state.topThreeNews}/> */}
                     {/* {console.log(this.state.topThreeNews)} */}
-                    <UncontrolledCarousel items={this.state.topThreeNews} /> 
+                    
+                    <UncontrolledCarousel class="item peopleCarouselImg" items={this.state.topThreeNews} /> 
                     <Grid container spacing={3} direction="row" justify="flex-start" alignItems="flex-start" style={{padding: '30px'}}>
                     {
                         this.state.news &&

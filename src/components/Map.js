@@ -13,9 +13,9 @@ function initMap(data, maxColor, minColor, inputTitle, inputMinVal, inputMaxVal)
 
   console.log(inputTitle)
   let title = chart.titles.create();
-  title.text = inputTitle;
+  title.text = inputTitle.match(/[A-Z][a-z]+/g).join(" ");
   title.textAlign = "center";
-  title.fontSize= 40;
+  title.fontSize= 32;
 
   // Set map definition
   chart.geodata = am4geodata_worldLow;

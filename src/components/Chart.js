@@ -6,13 +6,43 @@ import {Box, makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead,
 // ID MUST be same as the obj's keys
 const headCells = [
     { id: "name", numeric: false,disablePadding: true,label: "Country"},
-    { id: "TotalCases", numeric: true, disablePadding: false, label: "Total Cases" },
+    { id: "TotalCases", numeric: true, disablePadding: false, label: "TotalCases" },
     { id: "NewCases", numeric: true, disablePadding: false, label: "NewCases" },
     { id: "TotalDeaths", numeric: true, disablePadding: false, label: "TotalDeaths" },
     { id: "NewDeaths", numeric: true, disablePadding: false, label: "NewDeaths" },    
     { id: "TotalRecovered", numeric: true, disablePadding: false, label: "TotalRecovered" },
     { id: "Serious", numeric: true, disablePadding: false, label: "Critical" }
 ];
+
+// Material-ui CSS styling sheet
+const useStyles = makeStyles(theme => ({
+    root: {
+      width: "95%"
+    },
+    table: {
+      maxWidth: "95%",
+      textAlign: "center"
+    },
+    container: {
+        height: 500,
+        margin: 0
+    },
+    narrowCell: {
+		'width': '5%',
+    },
+    title: {
+        fontWeight: 500,
+        width: "50px"
+    },
+    data: {
+        // textAlign: "center",
+        width: "50px"
+    },
+    header: {
+        textAlign: "center",
+        width: "50px"
+    }
+}));
 
 // Creating the Table Header which has sorted label 
 function EnhancedTableHead(props) {
@@ -25,13 +55,15 @@ function EnhancedTableHead(props) {
     const createSortHandler = property => event => {
         onRequestSort(event, property);
     };
-
+    const classes = useStyles();
     return (
+        
         <TableHead>
-            <TableRow>
+            <TableRow className={classes.header}>
                 {headCells.map(headCell => (
                     <TableCell
                         key={headCell.id}
+                        className={classes.header}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         <TableSortLabel
@@ -75,22 +107,11 @@ function stableSort(array, comparator) {
     return stabilizedThis.map(el => el[0]);
 }
 
-// Material-ui CSS styling sheet
-const useStyles = makeStyles(theme => ({
-    root: {
-      width: "95%"
-    },
-    table: {
-      maxWidth: "95%"
-    },
-    container: {
-        height: 500,
-        margin: 0
-    },
-    narrowCell: {
-		'width': '5%',
-	}
-}));
+function numberWithCommas(x) {
+    return x == null ? null : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
 
 function Chart (props) { 
     const classes = useStyles();
@@ -115,11 +136,12 @@ function Chart (props) {
                     // padding='none'
                 >
                     <EnhancedTableHead
-                        classes={classes}
+                        // classes={classes}
                         order={order}
                         orderBy={orderBy}
                         onRequestSort={handleRequestSort}
                         fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}
+                        className={classes.header}
                     />
                     <TableBody fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}>
                         {stableSort(props.data, getComparator(order, orderBy))
@@ -131,13 +153,13 @@ function Chart (props) {
                                     key={row["name"]}
                                     fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}
                                     >
-                                        <TableCell> {row["name"]}</TableCell>
-                                        <TableCell> {row["TotalCases"]}</TableCell>
-                                        <TableCell> {row["NewCases"]}</TableCell>
-                                        <TableCell> {row["TotalDeaths"]}</TableCell>
-                                        <TableCell> {row["NewDeaths"]}</TableCell>
-                                        <TableCell> {row["TotalRecovered"]}</TableCell>
-                                        <TableCell> {row["Serious"]}</TableCell>
+                                        <TableCell className={classes.data}> {row["name"]}</TableCell>
+                                        <TableCell className={classes.data}> {numberWithCommas(row["TotalCases"])}</TableCell>
+                                        <TableCell className={classes.data}> {numberWithCommas(row["NewCases"])}</TableCell>
+                                        <TableCell className={classes.data}> {numberWithCommas(row["TotalDeaths"])}</TableCell>
+                                        <TableCell className={classes.data}> {numberWithCommas(row["NewDeaths"])}</TableCell>
+                                        <TableCell className={classes.data}> {numberWithCommas(row["TotalRecovered"])}</TableCell>
+                                        <TableCell className={classes.data}> {numberWithCommas(row["Serious"])}</TableCell>
                                     </TableRow>
                                 )
                             })}                       

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Tabs, Tab, CssBaseline, useScrollTrigger, Typography, Toolbar, AppBar, Slide, makeStyles} from '@material-ui/core';
+import {Tabs, Tab, CssBaseline, useScrollTrigger, Typography, Toolbar, AppBar, Slide, makeStyles, ThemeProvider, createMuiTheme} from '@material-ui/core';
 
 function HideOnScroll(props) {
     const { children, window } = props;
@@ -23,15 +23,25 @@ const useStyles = makeStyles(theme => ({
     '&:hover' : {
       backgroundColor: 'transparent',
       color : 'black'
-    }
+    },
+    fontSize: 18
     },
     menuButton: {
     marginRight: theme.spacing(2),
     },
     title: {
     flexGrow: 1,
+    fontSize: 24
     },
 }));
+
+const theme = createMuiTheme({
+  typography: {
+    // In Chinese and Japanese the characters are usually larger,
+    // so a smaller fontsize may be appropriate.
+    fontSize: 28,
+  },
+});
 
   
 function Header(props) {
@@ -49,7 +59,7 @@ function Header(props) {
                 <AppBar position="sticky" className={classes.AppBar}>
                     <Toolbar variant="dense">
                         <Typography variant="h6" className={classes.title}>
-                            COVID-19
+                          Coronavirus Disease (COVID-19)
                         </Typography>
                         <Tabs value={value} onChange={handleChange}>
                             <Tab label="Data" component={Link} to="/" className={classes.root}/>
