@@ -9,6 +9,9 @@
   width: auto;
 }
  */
+ .body {
+  border: 1px solid transparent;
+ }
 
  .footer {
   position: absolute;

@@ -1,5 +1,9 @@
 import React from 'react'
-import {Card, CardActions, CardContent, Button, Typography, makeStyles, ThemeProvider, createMuiTheme} from '@material-ui/core'
+import {Card, CardContent, Typography, makeStyles, ThemeProvider, createMuiTheme, Grid} from '@material-ui/core'
+import { red, green } from '@material-ui/core/colors';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
+import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 
 const useStyles = makeStyles({
     root: {
@@ -33,6 +37,55 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const Comparsion = (props) => {
+
+  console.log(props.today, props.yesterday)
+  const diff = props.today - props.yesterday
+  if ( diff > 0){
+    return (
+      <Grid container>
+        <Grid item>
+         <TrendingUpIcon style={{ color: red[500] }}/>
+        </Grid>
+        <Grid item style={{paddingLeft: 5}}>
+          <Typography> {diff} </Typography>
+        </Grid>
+        <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
+          <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+        </Grid>
+      </Grid>
+    )
+  } else if (diff === 0) {
+    return (
+      <Grid container>
+        <Grid item>
+         <TrendingFlatIcon style={{ color: red[500] }}/>
+        </Grid>
+        <Grid item style={{paddingLeft: 5}}>
+          <Typography> {diff} </Typography>
+        </Grid>
+        <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
+          <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+        </Grid>
+      </Grid>
+    )
+  } else {
+    return (
+      <Grid container>
+        <Grid item>
+         <TrendingDownIcon style={{ color: red[500] }}/>
+        </Grid>
+        <Grid item style={{paddingLeft: 5}}>
+          <Typography> {diff} </Typography>
+        </Grid>
+        <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
+          <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+        </Grid>
+      </Grid>
+    )
+  }
+}
+
 export default function SummaryCard(props) {
     const classes = useStyles();
     const data = numberWithCommas(props.data)
@@ -45,8 +98,11 @@ export default function SummaryCard(props) {
                     </Typography>   
                 </ThemeProvider>
                 <Typography className={classes.data} variant="h5">
-                    {data}
+                  {data}
                 </Typography>
+                <Grid style={{paddingLeft: 40}}>
+                  <Comparsion today={props.data} yesterday={props.yesterday}/>
+                </Grid>
             </CardContent>
         </Card>
     )

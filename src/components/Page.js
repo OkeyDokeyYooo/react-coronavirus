@@ -17,6 +17,7 @@ class Page extends Component {
         this.state = {
             data: null,
             summary: null,
+            yesterdaySummary: null,
             choosenCategory : 'TotalCases',
             maxColor: '#660000',
             minColor: '#FFCCCC'
@@ -34,18 +35,26 @@ class Page extends Component {
 
     componentDidMount(){
         const today = moment.utc().format('YYYY-MM-DD')
-        Axios.get("http://localhost:8080/entries/" + today)
-            .then(res => {
-                if (res.data != null) {
-                    console.log(res.data)
-                    const localData = res.data.trk;
+        const yesterday = moment(today).subtract(1, 'day').format('YYYY-MM-DD')
+        const requestOne = "http://localhost:8080/entries/" + today
+        const requestTwo = "http://localhost:8080/entries/" + yesterday
+
+        Axios.all([Axios.get(requestOne), Axios.get(requestTwo)])
+            .then(Axios.spread((...res)=> {
+                const resToday = res[0]
+                const resYesterday = res[1]
+                if (resToday.data != null && resYesterday != null) {
+                    console.log(resToday.data, resYesterday.data)
+                    const localData = resToday.data.trk;
                     let summary = localData.pop()
+                    let yesterdaySummary = resYesterday.data.trk.pop()
                     this.setState({
                         data: localData,
                         summary: summary,
+                        yesterdaySummary: yesterdaySummary
                     })
                 }
-            })
+            }))
     }
 
     render() {
@@ -56,7 +65,7 @@ class Page extends Component {
                         <Row xs={12} style={{ padding: "10px" }}>
                             {
                                 this.state.summary &&
-                                <SummaryBoard input={this.state.summary} handleClick={this.handleClick}/>
+                                <SummaryBoard input={this.state.summary} yesterdaySummary={this.state.yesterdaySummary} handleClick={this.handleClick}/>
                             }
                         </Row>
                         <Row >

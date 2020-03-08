@@ -6,7 +6,7 @@ import {Pagination} from '@material-ui/lab'
 import moment from 'moment'
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
-
+import {animateScroll as scroll} from 'react-scroll'
 import NewsCard from './NewsCard'
 
 
@@ -62,7 +62,8 @@ class News extends Component {
                     topNews: topNewsObj,
                 })
             })
-        window.scrollTo(0,0)
+        scroll.scrollToTop();
+        // window.scrollTo(0,0)
     }
 
     componentDidMount(){
@@ -83,9 +84,6 @@ class News extends Component {
         return (
             <div className={classes.root}>
                 <Container style={{width: "85%"}}>
-                    {/* <Container maxWidth="lg">
-                        <UncontrolledCarousel items={this.state.topNews} />
-                    </Container> */}
                     <div className="thisisdiv"> 
                     <Slider autoplay={2000} >
                         {this.state.topNews.map((item, index) => {
@@ -125,7 +123,7 @@ class News extends Component {
                     </Grid>
                     {
                         this.state.news &&
-                        <Grid container justify="center">
+                        <Grid container justify="center" style={{padding: 50}}>
                         <Pagination count={10} shape="rounded" onChange={(obj, page) => {
                                 this.getNews(page)
                             }}/>
