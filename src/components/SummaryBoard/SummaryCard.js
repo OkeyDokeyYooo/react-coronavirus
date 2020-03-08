@@ -4,6 +4,11 @@ import {Card, CardActions, CardContent, Button, Typography, makeStyles, ThemePro
 const useStyles = makeStyles({
     root: {
       minWidth: 300,
+      '&:hover': {
+        background: "#edf2f7",
+        border: 2
+        // color: "white"
+      },
     },
     title: {
       fontSize: 24,
