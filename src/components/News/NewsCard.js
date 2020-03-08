@@ -13,7 +13,7 @@ function NewsCard(props) {
     const classes = userStyles();
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} key={props.key}>
             <CardActionArea onClick={() => {
                 window.open(props.link, '_blank')
             }}>
