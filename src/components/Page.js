@@ -78,7 +78,7 @@ class Page extends Component {
                 </Route>
                 <Route path="/news">
                     <News/>
-                    <Footer />
+                    {/* <Footer /> */}
                 </Route>
             </div>    
         )

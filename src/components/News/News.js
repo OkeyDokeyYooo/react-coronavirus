@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import {url} from '../../config/news_config'
 import axios from 'axios';
-import { UncontrolledCarousel} from 'reactstrap'
 import { withStyles, Grid, Container} from '@material-ui/core'
 import {Pagination} from '@material-ui/lab'
 import moment from 'moment'
-import './News.css'
+import Slider from 'react-animated-slider';
+import 'react-animated-slider/build/horizontal.css';
 
 import NewsCard from './NewsCard'
 
@@ -27,7 +27,7 @@ class News extends Component {
         super(props);
         this.state = {
             news: null,
-            topThreeNews: [],
+            topNews: [],
         }
         this.getNews = this.getNews.bind(this)
     }
@@ -37,27 +37,29 @@ class News extends Component {
     getNews(pageNum) {
         axios.get(url + "&page=" + pageNum)
             .then(res => {
-                console.log("getNews", pageNum)
-                console.log(res.data.articles)
                 const seen = new Set()
+                // remove duplicated news from the list 
                 const news = res.data.articles.filter(el => {
                     const duplicate = seen.has(el.title);
                     seen.add(el.title);
                     return !duplicate;
                 });
-                let topThreeNews = news.slice(0,numOfTopNews)
-                let topNewsObj = topThreeNews.map((obj, i) => {
+                // remove the news which does not have image
+                let topNews = news.slice(0,numOfTopNews).filter(el => {
+                    return el.urlToImage !== null
+                })
+                let topNewsObj = topNews.map((obj, i) => {
                     return ({
                         src: obj.urlToImage,
                         key: i,
                         header: obj.title,
                         caption: moment(obj.publishedAt).format("YYYY MMMM DD"),
-                        url: news.url,
+                        url: obj.url,
                     })
                 })
                 this.setState({
                     news: news.slice(numOfTopNews),
-                    topThreeNews: topNewsObj,
+                    topNews: topNewsObj,
                 })
             })
         window.scrollTo(0,0)
@@ -70,7 +72,7 @@ class News extends Component {
     componentWillUnmount(){
         this.setState({
             news: null,
-            topThreeNews: []
+            topNews: []
         })
     }
 
@@ -80,11 +82,29 @@ class News extends Component {
 
         return (
             <div className={classes.root}>
-                <Container maxWidth="lg">
-                    {/* <PictureCarousel topThreeNews={this.state.topThreeNews}/> */}
-                    {/* {console.log(this.state.topThreeNews)} */}
-                    
-                    <UncontrolledCarousel class="item peopleCarouselImg" items={this.state.topThreeNews} /> 
+                <Container style={{width: "85%"}}>
+                    {/* <Container maxWidth="lg">
+                        <UncontrolledCarousel items={this.state.topNews} />
+                    </Container> */}
+                    <div className="thisisdiv"> 
+                    <Slider autoplay={2000} >
+                        {this.state.topNews.map((item, index) => {
+                            return (
+                            <div key={index} style={{ background: `url('${item.src}') no-repeat center center`, cursor: 'pointer'}} 
+                                className="slider-content"
+                                onClick={() => {
+                                    console.log(item)
+                                    window.open(item.url, '_blank')
+                                }}
+                            >
+                                <div className="inner">
+                                    <h5> {item.header}</h5>
+                                    <p>  {item.caption}</p>
+                                </div>
+                            </div>)
+                        })}
+                    </Slider>
+                    </div>
                     <Grid container spacing={3} direction="row" justify="flex-start" alignItems="flex-start" style={{padding: '30px'}}>
                     {
                         this.state.news &&
