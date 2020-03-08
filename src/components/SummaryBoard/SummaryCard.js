@@ -3,13 +3,13 @@ import {Card, CardActions, CardContent, Button, Typography, makeStyles} from '@m
 
 const useStyles = makeStyles({
     root: {
-      minWidth: 275,
+      minWidth: 300,
     },
     title: {
       fontSize: 14,
     },
     pos: {
-      marginBottom: 12,
+      marginBottom: 10,
     },
 });
 

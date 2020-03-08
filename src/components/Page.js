@@ -8,6 +8,7 @@ import News   from './News/News';
 import Map    from './Map';
 import Chart from './Chart';
 import SummaryBoard from './SummaryBoard/SummaryBoard'
+import { Grid } from '@material-ui/core';
 
 class Page extends Component {
     constructor(props){
@@ -35,6 +36,7 @@ class Page extends Component {
         Axios.get("http://localhost:8080/entries/" + today)
             .then(res => {
                 if (res.data != null) {
+                    console.log(res.data)
                     const localData = res.data.trk;
                     let summary = localData.pop()
                     this.setState({
@@ -50,21 +52,25 @@ class Page extends Component {
             <div>
                 <Route exact path="/">
                     <Container fluid>
-                        <Row xs={12}>
+                        <Row xs={12} style={{ padding: "10px" }}>
                             {
                                 this.state.summary &&
                                 <SummaryBoard input={this.state.summary} handleClick={this.handleClick}/>
                             }
                         </Row>
-                        <Row>
-                            {
+                        <Row >
+                            <Grid xs={6}>
+                                {
+                                    this.state.data &&
+                                    <Chart data={this.state.data} />
+                                }
+                            </Grid>
+                            <Grid xs={6}>
+                                {
                                 this.state.data &&
-                                <Chart data={this.state.data} />
-                            }
-                            {
-                             this.state.data &&
-                                <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
-                            }
+                                    <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
+                                } 
+                            </Grid>
                         </Row>
                     </Container>
                 </Route>

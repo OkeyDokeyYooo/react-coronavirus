@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel,} from '@material-ui/core'
+import {Box, makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination} from '@material-ui/core'
 
 // Table header List
 // ID will be used for List comparison
@@ -78,15 +78,18 @@ function stableSort(array, comparator) {
 // Material-ui CSS styling sheet
 const useStyles = makeStyles(theme => ({
     root: {
-      width: "40%"
+      width: "95%"
     },
     table: {
-      minWidth: 750
+      maxWidth: "95%"
     },
     container: {
-        maxHeight: 600,
-        margin: 50
-    }
+        height: 500,
+        margin: 0
+    },
+    narrowCell: {
+		'width': '5%',
+	}
 }));
 
 function Chart (props) { 
@@ -106,20 +109,27 @@ function Chart (props) {
                 <Table
                     className={classes.table}
                     stickyHeader
+                    size="small"
+                    fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}
+                    border={.5}
+                    // padding='none'
                 >
                     <EnhancedTableHead
                         classes={classes}
                         order={order}
                         orderBy={orderBy}
                         onRequestSort={handleRequestSort}
+                        fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}
                     />
-                    <TableBody>
+                    <TableBody fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}>
                         {stableSort(props.data, getComparator(order, orderBy))
                             .map((row, index) => {
                                 return (
+                                    row['TotalCases'] &&
                                     <TableRow
                                     hover
                                     key={row["name"]}
+                                    fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}
                                     >
                                         <TableCell> {row["name"]}</TableCell>
                                         <TableCell> {row["TotalCases"]}</TableCell>
