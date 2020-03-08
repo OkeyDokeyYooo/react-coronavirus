@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import {Row, Container} from 'reactstrap';
 import Axios from 'axios';
 import moment from 'moment-timezone';
+import Footer from './/Layouts/Footer'
 
 import News   from './News/News';
 import Map    from './Map';
@@ -72,6 +73,7 @@ class Page extends Component {
                                 } 
                             </Grid>
                         </Row>
+                        <Footer />
                     </Container>
                 </Route>
                 <Route path="/news">

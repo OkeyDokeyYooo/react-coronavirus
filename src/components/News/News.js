@@ -8,6 +8,7 @@ import moment from 'moment'
 
 import NewsCard from './NewsCard'
 
+
 const useStyles = theme => ({
     root: {
       flexGrow: 1,
@@ -31,12 +32,18 @@ class News extends Component {
     }
 
     // get all the news from calling the api and take the first three news from the obj and render it to the slider
+    // Get the article then filter the ones has duplicated
     getNews(pageNum) {
         axios.get(url + "&page=" + pageNum)
             .then(res => {
                 console.log("getNews", pageNum)
                 console.log(res.data.articles)
-                let news = res.data.articles
+                const seen = new Set()
+                const news = res.data.articles.filter(el => {
+                    const duplicate = seen.has(el.title);
+                    seen.add(el.title);
+                    return !duplicate;
+                });
                 let topThreeNews = news.slice(0,numOfTopNews)
                 let topNewsObj = topThreeNews.map((obj, i) => {
                     return ({
@@ -56,7 +63,14 @@ class News extends Component {
     }
 
     componentDidMount(){
-        if (!this.state.new) this.getNews(1)
+        this.getNews(1)
+    }
+
+    componentWillUnmount(){
+        this.setState({
+            news: null,
+            topThreeNews: []
+        })
     }
 
 
@@ -68,10 +82,7 @@ class News extends Component {
                 <Container maxWidth="lg">
                     {/* <PictureCarousel topThreeNews={this.state.topThreeNews}/> */}
                     {/* {console.log(this.state.topThreeNews)} */}
-                    <UncontrolledCarousel items={this.state.topThreeNews} 
-                                            cssModule={{
-                                                maxHeight: "500px"
-                                            }}/> 
+                    <UncontrolledCarousel items={this.state.topThreeNews} /> 
                     <Grid container spacing={3} direction="row" justify="flex-start" alignItems="flex-start" style={{padding: '30px'}}>
                     {
                         this.state.news &&
@@ -85,6 +96,7 @@ class News extends Component {
                                     date={news.publishedAt} 
                                     source={news.source.name}
                                     link={news.url}
+                                    key={news.description}
                                 />
                             </Grid>
                     )})}
@@ -92,7 +104,7 @@ class News extends Component {
                     {
                         this.state.news &&
                         <Grid container justify="center">
-                            <Pagination count={10} shape="rounded" onChange={(obj, page) => {
+                        <Pagination count={10} shape="rounded" onChange={(obj, page) => {
                                 this.getNews(page)
                             }}/>
                         </Grid>
