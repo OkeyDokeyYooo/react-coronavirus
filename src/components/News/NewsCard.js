@@ -23,7 +23,7 @@ function NewsCard(props) {
                     image={props.img === null ? "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Global_News.svg/1280px-Global_News.svg.png" : props.img}
                 />
                 <CardContent >
-                    <Typography gutterBottom variant="h6" component="h5" style={{}}>
+                    <Typography gutterBottom  component="h5" style={{fontSize: '30', fontWeight: '500'}}>
                         {props.title}
                     </Typography>
                     {/* <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
