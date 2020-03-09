@@ -4,11 +4,8 @@ import chardet
 import json
 from collections import OrderedDict
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import requests
-
-# response = requests.get("http://localhost:8080/entries")
-# print(response.status_code)
 
 url = 'https://www.worldometers.info/coronavirus/#countries'
 response = requests.get(url)
@@ -307,8 +304,28 @@ for entry in data:
     entry['Serious'] = atoi(entry['Serious'])
     # print(entry)
 
-date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+today = datetime.now(timezone.utc)
 
-# x = requests.post(url, data = ret)
-r = requests.post('http://localhost:8080/entries/add', json={"_id": date, "trk": data})
+date = today.strftime("%Y-%m-%d")
+
+yesterday = (today - timedelta(1)).strftime("%Y-%m-%d")
+
+r_today = data[len(data)-1]
+# print(r_today)
+
+r_yesterday = requests.get("http://localhost:8080/entries/" + yesterday)
+r_yesterday = json.loads(r_yesterday.text).get('trk')
+r_yesterday = r_yesterday[len(r_yesterday)-1]
+
+diff = {}
+
+diff['TotalCases'] = r_today['TotalCases'] - r_yesterday['TotalCases']
+diff['NewCases'] = r_today['NewCases'] - r_yesterday['NewCases']
+diff['TotalDeaths'] = r_today['TotalDeaths'] - r_yesterday['TotalDeaths']
+diff['TotalRecovered'] = r_today['TotalRecovered'] - r_yesterday['TotalRecovered']
+
+d = requests.delete('http://localhost:8080/entries/' + date)
+print(d.text)
+r = requests.post('http://localhost:8080/entries/add', json={"_id": date, "trk": data, "diff": diff})
+
 print(r.text)

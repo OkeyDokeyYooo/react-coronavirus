@@ -16,7 +16,13 @@ const entrySchema = new Schema({
     ActiveCases: Number,
     TotalRecovered: Number,
     Serious: Number 
-  }]
+  }],
+  diff: {
+    TotalCases: Number,
+    NewCases: Number,
+    TotalDeaths: Number,
+    TotalRecovered: Number,
+  }
   }, {
   timestamps: true,
 });

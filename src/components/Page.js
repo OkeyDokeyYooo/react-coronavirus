@@ -35,26 +35,22 @@ class Page extends Component {
 
     componentDidMount(){
         const today = moment.utc().format('YYYY-MM-DD')
-        const yesterday = moment(today).subtract(1, 'day').format('YYYY-MM-DD')
-        const requestOne = "http://localhost:8080/entries/" + today
-        const requestTwo = "http://localhost:8080/entries/" + yesterday
+        const request = "http://localhost:8080/entries/" + today
 
-        Axios.all([Axios.get(requestOne), Axios.get(requestTwo)])
-            .then(Axios.spread((...res)=> {
-                const resToday = res[0]
-                const resYesterday = res[1]
-                if (resToday.data != null && resYesterday != null) {
-                    console.log(resToday.data, resYesterday.data)
-                    const localData = resToday.data.trk;
+        Axios.get(request)
+            .then(res => {
+                if (res.data != null ) {
+                    console.log(res.data.diff)
+                    const localData = res.data.trk;
                     let summary = localData.pop()
-                    let yesterdaySummary = resYesterday.data.trk.pop()
+                    let diff = res.data.diff
                     this.setState({
                         data: localData,
                         summary: summary,
-                        yesterdaySummary: yesterdaySummary
+                        diff: diff
                     })
                 }
-            }))
+            })
     }
 
     render() {
@@ -65,7 +61,7 @@ class Page extends Component {
                         <Row xs={12} style={{ padding: "10px" }}>
                             {
                                 this.state.summary &&
-                                <SummaryBoard input={this.state.summary} yesterdaySummary={this.state.yesterdaySummary} handleClick={this.handleClick}/>
+                                <SummaryBoard input={this.state.summary} diff={this.state.diff} handleClick={this.handleClick}/>
                             }
                         </Row>
                         <Row >

@@ -38,31 +38,46 @@ function numberWithCommas(x) {
 }
 
 const Comparsion = (props) => {
+  // console.log(props.diff)
+  if ( props.diff > 0){
+    if (props.title === "Total Recovered"){
+      return (
+        <Grid container>
+          <Grid item>
+           <TrendingUpIcon style={{ color: green[500] }}/>
+          </Grid>
+          <Grid item style={{paddingLeft: 5}}>
+            <Typography> {props.diff} </Typography>
+          </Grid>
+          <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
+            <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+          </Grid>
+        </Grid>
+      )
+    } else {
+      return (
+        <Grid container>
+          <Grid item>
+           <TrendingUpIcon style={{ color: red[500] }}/>
+          </Grid>
+          <Grid item style={{paddingLeft: 5}}>
+            <Typography> {props.diff} </Typography>
+          </Grid>
+          <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
+            <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+          </Grid>
+        </Grid>
+      )
+    }
 
-  console.log(props.today, props.yesterday)
-  const diff = props.today - props.yesterday
-  if ( diff > 0){
-    return (
-      <Grid container>
-        <Grid item>
-         <TrendingUpIcon style={{ color: red[500] }}/>
-        </Grid>
-        <Grid item style={{paddingLeft: 5}}>
-          <Typography> {diff} </Typography>
-        </Grid>
-        <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
-          <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
-        </Grid>
-      </Grid>
-    )
-  } else if (diff === 0) {
+  } else if (props.diff === 0) {
     return (
       <Grid container>
         <Grid item>
          <TrendingFlatIcon style={{ color: red[500] }}/>
         </Grid>
         <Grid item style={{paddingLeft: 5}}>
-          <Typography> {diff} </Typography>
+          <Typography> {props.diff} </Typography>
         </Grid>
         <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
           <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
@@ -70,19 +85,36 @@ const Comparsion = (props) => {
       </Grid>
     )
   } else {
-    return (
-      <Grid container>
-        <Grid item>
-         <TrendingDownIcon style={{ color: red[500] }}/>
+    if (props.title === "Total Recovered"){
+      return (
+        <Grid container>
+          <Grid item>
+           <TrendingDownIcon style={{ color: red[500] }}/>
+          </Grid>
+          <Grid item style={{paddingLeft: 5}}>
+            <Typography> {props.diff} </Typography>
+          </Grid>
+          <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
+            <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+          </Grid>
         </Grid>
-        <Grid item style={{paddingLeft: 5}}>
-          <Typography> {diff} </Typography>
+      )
+    } else {
+      return (
+        <Grid container>
+          <Grid item>
+           <TrendingDownIcon style={{ color: green[500] }}/>
+          </Grid>
+          <Grid item style={{paddingLeft: 5}}>
+            <Typography> {props.diff} </Typography>
+          </Grid>
+          <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
+            <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+          </Grid>
         </Grid>
-        <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
-          <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
-        </Grid>
-      </Grid>
-    )
+      )
+    }
+
   }
 }
 
@@ -101,7 +133,7 @@ export default function SummaryCard(props) {
                   {data}
                 </Typography>
                 <Grid style={{paddingLeft: 40}}>
-                  <Comparsion today={props.data} yesterday={props.yesterday}/>
+                  <Comparsion diff={props.diff}/>
                 </Grid>
             </CardContent>
         </Card>
