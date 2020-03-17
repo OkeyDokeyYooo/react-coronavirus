@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {url} from '../../config/news_config'
 import axios from 'axios';
 import { withStyles, Grid, Container} from '@material-ui/core'
 import {Pagination} from '@material-ui/lab'
@@ -35,11 +34,14 @@ class News extends Component {
     // get all the news from calling the api and take the first three news from the obj and render it to the slider
     // Get the article then filter the ones has duplicated
     getNews(pageNum) {
-        axios.get(url + "&page=" + pageNum)
+        const today = moment.utc().format('YYYY-MM-DD')
+        const request = "http://18.218.58.203:8000/news/" + today
+        axios.get(request)
             .then(res => {
+                let currNewsList = res.data.news[pageNum - 1]
                 const seen = new Set()
                 // remove duplicated news from the list 
-                const news = res.data.articles.filter(el => {
+                const news = currNewsList.filter(el => {
                     const duplicate = seen.has(el.title);
                     seen.add(el.title);
                     return !duplicate;
@@ -91,7 +93,6 @@ class News extends Component {
                             <div key={index} style={{ background: `url('${item.src}') no-repeat center center`, cursor: 'pointer'}} 
                                 className="slider-content"
                                 onClick={() => {
-                                    console.log(item)
                                     window.open(item.url, '_blank')
                                 }}
                             >
@@ -124,7 +125,7 @@ class News extends Component {
                     {
                         this.state.news &&
                         <Grid container justify="center" style={{padding: 50}}>
-                        <Pagination count={10} shape="rounded" onChange={(obj, page) => {
+                        <Pagination count={5} shape="rounded" onChange={(obj, page) => {
                                 this.getNews(page)
                             }}/>
                         </Grid>

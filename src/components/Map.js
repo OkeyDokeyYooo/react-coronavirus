@@ -11,7 +11,6 @@ function initMap(data, maxColor, minColor, inputTitle, inputMinVal, inputMaxVal)
   let chart = am4core.create("chartdiv", am4maps.MapChart);
   chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-  console.log(inputTitle)
   let title = chart.titles.create();
   title.text = inputTitle.match(/[A-Z][a-z]+/g).join(" ");
   title.textAlign = "center";

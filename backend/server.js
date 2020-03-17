@@ -19,8 +19,12 @@ connection.once('open', () => {
 })
 
 const entriesRouter = require('./routes/entries');
+const newsRouter = require('./routes/news');
+
 
 app.use('/entries', entriesRouter);
+app.use('/news', newsRouter);
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

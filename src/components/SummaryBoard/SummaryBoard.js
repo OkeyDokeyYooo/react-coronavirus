@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import SummaryCard from './SummaryCard'
 
 function SummaryBoard(props){
-    console.log(props.diff.TotalCases)
      return (
         <Container fluid style={{padding: '10px'}}>
             <Grid container spacing={0}>

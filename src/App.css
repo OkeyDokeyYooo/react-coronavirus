@@ -1,25 +1,3 @@
-/* .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;
-}
-
-.makeStyles-root-231 {
-  width: auto;
-}
- */
- .body {
-  border: 1px solid transparent;
- }
-
- .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;
-}
-
 .makeStyles-root-231 {
   width: auto;
 }
@@ -52,12 +30,6 @@
   margin-right: auto;
 }
 
-
-/* .slide {
-  height: 200vh;
-  background-size: cover !important;
-} */
-
 .slide::before {
     content: '';
     display: block;
@@ -69,3 +41,33 @@
     bottom: 0;
     left: 0;
 }
+
+
+* {
+  box-sizing: border-box;
+ }
+
+ *:before,
+ *:after {
+  box-sizing: border-box;
+ }
+
+ html,
+ body {
+  height: 100%;
+  position: relative;
+ }
+
+ .main-container {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
+ }
+ 
+ footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+ }

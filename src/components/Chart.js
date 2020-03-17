@@ -11,7 +11,7 @@ const headCells = [
     { id: "TotalDeaths", numeric: true, disablePadding: false, label: "TotalDeaths" },
     { id: "NewDeaths", numeric: true, disablePadding: false, label: "NewDeaths" },    
     { id: "TotalRecovered", numeric: true, disablePadding: false, label: "TotalRecovered" },
-    { id: "Serious", numeric: true, disablePadding: false, label: "Critical" }
+    // { id: "Serious", numeric: true, disablePadding: false, label: "Critical" }
 ];
 
 // Material-ui CSS styling sheet
@@ -129,9 +129,8 @@ function Chart (props) {
             <TableContainer className={classes.container}>
                 <Table
                     className={classes.table}
-                    stickyHeader
                     size="small"
-                    fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}
+                    style={{ width: "auto", tableLayout: "auto" }}
                     border={.5}
                     // padding='none'
                 >
@@ -140,10 +139,10 @@ function Chart (props) {
                         order={order}
                         orderBy={orderBy}
                         onRequestSort={handleRequestSort}
-                        fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}
+                        style={{ width: "auto", tableLayout: "auto" }}
                         className={classes.header}
                     />
-                    <TableBody fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}>
+                    <TableBody style={{ width: "auto", tableLayout: "auto" }}>
                         {stableSort(props.data, getComparator(order, orderBy))
                             .map((row, index) => {
                                 return (
@@ -151,7 +150,7 @@ function Chart (props) {
                                     <TableRow
                                     hover
                                     key={row["name"]}
-                                    fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}
+                                    style={{ width: "auto", tableLayout: "auto" }}
                                     >
                                         <TableCell className={classes.data}> {row["name"]}</TableCell>
                                         <TableCell className={classes.data}> {numberWithCommas(row["TotalCases"])}</TableCell>
@@ -159,7 +158,7 @@ function Chart (props) {
                                         <TableCell className={classes.data}> {numberWithCommas(row["TotalDeaths"])}</TableCell>
                                         <TableCell className={classes.data}> {numberWithCommas(row["NewDeaths"])}</TableCell>
                                         <TableCell className={classes.data}> {numberWithCommas(row["TotalRecovered"])}</TableCell>
-                                        <TableCell className={classes.data}> {numberWithCommas(row["Serious"])}</TableCell>
+                                        {/* <TableCell className={classes.data}> {numberWithCommas(row["Serious"])}</TableCell> */}
                                     </TableRow>
                                 )
                             })}                       

@@ -11,6 +11,7 @@ import Chart from './Chart';
 import SummaryBoard from './SummaryBoard/SummaryBoard'
 import { Grid } from '@material-ui/core';
 
+
 class Page extends Component {
     constructor(props){
         super(props);
@@ -35,12 +36,11 @@ class Page extends Component {
 
     componentDidMount(){
         const today = moment.utc().format('YYYY-MM-DD')
-        const request = "http://localhost:8080/entries/" + today
+        const request = "http://18.218.58.203:8000/entries/" + today
 
         Axios.get(request)
             .then(res => {
                 if (res.data != null ) {
-                    console.log(res.data.diff)
                     const localData = res.data.trk;
                     let summary = localData.pop()
                     let diff = res.data.diff
@@ -55,35 +55,33 @@ class Page extends Component {
 
     render() {
         return (
-            <div>
+            <div >
                 <Route exact path="/">
                     <Container fluid>
-                        <Row xs={12} style={{ padding: "10px" }}>
+                        <Row item xs={12} style={{ padding: "10px" }}>
                             {
                                 this.state.summary &&
                                 <SummaryBoard input={this.state.summary} diff={this.state.diff} handleClick={this.handleClick}/>
                             }
                         </Row>
-                        <Row >
+                        <Row item >
                             <Grid xs={6}>
                                 {
                                     this.state.data &&
                                     <Chart data={this.state.data} />
                                 }
                             </Grid>
-                            <Grid xs={6}>
+                            <Grid xs={6} item>
                                 {
                                 this.state.data &&
                                     <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
                                 } 
                             </Grid>
                         </Row>
-                        <Footer />
                     </Container>
                 </Route>
                 <Route path="/news">
                     <News/>
-                    {/* <Footer /> */}
                 </Route>
             </div>    
         )
