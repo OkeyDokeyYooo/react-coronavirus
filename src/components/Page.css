@@ -1,0 +1,33 @@
+.inner_container {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.data_chart {
+    flex: 1;
+}
+
+.data_map {
+    flex: 1;
+}
+
+@media screen and (max-width: 1300px) {
+    .inner_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+
+    .data_map{
+        border: 2px black solid;
+        order: 1;
+        padding-bottom: 20px;
+    }
+
+    .data_chart{
+        border: 2px black solid;
+        order: 2;
+    }
+}

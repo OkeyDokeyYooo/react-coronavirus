@@ -16,6 +16,9 @@ const useStyles = theme => ({
           marginTop: theme.spacing(5),
       },
     },
+    container: {
+        alignItems: 'stretch'
+    }
   });
 
 const numOfTopNews = 4;
@@ -85,9 +88,9 @@ class News extends Component {
 
         return (
             <div className={classes.root}>
-                <Container style={{width: "85%"}}>
+                <Container style={{width: "85%"}} className={classes.container}>
                     <div className="thisisdiv"> 
-                    <Slider autoplay={2000} >
+                    <Slider autoplay={5000} >
                         {this.state.topNews.map((item, index) => {
                             return (
                             <div key={index} style={{ background: `url('${item.src}') no-repeat center center`, cursor: 'pointer'}} 
@@ -104,12 +107,12 @@ class News extends Component {
                         })}
                     </Slider>
                     </div>
-                    <Grid container spacing={3} direction="row" justify="flex-start" alignItems="flex-start" style={{padding: '30px'}}>
+                    <Grid container spacing={3} direction="row" justify="center" alignItems="flex-start" style={{padding: '30px'}}>
                     {
                         this.state.news &&
                         this.state.news.map((news) => {
                         return (
-                            <Grid item xs={6} sm={4} lg={3} key={news.title}>
+                            <Grid item xs={12} sm={6} lg={3} key={news.title}>
                                 <NewsCard 
                                     img={news.urlToImage} 
                                     title={news.title} 

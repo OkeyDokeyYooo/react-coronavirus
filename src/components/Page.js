@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import {Row, Container} from 'reactstrap';
 import Axios from 'axios';
 import moment from 'moment-timezone';
-import Footer from './/Layouts/Footer'
 
 import News   from './News/News';
 import Map    from './Map';
@@ -11,6 +10,7 @@ import Chart from './Chart';
 import SummaryBoard from './SummaryBoard/SummaryBoard'
 import { Grid } from '@material-ui/core';
 
+import './Page.css'
 
 class Page extends Component {
     constructor(props){
@@ -64,20 +64,20 @@ class Page extends Component {
                                 <SummaryBoard input={this.state.summary} diff={this.state.diff} handleClick={this.handleClick}/>
                             }
                         </Row>
-                        <Row item >
-                            <Grid xs={6}>
+                        <div className="inner_container">
+                            <div className="data_chart">
                                 {
                                     this.state.data &&
                                     <Chart data={this.state.data} />
                                 }
-                            </Grid>
-                            <Grid xs={6} item>
+                            </div>
+                            <div className="data_map">
                                 {
                                 this.state.data &&
                                     <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
                                 } 
-                            </Grid>
-                        </Row>
+                            </div>
+                        </div>
                     </Container>
                 </Route>
                 <Route path="/news">
