@@ -6,7 +6,13 @@ import Moment from 'react-moment';
 const userStyles = makeStyles({
     root: {
         maxWidth: 500,
+        height: 390,
+        position: 'relative'
     },
+    action: {
+        position: 'absolute',
+        bottom: 0
+    }
 });
 
 function NewsCard(props) {
@@ -19,7 +25,7 @@ function NewsCard(props) {
             }}>
                 <CardMedia
                     component="img"
-                    height="auto"
+                    height="170"
                     image={props.img === null ? "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Global_News.svg/1280px-Global_News.svg.png" : props.img}
                 />
                 <CardContent >
@@ -36,7 +42,7 @@ function NewsCard(props) {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
+            <CardActions className={classes.action}>
                 <a href={props.link} target="_blank" rel="noreferrer noopener">
                     <Button size="small" color="secondary">
                         Learn More

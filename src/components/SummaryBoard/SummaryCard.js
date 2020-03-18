@@ -50,7 +50,7 @@ const Comparsion = (props) => {
             <Typography> {props.diff} </Typography>
           </Grid>
           <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
-            <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+            <Typography variant="caption" style={{color: '#808080'}}>(Daily Change)</Typography>
           </Grid>
         </Grid>
       )
@@ -64,7 +64,7 @@ const Comparsion = (props) => {
             <Typography> {props.diff} </Typography>
           </Grid>
           <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
-            <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+            <Typography variant="caption" style={{color: '#808080'}}>(Daily Change)</Typography>
           </Grid>
         </Grid>
       )
@@ -80,7 +80,7 @@ const Comparsion = (props) => {
           <Typography> {props.diff} </Typography>
         </Grid>
         <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
-          <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+          <Typography variant="caption" style={{color: '#808080'}}>(Daily Change)</Typography>
         </Grid>
       </Grid>
     )
@@ -95,7 +95,7 @@ const Comparsion = (props) => {
             <Typography> {props.diff} </Typography>
           </Grid>
           <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
-            <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+            <Typography variant="caption" style={{color: '#808080'}}>(Daily Change)</Typography>
           </Grid>
         </Grid>
       )
@@ -109,7 +109,7 @@ const Comparsion = (props) => {
             <Typography> {props.diff} </Typography>
           </Grid>
           <Grid item style={{paddingLeft: 7, lineHeight: 2}}>
-            <Typography variant="caption" style={{color: '#808080'}}>(Compare to Yday)</Typography>
+            <Typography variant="caption" style={{color: '#808080'}}>(Daily Change)</Typography>
           </Grid>
         </Grid>
       )
@@ -133,7 +133,7 @@ export default function SummaryCard(props) {
                   {data}
                 </Typography>
                 <Grid style={{paddingLeft: 40}}>
-                  <Comparsion diff={props.diff}/>
+                  <Comparsion diff={props.diff} title={props.title}/>
                 </Grid>
             </CardContent>
         </Card>

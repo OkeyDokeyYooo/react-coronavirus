@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Tabs, Tab, CssBaseline, Typography, Toolbar, AppBar, Slide, makeStyles} from '@material-ui/core';
-
+import {Tabs, Tab, CssBaseline, Typography, Toolbar, AppBar,makeStyles} from '@material-ui/core';
+import './Header.css'
+import SideNavBar from './SideNavBar'
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,6 +21,20 @@ const useStyles = makeStyles(theme => ({
       flexGrow: 1,
       fontSize: 24
     },
+    sideBar: {
+      display: 'none'
+    },
+    '@media (max-width: 768px)': {
+      tabs: {
+        display: 'none'
+      },
+      sideBar: {
+        display: 'block'
+      },
+      title: {
+        fontSize: 15
+      }
+    }
 }));
 
   
@@ -34,15 +49,16 @@ function Header() {
     return(
         <React.Fragment>
             <CssBaseline />
-                <AppBar position="sticky" className={classes.AppBar}>
-                    <Toolbar variant="dense">
-                        <Typography variant="h6" className={classes.title}>
-                          Coronavirus Disease (COVID-19)
+                <AppBar position="sticky" >
+                    <Toolbar variant="dense" className={classes.appBar}>
+                        <Typography className={classes.title}>
+                          <Link to='/' className='navLogo'>Coronavirus Disease (COVID-19)</Link>
                         </Typography>
-                        <Tabs value={value} onChange={handleChange}>
+                        <Tabs value={value} onChange={handleChange} className={classes.tabs}>
                             <Tab label="Data" component={Link} to="/" className={classes.root}/>
                             <Tab label="News" component={Link} to="/news" className={classes.root}/>
                         </Tabs>
+                        <div className={classes.sideBar}><SideNavBar /></div>
                     </Toolbar>
                 </AppBar>
         </React.Fragment>
