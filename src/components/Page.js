@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import {Row, Container} from 'reactstrap';
 import Axios from 'axios';
 import moment from 'moment-timezone';
+import NoSsr from '@material-ui/core/NoSsr';
 
 import News   from './News/News';
 import Map    from './Map';
@@ -57,13 +58,12 @@ class Page extends Component {
         return (
             <div >
                 <Route exact path="/">
+                    <NoSsr>
                     <Container fluid>
-                        <Row item xs={12} style={{ padding: "10px" }}>
-                            {
-                                this.state.summary &&
-                                <SummaryBoard input={this.state.summary} diff={this.state.diff} handleClick={this.handleClick}/>
-                            }
-                        </Row>
+                        {
+                            this.state.summary &&
+                            <SummaryBoard input={this.state.summary} diff={this.state.diff} handleClick={this.handleClick}/>
+                        }
                         <div className="inner_container">
                             <div className="data_chart">
                                 {
@@ -79,9 +79,12 @@ class Page extends Component {
                             </div>
                         </div>
                     </Container>
+                    </NoSsr>
                 </Route>
                 <Route path="/news">
-                    <News/>
+                    <NoSsr>
+                        <News/>
+                    </NoSsr>
                 </Route>
             </div>    
         )

@@ -4,25 +4,42 @@ import { red, green } from '@material-ui/core/colors';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const useStyles = makeStyles({
     root: {
-      minWidth: 300,
+      width: 400,
+      borderColor: "black",
       '&:hover': {
         background: "#edf2f7",
-        border: 2
+        border: 2,
         // color: "white"
       },
     },
     title: {
       fontSize: 24,
     },
-    data: {
-        fontSize: 20,
+    totalCases: {
+      fontSize: 36,
+      color: '#D63447',
+    },
+    totalDeaths: {
+      fontSize: 36,
+      color: '#5D594D',
+    },
+    totalRecovered: {
+      fontSize: 36,
+      color: '#148F77',
     },
     pos: {
       marginBottom: 10,
     },
+    '@media (max-width: 768px)': {
+      root: {
+        width: 343
+      }
+    }
 });
 
 const theme = createMuiTheme({
@@ -44,7 +61,7 @@ const Comparsion = (props) => {
       return (
         <Grid container>
           <Grid item>
-           <TrendingUpIcon style={{ color: green[500] }}/>
+           <ArrowUpwardIcon style={{ color: green[500] }}/>
           </Grid>
           <Grid item style={{paddingLeft: 5}}>
             <Typography> {props.diff} </Typography>
@@ -89,7 +106,7 @@ const Comparsion = (props) => {
       return (
         <Grid container>
           <Grid item>
-           <TrendingDownIcon style={{ color: red[500] }}/>
+           <ArrowDownwardIcon style={{ color: red[500] }}/>
           </Grid>
           <Grid item style={{paddingLeft: 5}}>
             <Typography> {props.diff} </Typography>
@@ -119,19 +136,27 @@ const Comparsion = (props) => {
 }
 
 export default function SummaryCard(props) {
+  console.log(props)
     const classes = useStyles();
     const data = numberWithCommas(props.data)
+    let dataTag; // dataTag will have different color on different title
+    if (props.title === "Total Cases"){
+      dataTag = <Typography className={classes.totalCases}>{data}</Typography>
+    } else if (props.title === "Total Deaths"){
+      dataTag = <Typography className={classes.totalDeaths} >{data}</Typography>
+    } else {
+      dataTag = <Typography className={classes.totalRecovered} >{data}</Typography>
+    }
+
     return(
         <Card className={classes.root} variant="outlined" >
             <CardContent>
                 <ThemeProvider theme={theme}>
-                    <Typography className={classes.title} gutterBottom variant="h4">
+                    <Typography className={classes.title} gutterBottom variant="h5">
                         {props.title}
                     </Typography>   
                 </ThemeProvider>
-                <Typography className={classes.data} variant="h5">
-                  {data}
-                </Typography>
+                {dataTag}
                 <Grid style={{paddingLeft: 40}}>
                   <Comparsion diff={props.diff} title={props.title}/>
                 </Grid>

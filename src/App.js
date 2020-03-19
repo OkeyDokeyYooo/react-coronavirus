@@ -13,7 +13,7 @@ const darkTheme = createMuiTheme({
     type: 'light',
     primary: {
       main: '#ffffff',
-    }
+    },
   },
 });
 

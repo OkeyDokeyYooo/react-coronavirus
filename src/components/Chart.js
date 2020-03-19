@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination} from '@material-ui/core'
+import {makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel} from '@material-ui/core'
 
 // Table header List
 // ID will be used for List comparison
@@ -17,7 +17,8 @@ const headCells = [
 // Material-ui CSS styling sheet
 const useStyles = makeStyles(theme => ({
     root: {
-      width: "95%"
+      width: "95%",
+      position: "center"
     },
     table: {
       maxWidth: "95%",
@@ -40,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     },
     header: {
         textAlign: "center",
-        width: "50px"
+        width: "50px",
     }
 }));
 
@@ -132,10 +133,10 @@ function Chart (props) {
                     size="small"
                     style={{ width: "auto", tableLayout: "auto" }}
                     border={.5}
+                    stickyHeader
                     // padding='none'
                 >
                     <EnhancedTableHead
-                        // classes={classes}
                         order={order}
                         orderBy={orderBy}
                         onRequestSort={handleRequestSort}

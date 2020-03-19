@@ -1,8 +1,6 @@
 .inner_container {
     display: flex;
-    justify-content: space-around;
 }
-
 
 .data_chart {
     flex: 1;
@@ -16,18 +14,18 @@
     .inner_container {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        margin-bottom: 30px;
     }
 
-
     .data_map{
-        border: 2px black solid;
+        border: 1px black solid;
         order: 1;
-        padding-bottom: 20px;
+        margin-bottom: 30px;
     }
 
     .data_chart{
-        border: 2px black solid;
+        border: 1px black solid;
         order: 2;
+        margin-bottom: 30px;
     }
 }

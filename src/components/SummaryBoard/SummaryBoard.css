@@ -1,0 +1,19 @@
+.summary_container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+
+@media (max-width: 768px) {
+    .summary_container {
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        align-items: stretch;
+    }
+
+    .board_container {
+        width: 343px;
+    }
+}
