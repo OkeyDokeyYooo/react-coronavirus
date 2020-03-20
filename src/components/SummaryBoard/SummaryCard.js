@@ -37,8 +37,26 @@ const useStyles = makeStyles({
     },
     '@media (max-width: 768px)': {
       root: {
-        width: 343
-      }
+          width: 'auto', 
+          height: 'auto', 
+          maxWidth: '100%',  
+          maxHeight: '100%',
+      },
+      title: {
+        fontSize:10
+      },
+      totalCases: {
+        fontSize: 16,
+        color: '#D63447',
+      },
+      totalDeaths: {
+        fontSize: 16,
+        color: '#5D594D',
+      },
+      totalRecovered: {
+        fontSize: 16,
+        color: '#148F77',
+      },
     }
 });
 

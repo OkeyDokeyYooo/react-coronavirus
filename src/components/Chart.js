@@ -1,6 +1,6 @@
 import React from 'react';
-import {makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel} from '@material-ui/core'
-
+import {makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, InputAdornment, FormControl, InputLabel, Input} from '@material-ui/core'
+import ClearIcon from '@material-ui/icons/Clear';
 // Table header List
 // ID will be used for List comparison
 // ID MUST be same as the obj's keys
@@ -118,6 +118,7 @@ function Chart (props) {
     const classes = useStyles();
     const [order, setOrder] = React.useState("asc");
     const [orderBy, setOrderBy] = React.useState("Country");
+    const [query, setQuery] = React.useState('');
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === "asc";
@@ -125,8 +126,31 @@ function Chart (props) {
         setOrderBy(property);
       };
 
+    const handleQueryChange = e => {
+        setQuery(e.target.value)
+    }
+
+    const handleClick = () => {
+
+        setQuery("")
+        // console.log(query)
+    }
+    
     return (
         <div className={classes.root}>
+                <FormControl >
+                    <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel>
+                    <Input
+                        id="input-with-icon-adornment"
+                        onChange={handleQueryChange}
+                        startAdornment={
+                            <InputAdornment position="end">
+                                <ClearIcon onClick={handleClick.bind(this)}/>
+                            </InputAdornment>
+                        }
+                        value={query}
+                    />
+                 </FormControl>
             <TableContainer className={classes.container}>
                 <Table
                     className={classes.table}
@@ -134,7 +158,6 @@ function Chart (props) {
                     style={{ width: "auto", tableLayout: "auto" }}
                     border={.5}
                     stickyHeader
-                    // padding='none'
                 >
                     <EnhancedTableHead
                         order={order}
@@ -145,6 +168,10 @@ function Chart (props) {
                     />
                     <TableBody style={{ width: "auto", tableLayout: "auto" }}>
                         {stableSort(props.data, getComparator(order, orderBy))
+                            .filter((row) => {
+                                if (query === '') return row
+                                return row['name'].toLowerCase().includes(query.toLowerCase())
+                            })
                             .map((row, index) => {
                                 return (
                                     row['TotalCases'] &&
