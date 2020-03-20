@@ -1,0 +1,13 @@
+.container > div {
+    background: #eee;
+    height: 100%;
+    border: 1px black dotted;
+}
+
+.container {
+    background: #A6ACAF;
+    display: flex;
+    align-items: flex-start;
+    height: 200px;
+    justify-content: space-between;
+}
