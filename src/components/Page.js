@@ -10,7 +10,8 @@ import Chart from './Chart';
 import LineChart from './LineChart';
 import CountryBar from './CountryBar'
 // import SummaryBoard from './SummaryBoard/SummaryBoard'
-import TempBoard from './SummaryBoard/TempBoard.js'
+import TempBoard from './SummaryBoard/TempBoard.js';
+import Card from './Card'
 
 import './Page.css'
 
@@ -42,7 +43,11 @@ class Page extends Component {
             totalDeathArray: null,
             totalRecoveredArray: null,
             datePeriod: null,
-            countrySelection: null
+            countrySelection: null,
+            chosenCountry: 'Total',
+            today: null,
+            yesterday: null
+
         }
         // this.handleClick = this.handleClick.bind(this)
     }
@@ -57,13 +62,16 @@ class Page extends Component {
 
     componentDidMount(){
         const today = moment.utc().format('YYYY-MM-DD');
+        const yesterday = moment.utc().subtract(1, 'days').format('YYYY-MM-DD');
         const requestForToday = Axios.get("http://18.218.58.203:8000/entries/" + today);
+        const requestForYesterday = Axios.get("http://18.218.58.203:8000/entries/" + yesterday);
         const requestForTotal = Axios.get("http://18.218.58.203:8000/entries/");
 
         Axios.all([requestForToday, requestForTotal])
             .then(Axios.spread((...responses) => {
                 const requestForToday = responses[0];
                 const requestForTotal = responses[1];
+                // console.log(requestForTotal);
                 let totalCasesArray = [];
                 let totalDeathArray = [];
                 let totalRecoveredArray = [];
@@ -92,6 +100,9 @@ class Page extends Component {
                     }
                 })
 
+                const yesterday = requestForTotal.data[requestForTotal.data.length - 2];
+                // console.log(yesterday);
+
                 this.setState({
                     data: localData,
                     summary: summary,
@@ -101,7 +112,9 @@ class Page extends Component {
                     totalDeathArray: totalDeathArray,
                     totalRecoveredArray: totalRecoveredArray,
                     datePeriod: getDates("2020-03-03", moment(requestForToday.data.updatedAt).format("YYYY-MM-DD").toString()),
-                    countrySelection: countrySelection
+                    countrySelection: countrySelection,
+                    today: requestForToday.data,
+                    yesterday: yesterday
                 })
             })).catch(errors => {
                 console.log(errors)
@@ -123,7 +136,8 @@ class Page extends Component {
     }
 
     render() {
-        // console.log(this.state.countrySelection);
+        console.log(this.state);
+        // const yesterday = moment.utc().subtract(1, 'days').format('YYYY-MM-DD');
         return (
             <div >
                 <Route exact path="/">
@@ -137,6 +151,7 @@ class Page extends Component {
                                     </div>
                                     <div>
                                         <CountryBar countries={this.state.countrySelection}/>
+                                        <Card today={this.state.summary} yesterday={this.state.yesterday}/>
                                     </div>
                                     {/* <div className="data_chart">
                                         <div className="title">
