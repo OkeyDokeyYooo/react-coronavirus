@@ -20,10 +20,12 @@ connection.once('open', () => {
 
 const entriesRouter = require('./routes/entries');
 const newsRouter = require('./routes/news');
+const historyRouter = require('./routes/history');
 
 
 app.use('/entries', entriesRouter);
 app.use('/news', newsRouter);
+app.use('/history', historyRouter);
 
 
 app.listen(port, () => {
