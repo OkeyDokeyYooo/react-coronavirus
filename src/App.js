@@ -3,7 +3,7 @@ import {ThemeProvider, createMuiTheme} from '@material-ui/core'
 
 import './App.css';
 
-import Footer from './components/Layouts/Footer';
+// import Footer from './components/Layouts/Footer';
 import Header from './components/Layouts/Header';
 import Page   from './components/Page';
 
@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <div >
-      <ThemeProvider className="main-container" theme={darkTheme}>
+      <ThemeProvider theme={darkTheme}>
         <Header/>
         <Page className="page"/>
       </ThemeProvider>

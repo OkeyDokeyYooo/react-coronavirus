@@ -139,11 +139,11 @@ function Chart (props) {
     return (
         <div className={classes.root}>
                 <FormControl >
-                    <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel>
+                    <InputLabel htmlFor="input-with-icon-adornment">Search for Country</InputLabel>
                     <Input
                         id="input-with-icon-adornment"
                         onChange={handleQueryChange}
-                        startAdornment={
+                        endAdornment={
                             <InputAdornment position="end">
                                 <ClearIcon onClick={handleClick.bind(this)}/>
                             </InputAdornment>

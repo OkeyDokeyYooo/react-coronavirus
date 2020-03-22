@@ -88,9 +88,9 @@ class News extends Component {
 
         return (
             <div className={classes.root}>
-                <Container style={{width: "85%"}} className={classes.container}>
+                <Container  className={classes.container}>
                     <div className="thisisdiv"> 
-                    <Slider autoplay={5000} >
+                    <Slider autoplay={6000} >
                         {this.state.topNews.map((item, index) => {
                             return (
                             <div key={index} style={{ background: `url('${item.src}') no-repeat center center`, cursor: 'pointer'}} 
