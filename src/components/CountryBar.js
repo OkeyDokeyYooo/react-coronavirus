@@ -3,6 +3,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
+import PublicIcon from '@material-ui/icons/Public';
 
 // ISO 3166-1 alpha-2
 // ⚠️ No support for IE 11
@@ -19,17 +20,19 @@ const useStyles = makeStyles({
       marginRight: 10,
       fontSize: 18,
     },
+    width: 400,
   },
 });
 
 export default function CountrySelect(props) {
   const classes = useStyles();
   return (
-    
+    <div className="country-bar">
     <Autocomplete
       id="country-select-demo"
-      style={{ width: 300 }}
+      style={{ width: '100%' }}
       options={props.countries}
+      popupIcon={<PublicIcon />}
       classes={{
         option: classes.option,
       }}
@@ -53,6 +56,7 @@ export default function CountrySelect(props) {
         />
       )}
     />
+    </div>
   );
 }
 

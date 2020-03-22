@@ -16,7 +16,6 @@ import Card from './Card'
 import './Page.css'
 
 
-
 function getDates(startDate, stopDate) {
     var dateArray = [];
     var currentDate = moment(startDate);
@@ -62,9 +61,9 @@ class Page extends Component {
 
     componentDidMount(){
         const today = moment.utc().format('YYYY-MM-DD');
-        const yesterday = moment.utc().subtract(1, 'days').format('YYYY-MM-DD');
+        // const yesterday = moment.utc().subtract(1, 'days').format('YYYY-MM-DD');
         const requestForToday = Axios.get("http://18.218.58.203:8000/entries/" + today);
-        const requestForYesterday = Axios.get("http://18.218.58.203:8000/entries/" + yesterday);
+        // const requestForYesterday = Axios.get("http://18.218.58.203:8000/entries/" + yesterday);
         const requestForTotal = Axios.get("http://18.218.58.203:8000/entries/");
 
         Axios.all([requestForToday, requestForTotal])
@@ -103,6 +102,8 @@ class Page extends Component {
                 const yesterday = requestForTotal.data[requestForTotal.data.length - 2];
                 // console.log(yesterday);
 
+                this.props.getUpdate(moment(requestForToday.data.updatedAt).tz('America/Vancouver').format('YYYY-MM-DD hh:mm a z'))
+
                 this.setState({
                     data: localData,
                     summary: summary,
@@ -119,20 +120,6 @@ class Page extends Component {
             })).catch(errors => {
                 console.log(errors)
             })
-        // Axios.get(request)
-        //     .then(res => {
-        //         if (res.data != null ) {
-        //             const localData = res.data.trk;
-        //             let summary = localData.pop()
-        //             let diff = res.data.diff
-        //             this.setState({
-        //                 data: localData,
-        //                 summary: summary,
-        //                 diff: diff,
-        //                 updatedTime: moment(res.data.updatedAt).tz('America/Vancouver').format('YYYY-MM-DD hh:mm')
-        //             })
-        //         }
-        //     })
     }
 
     render() {
@@ -144,28 +131,29 @@ class Page extends Component {
                     <NoSsr>
                         {this.state.summary &&
                             <div>
-                                {/* <TempBoard input={this.state.summary} diff={this.state.diff} updatedAt={this.state.updatedTime}/> */}
-                                <div className="inner_container">
-                                    <div>
-                                        <LineChart totalCasesArray={this.state.totalCasesArray} totalDeathArray={this.state.totalDeathArray} totalRecoveredArray={this.state.totalRecoveredArray} datePeriod={this.state.datePeriod}/>
-                                    </div>
-                                    <div>
+                                <div className="inner-container">
+                                    <div className="summary">
+                                        <span className="title">Overview</span>
                                         <CountryBar countries={this.state.countrySelection}/>
                                         <Card today={this.state.summary} yesterday={this.state.yesterday}/>
                                     </div>
-                                    {/* <div className="data_chart">
-                                        <div className="title">
-                                            <span>Table</span>
-                                        </div>
-                                        <Chart data={this.state.data} />
+
+                                    <div className="line-chart">
+                                        <LineChart totalCasesArray={this.state.totalCasesArray} totalDeathArray={this.state.totalDeathArray} totalRecoveredArray={this.state.totalRecoveredArray} datePeriod={this.state.datePeriod}/>
                                     </div>
 
-                                    <div className="data_map">
-                                        <div className="title">
-                                            <span>Map</span>
-                                        </div>
+                                    <div className="data-map">
+                                        <span className="title">Map</span>
                                         <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
-                                    </div> */}
+                                    </div>
+
+                                    <div className="data-chart">
+                                        <span className="title">Rank</span>
+                                        <Chart data={this.state.data} />
+                                    </div>
+                                    <div className="hint">
+                                        <span >*The data may not be the most accurate due to update delay</span>
+                                    </div>
                                 </div>
                             </div>
                         }

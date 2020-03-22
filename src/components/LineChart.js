@@ -40,9 +40,11 @@ class LineChart extends Component {
         return (
             <Line 
                 data={this.state.data}
-                height={300}
+                height={350}
                 options={{
                     responsive: true,
+                    maintainAspectRatio: false,
+                    backgroundColor: 'rgba(20, 0, 0, 0.1)', // trying to set the background color to white
                     elements: { point: { hitRadius: 5, hoverRadius: 5 , radius: 2} },
                     scales: {
                         yAxes: [{
@@ -83,7 +85,7 @@ class LineChart extends Component {
                         labels: {
                             boxWidth:20
                         }
-                    }
+                    },
                 }}
             />
         )

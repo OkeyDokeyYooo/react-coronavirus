@@ -1,35 +1,32 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
-
-
-.inner_container {
-    display: flex;
+.summary-card {
+    margin-top: 1.5rem;
 }
 
-.data_chart {
-    flex: 1;
+.country-bar {
+    margin-top: 1rem;
 }
 
-.data_map {
-    flex: 1;
+.inner-container {
+    margin-top: 3rem;
 }
 
-@media screen and (max-width: 1300px) {
-    .inner_container {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 30px;
-    }
+.line-chart {
+    margin-top: 1.3rem;
+}
 
-    .data_map{
-        /* border: 1px black solid; */
-        order: 1;
-        margin-bottom: 30px;
-        height: 100px
-    }
+.data-map {
+    margin-top: 3rem;
+}
 
-    .data_chart{
-        /* border: 1px black solid; */
-        order: 2;
-        margin-bottom: 30px;
-    }
+.data-chart {
+    margin-top: 3rem;
+}
+
+.hint {
+    padding-top: 3rem;
+}
+
+.hint > span{
+    color: #adadad;
+    font-size: small;
 }

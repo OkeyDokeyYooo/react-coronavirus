@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,500,700&display=swap');
 
 html
 body{
   font-family: 'Ubuntu', sans-serif;;
+  margin: 1.3rem 1.3rem;
+  background-color: rgb(245, 245, 245);
 }
 
 .makeStyles-root-231 {

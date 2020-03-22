@@ -10,14 +10,14 @@
 }
 
 .updated {
+    padding-top: 0.3rem;
     color: #b9b9b9;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 .header {
     display: flex;
     flex-direction: column;
-    margin: 2rem 1rem 2rem;
 }
 
 .nav-links {
@@ -35,6 +35,10 @@
     /* text-decoration: underline orange;
     text-decoration-color: orange;
     -webkit-text-decoration-color: orange; */
+    border-bottom: 2px solid orange;
+}
+
+.beenChoose {
     border-bottom: 2px solid orange;
 }
 
