@@ -8,6 +8,7 @@ import News   from './News/News';
 import Map    from './Map';
 import Chart from './Chart';
 import LineChart from './LineChart';
+import CountryBar from './CountryBar'
 // import SummaryBoard from './SummaryBoard/SummaryBoard'
 import TempBoard from './SummaryBoard/TempBoard.js'
 
@@ -40,7 +41,8 @@ class Page extends Component {
             totalCasesArray: null,
             totalDeathArray: null,
             totalRecoveredArray: null,
-            datePeriod: null
+            datePeriod: null,
+            countrySelection: null
         }
         // this.handleClick = this.handleClick.bind(this)
     }
@@ -65,6 +67,7 @@ class Page extends Component {
                 let totalCasesArray = [];
                 let totalDeathArray = [];
                 let totalRecoveredArray = [];
+                let countrySelection = [];
                 
                 // get the summary array from get all the data
                 requestForTotal.data.map((data) => {
@@ -79,6 +82,16 @@ class Page extends Component {
                 let summary = localData.pop();
                 let diff = requestForToday.diff;
 
+                //get country selection data
+                requestForToday.data.trk.map((data) => {
+                    let code = data.id;
+                    let label = data.name;
+                    let temp = {"code": code, "label": label};
+                    if (temp.code != null) {
+                        countrySelection.push(temp);
+                    }
+                })
+
                 this.setState({
                     data: localData,
                     summary: summary,
@@ -87,7 +100,8 @@ class Page extends Component {
                     totalCasesArray: totalCasesArray,
                     totalDeathArray: totalDeathArray,
                     totalRecoveredArray: totalRecoveredArray,
-                    datePeriod: getDates("2020-03-03", moment(requestForToday.data.updatedAt).format("YYYY-MM-DD").toString())
+                    datePeriod: getDates("2020-03-03", moment(requestForToday.data.updatedAt).format("YYYY-MM-DD").toString()),
+                    countrySelection: countrySelection
                 })
             })).catch(errors => {
                 console.log(errors)
@@ -109,6 +123,7 @@ class Page extends Component {
     }
 
     render() {
+        // console.log(this.state.countrySelection);
         return (
             <div >
                 <Route exact path="/">
@@ -119,6 +134,9 @@ class Page extends Component {
                                 <div className="inner_container">
                                     <div>
                                         <LineChart totalCasesArray={this.state.totalCasesArray} totalDeathArray={this.state.totalDeathArray} totalRecoveredArray={this.state.totalRecoveredArray} datePeriod={this.state.datePeriod}/>
+                                    </div>
+                                    <div>
+                                        <CountryBar countries={this.state.countrySelection}/>
                                     </div>
                                     {/* <div className="data_chart">
                                         <div className="title">
