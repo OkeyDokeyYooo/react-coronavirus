@@ -20,7 +20,7 @@ function getDates(startDate, stopDate) {
     var currentDate = moment(startDate);
     var stopDate = moment(stopDate);
     while (currentDate <= stopDate) {
-        dateArray.push( moment(currentDate).format('MM-DD') )
+        dateArray.push( moment(currentDate).format('MM/DD') )
         currentDate = moment(currentDate).add(1, 'days');
     }
     return dateArray;

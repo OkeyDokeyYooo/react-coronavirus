@@ -1,5 +1,6 @@
 import React, {Component}from 'react';
 import {Line} from "react-chartjs-2";
+import { Cursor } from '@amcharts/amcharts4/charts';
 
 class LineChart extends Component {
     constructor(props){
@@ -16,7 +17,7 @@ class LineChart extends Component {
                         borderColor: '#db7414'
                     },
                     {
-                        label: "Death",
+                        label: "Total Death",
                         data: this.props.totalDeathArray,
                         fill: false,
                         backgroundColor: '#262524',
@@ -38,10 +39,53 @@ class LineChart extends Component {
 
     render() {
         return (
-            <Line data={this.state.data}
-                  options={{
-                    elements: { point: { hitRadius: 5, hoverRadius: 5 , radius: 2} }
-                  }}
+            <Line 
+                data={this.state.data}
+                height={300}
+                options={{
+                    responsive: true,
+                    elements: { point: { hitRadius: 5, hoverRadius: 5 , radius: 2} },
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                drawBorder: false,
+                                borderDash: [8, 4],
+                            },
+                            ticks: {
+                                callback: function(label, index, labels) {
+                                    return label/1000+'k';
+                                }
+                            },
+                            // scaleLabel: {
+                            //     display: true,
+                            //     labelString: '1k = 1000'
+                            // }
+                        }],
+                        xAxes: [{
+                            gridLines: false,
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 8,
+                                padding: 10,
+                                maxRotation: 0,
+                                minRotation: 0
+                            },
+                        }]
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    legend: {
+                        labels: {
+                            boxWidth:20
+                        }
+                    }
+                }}
             />
         )
     }
