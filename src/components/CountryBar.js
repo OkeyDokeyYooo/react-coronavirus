@@ -24,7 +24,6 @@ const useStyles = makeStyles({
 
 export default function CountrySelect(props) {
   const classes = useStyles();
-  console.log(props.countries);
   return (
     
     <Autocomplete

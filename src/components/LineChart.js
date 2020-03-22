@@ -1,6 +1,5 @@
 import React, {Component}from 'react';
 import {Line} from "react-chartjs-2";
-import { Cursor } from '@amcharts/amcharts4/charts';
 
 class LineChart extends Component {
     constructor(props){
