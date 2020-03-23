@@ -29,6 +29,10 @@ export default function CountrySelect(props) {
   return (
     <div className="country-bar">
     <Autocomplete
+      onChange={(event, value) => {
+        value == null ? props.onClick("Total:") : props.onClick(value.label)
+      }}
+      // onClick={() => props.handleClick("TotalDeaths", "#003366", "#CCE5FF")}
       id="country-select-demo"
       style={{ width: '100%' }}
       options={props.countries}

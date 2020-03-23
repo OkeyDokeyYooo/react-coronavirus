@@ -1,11 +1,12 @@
 import React from 'react';
-import { makeStyles, Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography} from '@material-ui/core';
-import Moment from 'react-moment';
+import { makeStyles, Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Box} from '@material-ui/core';
+import moment from 'moment-timezone';
+
 
 
 const userStyles = makeStyles({
     root: {
-        maxWidth: 600,
+        width: '100%',
         height: 390,
         position: 'relative'
     },
@@ -14,13 +15,23 @@ const userStyles = makeStyles({
         bottom: 0
     },
     imageContainer: {
-        height: 170,
+        height: '25%',
         width: '100%'
     },
     img: {
         height: "100%",
         width: "100%",
-        padding: 1
+    },
+    '@media (max-width: 768px)': {
+        root: {
+            width: '100%',
+            height: 300,
+            position: 'relative'
+        },
+        imageContainer: {
+            height: 150,
+            width: '100%'
+        },
     }
 });
 
@@ -28,6 +39,7 @@ function NewsCard(props) {
     const classes = userStyles();
     return (
         <Card className={classes.root}>
+ 
             <CardActionArea onClick={() => {
                 window.open(props.link, '_blank')
             }}>
@@ -39,27 +51,33 @@ function NewsCard(props) {
                     />
                 </div>
                 <CardContent >
-                    <Typography gutterBottom  component="h5" style={{fontSize: '30', fontWeight: '500'}}>
-                        {props.title}
+                    <Typography gutterBottom  component="h5" style={{fontSize: '30', fontWeight: '500'}} >
+                        <Box fontFamily="Ubuntu">
+                            {props.title}
+                        </Box>
                     </Typography>
                     {/* <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
                         {props.description}
                     </Typography> */}
                     <Typography variant="caption" color="textSecondary" component="p" gutterBottom>
-                        <Moment format="YYYY MMMM DD">
-                            {props.date}
-                        </Moment>
+                        <Box fontFamily="Ubuntu">
+                            {moment(props.date).format("YYYY MMMM DD")}
+                        </Box>
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions className={classes.action}>
                 <a href={props.link} target="_blank" rel="noreferrer noopener">
                     <Button size="small" color="secondary">
-                        Learn More
+                        <Box fontFamily="Ubuntu">
+                            Learn More
+                        </Box>
                     </Button>
                 </a>
                 <Typography variant="caption" color="textPrimary" component="b">
+                    <Box fontFamily="Ubuntu">
                         {props.source}
+                    </Box>
                 </Typography>
             </CardActions>
         </Card>

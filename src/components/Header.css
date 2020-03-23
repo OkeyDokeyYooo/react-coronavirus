@@ -6,7 +6,7 @@
 
 .title {
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: bolder;
 }
 
 .updated {
@@ -31,14 +31,8 @@
     list-style: none;
 }
 
-.nav-links li:hover{
-    /* text-decoration: underline orange;
-    text-decoration-color: orange;
-    -webkit-text-decoration-color: orange; */
-    border-bottom: 2px solid orange;
-}
 
-.beenChoose {
+.link-active {
     border-bottom: 2px solid orange;
 }
 

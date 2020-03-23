@@ -20,7 +20,7 @@ function initMap(data, maxColor, minColor, inputTitle, inputMinVal, inputMaxVal)
   chart.geodata = am4geodata_worldLow;
 
   // Set projection
-  chart.projection = new am4maps.projections.Miller();
+  chart.projection = new am4maps.projections.EqualEarth();
 
   // Create map polygon series
   let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
@@ -40,10 +40,14 @@ function initMap(data, maxColor, minColor, inputTitle, inputMinVal, inputMaxVal)
   });
   polygonSeries.useGeodata = true;
 
+  // check is no mobile device or not
+  const isMobile = window.innerWidth <= 500;
   // Heat Lengnd, change the style here 
   let heatLegend = chart.createChild(am4charts.HeatLegend);
-  heatLegend.orientation = "vertical";
+  if (isMobile) heatLegend.orientation = "horizontal"
+  else heatLegend.orientation = "vertical"
   heatLegend.valign = "bottom";
+  heatLegend.markerCount = 5;
   heatLegend.minValue = inputMinVal;
   heatLegend.maxValue = inputMaxVal;
   heatLegend.width = am4core.percent(100);
@@ -166,7 +170,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+      <div className="world-map" id="chartdiv" ></div>
     )
   }
 }

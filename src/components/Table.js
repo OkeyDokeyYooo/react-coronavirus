@@ -1,6 +1,7 @@
 import React from 'react';
 import {makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, InputAdornment, FormControl, InputLabel, Input} from '@material-ui/core'
 import ClearIcon from '@material-ui/icons/Clear';
+import SearchIcon from '@material-ui/icons/Search';
 // Table header List
 // ID will be used for List comparison
 // ID MUST be same as the obj's keys
@@ -18,11 +19,12 @@ const headCells = [
 const useStyles = makeStyles(theme => ({
     root: {
       width: "95%",
-      position: "center"
+      position: "center",
+      marginTop: "1rem"
     },
     table: {
       maxWidth: "95%",
-      textAlign: "center"
+      textAlign: "center",
     },
     container: {
         height: 500,
@@ -42,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     header: {
         textAlign: "center",
         width: "50px",
-    }
+    },
 }));
 
 // Creating the Table Header which has sorted label 
@@ -64,6 +66,7 @@ function EnhancedTableHead(props) {
                 {headCells.map(headCell => (
                     <TableCell
                         key={headCell.id}
+                        // style={headCell.id === "name" ? {position: 'absolute'} : {}}
                         className={classes.header}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
@@ -71,6 +74,7 @@ function EnhancedTableHead(props) {
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : "asc"}
                             onClick={createSortHandler(headCell.id)}
+                            icon={<SearchIcon />}
                         >
                             {headCell.label}
                         </TableSortLabel>
@@ -138,16 +142,24 @@ function Chart (props) {
     
     return (
         <div className={classes.root}>
-                <FormControl >
-                    <InputLabel htmlFor="input-with-icon-adornment">Search for Country</InputLabel>
-                    <Input
+                <FormControl style={{width:"100%", background:"white", marginBottom: "1rem", borderRadius: "2px"}}>
+                    <TextField
                         id="input-with-icon-adornment"
                         onChange={handleQueryChange}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <ClearIcon onClick={handleClick.bind(this)}/>
-                            </InputAdornment>
-                        }
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ),
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <ClearIcon onClick={handleClick.bind(this)}/>
+                                </InputAdornment>
+                            )
+                        }}
+                        variant="outlined"
+                        placeholder="Search for Country"
                         value={query}
                     />
                  </FormControl>

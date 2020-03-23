@@ -30,3 +30,69 @@
     color: #adadad;
     font-size: small;
 }
+
+.world-map {
+    height: 300px !important;
+    margin-top: 1rem;
+}
+
+
+.map-buttons {
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.map-buttons > button {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+    font-size: large;
+    padding: 0.4rem;
+    border-radius: 9px;
+    background-color: transparent;
+    outline: 0;
+}
+
+.total-map-button {
+    border: 2px #F2994A solid !important;
+    color: #F2994A;
+    transition: all 0.25s ease-in-out;
+}
+.total-active, .total-map-button:hover{
+    background-color: #F2994A !important;
+    color: white;
+    box-shadow: 0px 15px 25px -5px;
+    transform: scale(1.03);
+}
+
+.death-map-button {
+    border: 2px #333333 solid !important;
+    color: #333333;
+    transition: all 0.25s ease-in-out;
+}
+.death-active, .death-map-button:hover{
+    background-color: #333333 !important;
+    color: white;
+    box-shadow: 0px 15px 25px -5px;
+    transform: scale(1.03);
+}
+/* .death-map-button:active{
+    background-color: #333333;
+    color: white;
+} */
+
+.recovered-map-button {
+    border: 2px #27AE60 solid !important;
+    color: #27AE60;
+    transition: all 0.25s ease-in-out;
+}
+.recovered-active, .recovered-map-button:hover{
+    background-color: #27AE60 !important;
+    color: white;
+    box-shadow: 0px 15px 25px -5px;
+    transform: scale(1.03);
+}
+/* .recovered-map-button:active{
+    background-color: #27AE60;
+    color: white;
+} */

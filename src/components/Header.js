@@ -3,6 +3,8 @@ import './Header.css'
 import {Link} from "react-router-dom";
 
 const Header = (props) => {
+    const [link, setLink] = React.useState("data")
+
     return (
         <div className="header">
             <div className="logo">
@@ -12,10 +14,10 @@ const Header = (props) => {
             </div>
             <ul className="nav-links">
                 <li>
-                   <Link to="/" >Data</Link>
+                   <Link to="/" className={(link === "data" ? "link-active" : "")} onClick={() => setLink("data")}>Data</Link>
                 </li>
                 <li>
-                    <Link to="/news">News</Link>
+                    <Link to="/news" className={(link === "news" ? "link-active" : "")} onClick={() => setLink("news")}>News</Link>
                 </li>
             </ul>
         </div>

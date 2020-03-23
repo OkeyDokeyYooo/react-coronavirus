@@ -68,25 +68,37 @@ export default class Card extends Component {
     this.state = [];
   }
   render() {
-    console.log(this.props.yesterday);
+    // console.log(this.props.yesterday);
     return (
       <div className="summary-card">
         <TotalCases>
           <Title>Total Cases</Title>
           <Number>{numberWithCommas(this.props.today.TotalCases)}</Number>
-          <Compare>{numberWithCommas(this.props.yesterday.diff.TotalCases) + " in last 24 hours"} </Compare>
+          {
+            (this.props.today.TotalCases - this.props.yesterday.TotalCases) >= 0
+            ? <Compare>{"+ " + numberWithCommas(this.props.today.TotalCases - this.props.yesterday.TotalCases) + " in last 24 hours"} </Compare>
+            : <Compare>{"- " + numberWithCommas(this.props.today.TotalCases - this.props.yesterday.TotalCases) + " in last 24 hours"} </Compare>
+          }
         </TotalCases>
 
         <TotalDeaths>
           <Title>Total Deaths</Title>
           <Number>{numberWithCommas(this.props.today.TotalDeaths)}</Number>
-          <Compare>{numberWithCommas(this.props.yesterday.diff.TotalDeaths) + " in last 24 hours"} </Compare>
+          {
+            (this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths) >= 0
+            ? <Compare>{"+ " + numberWithCommas(this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths) + " in last 24 hours"} </Compare>
+            : <Compare>{"- " + numberWithCommas(this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths) + " in last 24 hours"} </Compare>
+          }
         </TotalDeaths>
 
         <TotalRecovered>
           <Title>Total Recovered</Title>
           <Number>{numberWithCommas(this.props.today.TotalRecovered)}</Number>
-          <Compare>{numberWithCommas(this.props.yesterday.diff.TotalRecovered) + " in last 24 hours"} </Compare>
+          {
+            (this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered) >= 0
+            ? <Compare>{"+ " + numberWithCommas(this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered) + " in last 24 hours"} </Compare>
+            : <Compare>{"- " + numberWithCommas(this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered) + " in last 24 hours"} </Compare>
+          }
       </TotalRecovered>
     </div>
     

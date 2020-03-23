@@ -3,3 +3,12 @@
   height: 225px, important;
   max-height: 225px;
 }
+
+.news-page-container {
+  margin-top: 1.5rem;
+}
+
+.pagination {
+  margin-top: 1.5rem;
+  text-align: center;
+}

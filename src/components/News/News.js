@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { withStyles, Grid, Container} from '@material-ui/core'
+import {Grid} from '@material-ui/core'
 import {Pagination} from '@material-ui/lab'
 import moment from 'moment'
 import Slider from 'react-animated-slider';
@@ -8,21 +8,10 @@ import 'react-animated-slider/build/horizontal.css';
 import {animateScroll as scroll} from 'react-scroll'
 import NewsCard from './NewsCard'
 
+import './News.css'
 
-const useStyles = theme => ({
-    root: {
-      flexGrow: 1,
-      '& > *':{
-          marginTop: theme.spacing(5),
-      },
-    },
-    container: {
-        alignItems: 'stretch'
-    }
-  });
 
 const numOfTopNews = 4;
-
 
 class News extends Component {
     constructor(props) {
@@ -84,12 +73,9 @@ class News extends Component {
 
 
     render () {
-        const classes = this.props;
-
         return (
-            <div className={classes.root}>
-                <Container  className={classes.container}>
-                    <div className="thisisdiv"> 
+            <div className="news-page-container">
+                <div className="slider-component"> 
                     <Slider autoplay={6000} >
                         {this.state.topNews.map((item, index) => {
                             return (
@@ -106,39 +92,36 @@ class News extends Component {
                             </div>)
                         })}
                     </Slider>
-                    </div>
-                    <Grid container spacing={3} direction="row" justify="center" alignItems="flex-start" style={{padding: '30px'}}>
-                    {
-                        this.state.news &&
-                        this.state.news.map((news) => {
-                        return (
-                            <Grid item xs={12} sm={6} lg={3} key={news.title}>
-                                <NewsCard 
-                                    img={news.urlToImage} 
-                                    title={news.title} 
-                                    description={news.description} 
-                                    date={news.publishedAt} 
-                                    source={news.source.name}
-                                    link={news.url}
-                                    key={news.description}
-                                />
-                            </Grid>
-                    )})}
-                    </Grid>
-                    {
-                        this.state.news &&
-                        <Grid container justify="center" style={{padding: 50}}>
-                        <Pagination count={5} shape="rounded" onChange={(obj, page) => {
-                                this.getNews(page)
-                            }}/>
+                </div>
+                <Grid container spacing={3} direction="row" justify="center" alignItems="flex-start" style={{marginTop: "1.5rem"}}>
+                {
+                    this.state.news &&
+                    this.state.news.map((news) => {
+                    return (
+                        <Grid item xs={12} sm={6} lg={3} key={news.title}>
+                            <NewsCard 
+                                img={news.urlToImage} 
+                                title={news.title} 
+                                description={news.description} 
+                                date={news.publishedAt} 
+                                source={news.source.name}
+                                link={news.url}
+                                key={news.description}
+                            />
                         </Grid>
-
-                    }
-
-                </Container>
+                )})}
+                </Grid>
+                {
+                    this.state.news &&
+                    <div className="pagination">
+                        <Pagination count={5} shape="rounded" style={{display: "inline-block"}} onChange={(obj, page) => {
+                            this.getNews(page)
+                        }}/>
+                    </div>
+                }
             </div>
         )
     }
 }
 
-export default withStyles(useStyles)(News);
+export default News;
