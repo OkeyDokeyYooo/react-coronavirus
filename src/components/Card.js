@@ -63,10 +63,6 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 export default class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state = [];
-  }
   render() {
     // console.log(this.props.yesterday);
     return (

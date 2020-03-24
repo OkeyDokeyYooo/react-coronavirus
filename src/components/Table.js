@@ -1,12 +1,82 @@
 import React from 'react';
-import MaterialTable from 'material-table'
-
+import MaterialTable, {MTableFilterRow} from 'material-table'
+import SortIcon from '@material-ui/icons/Sort';
+import moment from 'moment-timezone'
 
 class Table extends React.Component {
 
     render() {
-        console.log(this.props.data)
         let dataArray = [];
+        const isMobile = window.innerWidth <= 500;
+        const mobileColumnArray = [
+            { title: "Country", field: "name", width: 110,
+                cellStyle : {
+                    fontWeight: 500,
+            }},
+            { title: "TotalCases", field: "totalCases", width: 110, 
+                cellStyle:{
+                    textAlign: "right"
+            }},
+            { title: "NewCases", field:"newCases", width: 110,
+                cellStyle:{
+                textAlign: "right"
+            }},
+            { title: "TotalDeaths", filed:"totalDeaths", width: 110,
+                cellStyle:{
+                textAlign: "right"
+            }},
+            { title: "NewDeaths", field:"newDeaths", width: 110,
+                cellStyle:{
+                textAlign: "right"
+            }},
+            { title: "TotalRecovered", field:"totalRecovered", width: 110,
+            cellStyle:{
+                textAlign: "right"
+            }},
+        ];
+
+        const desktopColumnArray = [
+            { title: "Country", field: "name",
+                cellStyle : {
+                    fontWeight: 500,
+            }},
+            { title: "TotalCases", field: "totalCases", 
+                cellStyle: {
+                    textAlign: "center"
+                }, 
+                headerStyle: {
+                    textAlign: "center"
+                }
+            },
+            { title: "NewCases", field:"newCases",
+            cellStyle: {
+                textAlign: "center"
+            }, 
+            headerStyle: {
+                textAlign: "center"
+            }},
+            { title: "TotalDeaths", filed:"totalDeaths",
+            cellStyle: {
+                textAlign: "center"
+            }, 
+            headerStyle: {
+                textAlign: "center"
+            }},
+            { title: "NewDeaths", field:"newDeaths", 
+            cellStyle: {
+                textAlign: "center"
+            }, 
+            headerStyle: {
+                textAlign: "center"
+            }},
+            { title: "TotalRecovered", field:"totalRecovered",
+            cellStyle: {
+                textAlign: "center"
+            }, 
+            headerStyle: {
+                textAlign: "center"
+            }},
+        ]
         this.props.data.map((data) => {
             if (data.name === "Hong Kong" || data.name === "Taiwan" || data.name === "Macao"){
                 data.name = "China " + "(" + data.name + ")" + "🇨🇳"
@@ -21,17 +91,33 @@ class Table extends React.Component {
             })
         })
         return (
-            <div>
+            <div className="rank-table">
                 <MaterialTable
-                    columns={[
-                        { title: "Country", field: "name"},
-                        { title: "TotalCases", field: "totalCases"},
-                        { title: "NewCases", field:"newCases"},
-                        { title: "TotalDeaths", filed:"totalDeaths"},
-                        { title: "NewDeaths", field:"newDeaths"},
-                        { title: "TotalRecovered", field:"totalRecovered"},
-                    ]}
+                    columns={(isMobile ? mobileColumnArray : desktopColumnArray)}
                     data={dataArray}
+                    localization={{
+                        toolbar: {
+                            searchPlaceholder: "Search for Country"
+                        }
+                    }}
+                    options={{
+                        exportButton: true,
+                        showTitle: false,
+                        exportFileName: moment().format("YYYY-MMMM-DD").toString() + " COVID-19 Data",
+                        // searchFieldStyle: {
+                        //     border: "1px solid black",
+                        //     width: "100%"
+                        // },
+                        searchFieldAlignment: "left",
+                        fixedColumns: {
+                            left: 1,
+                            right: 0
+                        },
+                        pageSize: 15,
+                        pageSizeOptions: [15,20,25],
+                        paginationType: "normal",
+                        draggable: false,
+                    }}
                 />
             </div>
         )
