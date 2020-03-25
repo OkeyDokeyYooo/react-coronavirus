@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Axios from 'axios';
 import moment from 'moment-timezone';
 import NoSsr from '@material-ui/core/NoSsr';
+import ReactLoading from 'react-loading';
 
 import News   from './News/News';
 import Map    from './Map';
@@ -10,9 +11,14 @@ import Table from './Table';
 import LineChart from './LineChart';
 import CountryBar from './CountryBar'
 import Card from './Card'
-
 import './Page.css'
 
+const Loading = ({type, color}) => (
+    <div className="fade-in-and-out loading-logo">
+        <ReactLoading type={type} color={color} className={"loading-logo-pos"}/>
+        <div className={"loading-logo-pos"}>Featching Data</div>
+    </div>
+) 
 
 function getDates(startDate, stopDate) {
     var dateArray = [];
@@ -51,7 +57,8 @@ class Page extends Component {
             yesterday: null,
             label: "Total:",
             todayData: null,
-            yesterdayData: null
+            yesterdayData: null,
+            loadingDone: undefined,
         }
         this.returnLabel = this.returnLabel.bind(this);
         this.handleCountryChange = this.handleCountryChange.bind(this);
@@ -71,7 +78,7 @@ class Page extends Component {
         // const requestForYesterday = Axios.get("http://18.218.58.203:8000/entries/" + yesterday);
         const requestForTotal = Axios.get("http://18.218.58.203:8000/entries/");
 
-        Axios.all([requestForToday, requestForTotal])
+        setTimeout(() => { Axios.all([requestForToday, requestForTotal])
             .then(Axios.spread((...responses) => {
                 const requestForToday = responses[0];
                 const requestForTotal = responses[1];
@@ -127,9 +134,9 @@ class Page extends Component {
                     today: this.extractData(todayData, 'Total:'),
                     yesterday: this.extractData(yesterdayData, 'Total:')
                 })
-            })).catch(errors => {
+            })).then(this.setState({loadingDone: true})).catch(errors => {
                 console.log(errors)
-            })
+            })}, 2000)
     }
 
     // return obj in the trk
@@ -166,78 +173,84 @@ class Page extends Component {
         const isMobile = window.innerWidth <= 500;
         return (
             <div className="page">
-                <Route exact path="/">
-                    <NoSsr>
-                        {this.state.summary &&
-                            <div className="inner-container">
-                                <div className="summary">
-                                    <span className="title">Overview</span>
-                                    <CountryBar countries={this.state.countrySelection} onClick={this.handleCountryChange}/>
-                                    <Card today={this.state.today} yesterday={this.state.yesterday}/>
-                                    { !isMobile &&
-                                            <div className="hint">
-                                                <span >*The data may not be the most accurate due to update delay</span>
+                {
+                    !this.state.loadingDone 
+                    ?<Loading color={'black'} type={'bars'}/>
+                    :<div className="page-content">
+                        <Route exact path="/">
+                            <NoSsr>
+                                {this.state.summary &&
+                                    <div className="inner-container">
+                                        <div className="summary">
+                                            <span className="title">Overview</span>
+                                            <CountryBar countries={this.state.countrySelection} onClick={this.handleCountryChange}/>
+                                            <Card today={this.state.today} yesterday={this.state.yesterday}/>
+                                            { !isMobile &&
+                                                    <div className="hint">
+                                                        <span >*The data may not be the most accurate due to update delay</span>
+                                                    </div>
+                                            }
+                                        </div>
+        
+                                        <div className="line-chart">
+                                            <LineChart totalCasesArray={this.state.CasesArray} totalDeathArray={this.state.DeathArray} totalRecoveredArray={this.state.RecoveredArray} datePeriod={this.state.datePeriod}/>
+                                        </div>
+        
+                                        <div className="data-map">
+                                            <span className="title">Map</span>
+                                            <div className="map-buttons">
+                                                <button 
+                                                    className={"total-map-button" + (this.state.activeButton === "total" ? " total-active" : "")}
+                                                    onClick={() => this.setState({
+                                                        activeButton: "total",
+                                                        choosenCategory: "TotalCases",
+                                                        maxColor: "#F2994A",
+                                                        minColor: "#FBE69E"                         
+                                                    })}
+                                                >Total Cases</button>
+                                                <button 
+                                                    className={"death-map-button" + (this.state.activeButton === "death" ? " death-active" : "")}
+                                                    onClick={() => this.setState({
+                                                        activeButton: "death",
+                                                        choosenCategory: "TotalDeaths",
+                                                        maxColor: "#333333",
+                                                        minColor: "#BCBCBC"                                         
+                                                })}
+                                                >Deaths</button>
+                                                <button 
+                                                    className={"recovered-map-button" + (this.state.activeButton === "recovered" ? " recovered-active" : "")}
+                                                    onClick={() => this.setState({
+                                                        activeButton: "recovered",
+                                                        choosenCategory: "TotalRecovered",
+                                                        maxColor: "#27AE60",
+                                                        minColor: "#92DEB2"  
+                                                })}
+                                                >Recovered</button>
                                             </div>
-                                    }
-                                </div>
-
-                                <div className="line-chart">
-                                    <LineChart totalCasesArray={this.state.CasesArray} totalDeathArray={this.state.DeathArray} totalRecoveredArray={this.state.RecoveredArray} datePeriod={this.state.datePeriod}/>
-                                </div>
-
-                                <div className="data-map">
-                                    <span className="title">Map</span>
-                                    <div className="map-buttons">
-                                        <button 
-                                            className={"total-map-button" + (this.state.activeButton === "total" ? " total-active" : "")}
-                                            onClick={() => this.setState({
-                                                activeButton: "total",
-                                                choosenCategory: "TotalCases",
-                                                maxColor: "#F2994A",
-                                                minColor: "#FBE69E"                         
-                                            })}
-                                        >Total Cases</button>
-                                        <button 
-                                            className={"death-map-button" + (this.state.activeButton === "death" ? " death-active" : "")}
-                                            onClick={() => this.setState({
-                                                activeButton: "death",
-                                                choosenCategory: "TotalDeaths",
-                                                maxColor: "#333333",
-                                                minColor: "#BCBCBC"                                         
-                                        })}
-                                        >Deaths</button>
-                                        <button 
-                                            className={"recovered-map-button" + (this.state.activeButton === "recovered" ? " recovered-active" : "")}
-                                            onClick={() => this.setState({
-                                                activeButton: "recovered",
-                                                choosenCategory: "TotalRecovered",
-                                                maxColor: "#27AE60",
-                                                minColor: "#92DEB2"  
-                                        })}
-                                        >Recovered</button>
-                                    </div>
-                                    <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
-                                </div>
-
-                                <div className="data-chart">
-                                    <span className="title">Rank</span>
-                                    <Table data={this.state.data} />
-                                </div>
-                                {
-                                    isMobile &&
-                                    <div className="hint">
-                                            <span >*The data may not be the most accurate due to update delay</span>
+                                            <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
+                                        </div>
+        
+                                        <div className="data-chart">
+                                            <span className="title">Rank</span>
+                                            <Table data={this.state.data} />
+                                        </div>
+                                        {
+                                            isMobile &&
+                                            <div className="hint">
+                                                    <span >*The data may not be the most accurate due to update delay</span>
+                                            </div>
+                                        }
                                     </div>
                                 }
-                            </div>
-                        }
-                    </NoSsr>
-                </Route>
-                <Route path="/news">
-                    <NoSsr>
-                        <News/>
-                    </NoSsr>
-                </Route>
+                            </NoSsr>
+                        </Route>
+                        <Route path="/news">
+                            <NoSsr>
+                                <News/>
+                            </NoSsr>
+                        </Route>
+                    </div>
+                }
             </div>    
         )
     }
