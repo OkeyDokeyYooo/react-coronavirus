@@ -7,7 +7,7 @@ import moment from 'moment-timezone';
 const userStyles = makeStyles({
     root: {
         width: '100%',
-        height: 390,
+        height: 400,
         position: 'relative'
     },
     action: {
@@ -19,7 +19,7 @@ const userStyles = makeStyles({
         width: '100%'
     },
     img: {
-        height: "100%",
+        height: 200,
         width: "100%",
     },
     '@media (max-width: 768px)': {
@@ -29,8 +29,12 @@ const userStyles = makeStyles({
             position: 'relative'
         },
         imageContainer: {
-            height: 150,
+            height: "100 !important",
             width: '100%'
+        },
+        img: {
+            height: 140,
+            width: "100%",
         },
     }
 });

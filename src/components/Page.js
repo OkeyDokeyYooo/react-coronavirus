@@ -163,65 +163,72 @@ class Page extends Component {
 
     render() {
         // const yesterday = moment.utc().subtract(1, 'days').format('YYYY-MM-DD');
+        const isMobile = window.innerWidth <= 500;
         return (
-            <div >
+            <div className="page">
                 <Route exact path="/">
                     <NoSsr>
                         {this.state.summary &&
-                            <div>
-                                <div className="inner-container">
-                                    <div className="summary">
-                                        <span className="title">Overview</span>
-                                        <CountryBar countries={this.state.countrySelection} onClick={this.handleCountryChange}/>
-                                        <Card today={this.state.today} yesterday={this.state.yesterday}/>
-                                    </div>
-
-                                    <div className="line-chart">
-                                        <LineChart totalCasesArray={this.state.CasesArray} totalDeathArray={this.state.DeathArray} totalRecoveredArray={this.state.RecoveredArray} datePeriod={this.state.datePeriod}/>
-                                    </div>
-
-                                    <div className="data-map">
-                                        <span className="title">Map</span>
-                                        <div className="map-buttons">
-                                            <button 
-                                                className={"total-map-button" + (this.state.activeButton === "total" ? " total-active" : "")}
-                                                onClick={() => this.setState({
-                                                    activeButton: "total",
-                                                    choosenCategory: "TotalCases",
-                                                    maxColor: "#F2994A",
-                                                    minColor: "#FBE69E"                         
-                                                })}
-                                            >Total Cases</button>
-                                            <button 
-                                                className={"death-map-button" + (this.state.activeButton === "death" ? " death-active" : "")}
-                                                onClick={() => this.setState({
-                                                    activeButton: "death",
-                                                    choosenCategory: "TotalDeaths",
-                                                    maxColor: "#333333",
-                                                    minColor: "#BCBCBC"                                         
-                                            })}
-                                            >Deaths</button>
-                                            <button 
-                                                className={"recovered-map-button" + (this.state.activeButton === "recovered" ? " recovered-active" : "")}
-                                                onClick={() => this.setState({
-                                                    activeButton: "recovered",
-                                                    choosenCategory: "TotalRecovered",
-                                                    maxColor: "#27AE60",
-                                                    minColor: "#92DEB2"  
-                                            })}
-                                            >Recovered</button>
-                                        </div>
-                                        <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
-                                    </div>
-
-                                    <div className="data-chart">
-                                        <span className="title">Rank</span>
-                                        <Table data={this.state.data} />
-                                    </div>
-                                    <div className="hint">
-                                        <span >*The data may not be the most accurate due to update delay</span>
-                                    </div>
+                            <div className="inner-container">
+                                <div className="summary">
+                                    <span className="title">Overview</span>
+                                    <CountryBar countries={this.state.countrySelection} onClick={this.handleCountryChange}/>
+                                    <Card today={this.state.today} yesterday={this.state.yesterday}/>
+                                    { !isMobile &&
+                                            <div className="hint">
+                                                <span >*The data may not be the most accurate due to update delay</span>
+                                            </div>
+                                    }
                                 </div>
+
+                                <div className="line-chart">
+                                    <LineChart totalCasesArray={this.state.CasesArray} totalDeathArray={this.state.DeathArray} totalRecoveredArray={this.state.RecoveredArray} datePeriod={this.state.datePeriod}/>
+                                </div>
+
+                                <div className="data-map">
+                                    <span className="title">Map</span>
+                                    <div className="map-buttons">
+                                        <button 
+                                            className={"total-map-button" + (this.state.activeButton === "total" ? " total-active" : "")}
+                                            onClick={() => this.setState({
+                                                activeButton: "total",
+                                                choosenCategory: "TotalCases",
+                                                maxColor: "#F2994A",
+                                                minColor: "#FBE69E"                         
+                                            })}
+                                        >Total Cases</button>
+                                        <button 
+                                            className={"death-map-button" + (this.state.activeButton === "death" ? " death-active" : "")}
+                                            onClick={() => this.setState({
+                                                activeButton: "death",
+                                                choosenCategory: "TotalDeaths",
+                                                maxColor: "#333333",
+                                                minColor: "#BCBCBC"                                         
+                                        })}
+                                        >Deaths</button>
+                                        <button 
+                                            className={"recovered-map-button" + (this.state.activeButton === "recovered" ? " recovered-active" : "")}
+                                            onClick={() => this.setState({
+                                                activeButton: "recovered",
+                                                choosenCategory: "TotalRecovered",
+                                                maxColor: "#27AE60",
+                                                minColor: "#92DEB2"  
+                                        })}
+                                        >Recovered</button>
+                                    </div>
+                                    <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
+                                </div>
+
+                                <div className="data-chart">
+                                    <span className="title">Rank</span>
+                                    <Table data={this.state.data} />
+                                </div>
+                                {
+                                    isMobile &&
+                                    <div className="hint">
+                                            <span >*The data may not be the most accurate due to update delay</span>
+                                    </div>
+                                }
                             </div>
                         }
                     </NoSsr>

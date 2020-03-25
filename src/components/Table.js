@@ -1,6 +1,5 @@
 import React from 'react';
-import MaterialTable, {MTableFilterRow} from 'material-table'
-import SortIcon from '@material-ui/icons/Sort';
+import MaterialTable from 'material-table'
 import moment from 'moment-timezone'
 
 class Table extends React.Component {
@@ -8,6 +7,7 @@ class Table extends React.Component {
     render() {
         let dataArray = [];
         const isMobile = window.innerWidth <= 500;
+        const pageArray = isMobile ? [12,24,36] : []
         const mobileColumnArray = [
             { title: "Country", field: "name", width: 110,
                 cellStyle : {
@@ -36,11 +36,11 @@ class Table extends React.Component {
         ];
 
         const desktopColumnArray = [
-            { title: "Country", field: "name",
+            { title: "Country", field: "name", width:110,
                 cellStyle : {
                     fontWeight: 500,
             }},
-            { title: "TotalCases", field: "totalCases", 
+            { title: "TotalCases", field: "totalCases", width:110,
                 cellStyle: {
                     textAlign: "center"
                 }, 
@@ -48,28 +48,28 @@ class Table extends React.Component {
                     textAlign: "center"
                 }
             },
-            { title: "NewCases", field:"newCases",
+            { title: "NewCases", field:"newCases",width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
             headerStyle: {
                 textAlign: "center"
             }},
-            { title: "TotalDeaths", filed:"totalDeaths",
+            { title: "TotalDeaths", filed:"totalDeaths",width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
             headerStyle: {
                 textAlign: "center"
             }},
-            { title: "NewDeaths", field:"newDeaths", 
+            { title: "NewDeaths", field:"newDeaths", width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
             headerStyle: {
                 textAlign: "center"
             }},
-            { title: "TotalRecovered", field:"totalRecovered",
+            { title: "TotalRecovered", field:"totalRecovered",width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
@@ -90,6 +90,7 @@ class Table extends React.Component {
                 totalRecovered: data.TotalRecovered,
             })
         })
+
         return (
             <div className="rank-table">
                 <MaterialTable
@@ -113,10 +114,13 @@ class Table extends React.Component {
                             left: 1,
                             right: 0
                         },
-                        pageSize: 15,
-                        pageSizeOptions: [15,20,25],
+                        pageSize: 12,
+                        pageSizeOptions: pageArray,
                         paginationType: "normal",
                         draggable: false,
+                    }}
+                    style={{
+                        paddingTop: 10
                     }}
                 />
             </div>

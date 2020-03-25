@@ -20,9 +20,9 @@ class App extends Component {
 
   render () {
     return (
-      <div >
+      <div className="app-page">
           <Header updateAt={this.state.updateAt}/>
-          <Page className="page" getUpdate={this.getUpdate.bind(this)}/>
+          <Page  getUpdate={this.getUpdate.bind(this)}/>
       </div>
     )
   }

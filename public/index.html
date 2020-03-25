@@ -5,6 +5,10 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <meta property="og:title" content="Coronavirus Pandemic Global Update" />
+    <meta property="og:description" content="Live Data for Tracking the COVID-19 WorldWide" />
+    <meta property="og:url" content="http://covid19.hackhub.cn/" />
+    <meta property="og:image" content="./cover-img.jpg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -26,7 +30,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>COVID-19</title>
+    <title>Coronavirus (COVID-19) Global Update</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -42,4 +46,56 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <!-- <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script type="text/javascript">
+
+      wx.config({
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: "{$signPackage.appId}", // 必填，公众号的唯一标识
+          timestamp: "{$signPackage.timestamp}", // 必填，生成签名的时间戳
+          nonceStr: "{$signPackage.nonceStr}", // 必填，生成签名的随机串
+          signature: "{$signPackage.signature}",// 必填，签名，见附录1
+          jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
+      wx.ready(function(){
+
+        //IOS系统分享时读取图片路径会出现问题 用 encodeURI 来处理下
+          var img_url = encodeURI("http://{$smarty.server.SERVER_NAME}{$goods_share_img}");
+
+          //分享到朋友圈
+          wx.onMenuShareTimeline({
+              title: "{$goods.goods_style_name}", // 分享标题
+              link: "http://{$smarty.server.SERVER_NAME}{$smarty.server.REQUEST_URI}", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: img_url, // 分享图标
+
+              success: function () { 
+                  alert('已分享');
+              },
+              cancel: function () { 
+                  alert('已取消');
+              }
+          });
+
+        //分享给微信好友
+          wx.onMenuShareAppMessage({
+              title: "{$goods.goods_style_name}", // 分享标题
+              desc: "{$goods.goods_style_name}", // 分享描述
+              link: "http://{$smarty.server.SERVER_NAME}{$smarty.server.REQUEST_URI}", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: img_url, // 分享图标
+              type: '', // 分享类型,music、video或link，不填默认为link
+              dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+
+              success: function () { 
+                  alert('已分享');
+              },
+              cancel: function () { 
+                  alert('已取消');
+              }
+          });
+      });
+  </script> -->
+<!-- ————————————————
+版权声明：本文为CSDN博主「汪得福」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/arbben/article/details/72648415 -->
 </html>

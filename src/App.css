@@ -46,10 +46,6 @@ body{
 }
 
 @media (max-width: 768px) {
-  .thisisdiv {
-      width: 100%;
-  }
-
   .slider-content .inner h5 {
       font-weight: 500;
       margin: 0 auto;
@@ -72,4 +68,94 @@ body{
       margin-left: 20px;
   }
 
+}
+
+/* when width is greater than the iPad Pro */
+@media (min-width: 1400px){
+  html
+  body{
+    height: 100vh;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .header {
+    height: 20%;
+  }
+
+  .app-page {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .title {
+    display: none;
+  }
+
+  .inner-container {
+    margin-top: 1rem !important;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 1em;
+    grid-row-gap: 0.5rem;
+    grid-template-areas: 
+      "summary line-chart table"
+      "summary map table";
+  }
+
+  .summary {
+    grid-area: summary;
+  }
+
+  .hint {
+    grid-area: summary;
+  }
+
+  .line-chart {
+    grid-area: line-chart;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-top: 0rem !important;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)
+  }
+
+  .line-chart-container {
+    margin-top: 1.2rem;
+  }
+
+  .data-map {
+    grid-area: map;
+    margin-top: 0rem !important;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 1rem;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .map-buttons {
+    justify-content: start !important;
+  }
+
+  .map-buttons > button {
+    margin-right: 1.8rem;
+  }
+
+  .data-chart {
+    grid-area: table;
+    margin-top: 0rem !important;
+  }
+
+  .rank-table {
+    margin-top: 0rem !important;
+  }
+
+  .country-bar {
+    margin-top: 0rem !important;
+  }
 }

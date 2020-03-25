@@ -74,11 +74,12 @@ class LineChart extends Component {
     
     render() {
         return (
-            <div>
+            <div className="line-chart-container">
                 {this.state.data &&
                         <Line 
                         data={this.state.data}
                         height={350}
+                        width={"100%"}
                         ref = {this.chartReference}
                         options={{
                             responsive: true,

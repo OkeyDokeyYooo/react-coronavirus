@@ -8,8 +8,8 @@ const Header = (props) => {
     return (
         <div className="header">
             <div className="logo">
-                <div className="title">COVID - 19</div>
-                <div className="title">GLOBAL UPDATE</div>
+                <div className="header-title">COVID - 19</div>
+                <div className="header-title">GLOBAL UPDATE</div>
                 <div className="updated">Last Updated: {props.updateAt}</div>
             </div>
             <ul className="nav-links">
