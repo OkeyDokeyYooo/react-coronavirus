@@ -67,12 +67,13 @@ const TotalRecovered = styled.div`
 `
 
 const Title = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: white;
   // text-align: center;
   @media (min-width: 1400px) {
     font-size: 1.2rem;
-    font-weight: 300
+    font-weight: 300;
+    margin-top: 0.5rem;
   }
 `
 
@@ -90,17 +91,18 @@ const Number = styled.div`
 const Compare = styled.div`
   font-size: 1.1rem;
   color: white;
-  padding-top: 0.8rem;
+  margin-top: 1rem;
   // text-align: center;
   @media (min-width: 1400px) {
     font-size: 1rem;
+    margin-top: 1.4rem !important;
   }
 `
 
 const Date = styled.div`
   font-size: 0.8rem;
   color: white;
-  padding-top: 0.8rem;
+  margin-top: 0.6rem;
   text-weight: 300;
 }`
 
@@ -163,7 +165,7 @@ export default class Card extends Component {
 
     
 
-    const isMobile = window.innerWidth <= 500;
+    const isMobile = window.innerWidth <= 1400;
     return (
       <div className="summary-card">
         <TotalCases>
