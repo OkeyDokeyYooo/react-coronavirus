@@ -90,15 +90,16 @@ class Table extends React.Component {
             } else {
                 // console.log(countries.getName(countryList.getCode(data.name), "zh"), countryList.getCode(data.name), data.name)
                 var countryCode = countryList.getCode(data.name);
+                console.log(countryCode,data.name);
                 if (countryCode) {
-                    if (countryCode === "HK" || countryCode === "MO") {
-                        data.name = "中国(" + countries.getName(countryCode, "zh")+ ")🇨🇳"
-                    } else {
-                            data.name = countries.getName(countryCode, "zh")
-                    }
+                    data.name = countries.getName(countryCode, "zh")
                 }
-                if (data.name === "Taiwan") {
+                if (data.name.includes("Taiwan")) {
                     data.name = "中国台湾省🇨🇳"
+                } else if (data.name.includes("Hong Kong")) {
+                    data.name = "中国香港🇨🇳"
+                } else if (data.name.includes("Macao")){
+                    data.name = "中国澳门🇨🇳"
                 } else if (data.name === "USA") {
                     data.name = "美国"
                 } else if (data.name === "Diamond Princess") {
