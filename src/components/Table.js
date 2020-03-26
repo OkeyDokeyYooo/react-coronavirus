@@ -3,8 +3,6 @@ import MaterialTable from 'material-table'
 import moment from 'moment-timezone'
 import { withTranslation } from 'react-i18next';
 import countries from 'i18n-iso-countries';
-import countryList from 'country-list'
-countries.registerLocale(require("i18n-iso-countries/langs/en.json"))
 countries.registerLocale(require("i18n-iso-countries/langs/zh.json"))
 class Table extends React.Component {
 
@@ -83,37 +81,28 @@ class Table extends React.Component {
             }},
         ]
         this.props.data.map((data) => {
+            let tempName;
             if (this.props.lang === "en") {
                 if (data.name === "Hong Kong" || data.name === "Taiwan" || data.name === "Macao"){
-                    data.name = "China (" + data.name + ")🇨🇳"
+                    tempName = "China (" + data.name + ")🇨🇳"
+                } else {
+                    tempName = data.name
                 }
             } else {
-                // console.log(countries.getName(countryList.getCode(data.name), "zh"), countryList.getCode(data.name), data.name)
-                var countryCode = countryList.getCode(data.name);
-                console.log(countryCode,data.name);
-                if (countryCode) {
-                    data.name = countries.getName(countryCode, "zh")
-                }
-                if (data.name.includes("Taiwan")) {
-                    data.name = "中国台湾省🇨🇳"
-                } else if (data.name.includes("Hong Kong")) {
-                    data.name = "中国香港🇨🇳"
-                } else if (data.name.includes("Macao")){
-                    data.name = "中国澳门🇨🇳"
-                } else if (data.name === "USA") {
-                    data.name = "美国"
-                } else if (data.name === "Diamond Princess") {
-                    data.name = "珍珠号邮轮"
-                } else if (data.name === "Iran") {
-                    data.name = "伊朗"
-                } else if (data.name === "UK") {
-                    data.name = "英国"
-                } else if (data.name === "S. Korea") {
-                    data.name = "韩国"
+                let translateName = countries.getName(data.id, "zh")
+                if (translateName) {
+                    tempName = translateName;
+                    if (data.id === "HK" ||  data.id === "MO") {
+                        tempName = "中国" + translateName + "🇨🇳"
+                    } else if (data.id === "TW") {
+                        tempName ="中国" + translateName + "省🇨🇳"
+                    }
+                } else {
+                    tempName = data.name
                 }
             }
             dataArray.push({
-                name: data.name,
+                name: tempName,
                 totalCases: data.TotalCases,
                 newCases: data.NewCases,
                 totalDeaths: data.TotalDeaths,

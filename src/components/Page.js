@@ -155,6 +155,7 @@ class Page extends Component {
         let DeathArray = [];
         let RecoveredArray = [];
 
+        console.log(this.state.todayData)
         this.state.totalData.map((data) => {
             let currentData = this.extractData(data, country)
             CasesArray.push(currentData.TotalCases);
@@ -238,7 +239,7 @@ class Page extends Component {
                                                 })}
                                                 >{t("Recovered.label")}</button>
                                             </div>
-                                            <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
+                                            <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor} lang={this.props.lang=== "zh" ? "zh" : "en"}/>
                                         </div>
         
                                         <div className="data-chart">

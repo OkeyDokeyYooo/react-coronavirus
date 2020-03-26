@@ -4,6 +4,9 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import countries from 'i18n-iso-countries';
+countries.registerLocale(require("i18n-iso-countries/langs/zh.json"))
+
 
 am4core.useTheme(am4themes_animated);
 
@@ -19,7 +22,7 @@ function addColor(value, colors, choosenCategory, inputMaxVal, inputMinVal) {
   else return colors[choosenCategory].q1;
 }
 
-function initMap(data, choosenCategory, maxColor, minColor, inputTitle, inputMinVal, inputMaxVal){
+function initMap(data, choosenCategory, maxColor, minColor, inputTitle, inputMinVal, inputMaxVal, lang){
     // Create map instance
   var chart = am4core.create("chartdiv", am4maps.MapChart);
 
@@ -76,15 +79,30 @@ function initMap(data, choosenCategory, maxColor, minColor, inputTitle, inputMin
     }
   }
 
-  data.map((item) => {
+  let copyData = [];
+  Object.assign(copyData, data)
+
+  copyData.map((item) => {
+    // console.log(item)
     let str = addColor(item[choosenCategory], colors, choosenCategory, inputMaxVal, inputMinVal)
     // console.log(str);
     item["fill"] = str;
+    if (item.id === "TW") item.name = "China (" + item.name+ " Provience)";
+    if (lang == "zh"){
+      let translateName = countries.getName(item.id, "zh");
+      if (translateName) {
+        if (item.id === "TW") {
+          item.name = "中国" + translateName + "省🇨🇳"
+        } else {
+          item.name = translateName;
+        }
+      }
+    }
     // console.log(inputMaxVal);
     // console.log(inputMinVal)
   })
 
-  polygonSeries.data = data;
+  polygonSeries.data = copyData;
 
   
 
@@ -140,7 +158,7 @@ class Map extends Component {
 
     dataArray = filterOutliers(dataArray)
 
-    this.chart = initMap(mapData, this.props.catorgry, this.props.maxColor, this.props.minColor, this.props.catorgry, dataArray[0], dataArray[dataArray.length-1]);
+    this.chart = initMap(mapData, this.props.catorgry, this.props.maxColor, this.props.minColor, this.props.catorgry, dataArray[0], dataArray[dataArray.length-1] , this.props.lang);
   }
 
   componentDidMount() {
@@ -160,7 +178,7 @@ class Map extends Component {
     //Filter out all the out liers
     dataArray = filterOutliers(dataArray)
 
-    this.chart = initMap(mapData, this.props.catorgry, this.props.maxColor, this.props.minColor, this.props.catorgry, dataArray[0], dataArray[dataArray.length-1]);
+    this.chart = initMap(mapData, this.props.catorgry, this.props.maxColor, this.props.minColor, this.props.catorgry, dataArray[0], dataArray[dataArray.length-1], this.props.lang);
   }
 
   componentWillUnmount() {
