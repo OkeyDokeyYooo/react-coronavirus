@@ -4,6 +4,7 @@ import Axios from 'axios';
 import moment from 'moment-timezone';
 import NoSsr from '@material-ui/core/NoSsr';
 import ReactLoading from 'react-loading';
+import { withTranslation } from 'react-i18next';
 
 import News   from './News/News';
 import Map    from './Map';
@@ -16,15 +17,15 @@ import './Page.css'
 const Loading = ({type, color}) => (
     <div className="fade-in-and-out loading-logo">
         <ReactLoading type={type} color={color} className={"loading-logo-pos"}/>
-        <div className={"loading-logo-pos"}>Featching Data</div>
+        <div className={"loading-logo-pos"}>Fetching Data</div>
     </div>
 ) 
 
 function getDates(startDate, stopDate) {
     var dateArray = [];
     var currentDate = moment(startDate);
-    var stopDate = moment(stopDate);
-    while (currentDate <= stopDate) {
+    var stop = moment(stopDate);
+    while (currentDate <= stop) {
         dateArray.push( moment(currentDate).format('MM/DD') )
         currentDate = moment(currentDate).add(1, 'days');
     }
@@ -64,6 +65,8 @@ class Page extends Component {
         this.handleCountryChange = this.handleCountryChange.bind(this);
         this.extractData = this.extractData.bind(this);
     }
+
+
 
     returnLabel(label) {
         this.setState({
@@ -119,7 +122,7 @@ class Page extends Component {
                 this.props.getUpdate(moment(requestForToday.data.updatedAt).tz('America/Vancouver').format('YYYY-MM-DD hh:mm a z'))
 
                 this.setState({
-                    data: localData,
+                    data: localData.slice(0,localData.length-1),
                     summary: summary,
                     diff: diff,
                     updatedTime: moment(requestForToday.data.updatedAt).tz('America/Vancouver').format('YYYY-MM-DD hh:mm'),
@@ -142,7 +145,7 @@ class Page extends Component {
     // return obj in the trk
     extractData(data, country) {
         return data.trk.find((item) => {
-            return item.name == country
+            return item.name === country
         })
     }
 
@@ -170,6 +173,7 @@ class Page extends Component {
 
     render() {
         // const yesterday = moment.utc().subtract(1, 'days').format('YYYY-MM-DD');
+        const { t } = this.props;
         const isMobile = window.innerWidth <= 500;
         return (
             <div className="page">
@@ -182,22 +186,29 @@ class Page extends Component {
                                 {this.state.summary &&
                                     <div className="inner-container">
                                         <div className="summary">
-                                            <span className="title">Overview</span>
+                                        <span className="title">{t("overview.label")}</span>
                                             <CountryBar countries={this.state.countrySelection} onClick={this.handleCountryChange}/>
                                             <Card today={this.state.today} yesterday={this.state.yesterday}/>
                                             { !isMobile &&
                                                     <div className="hint">
-                                                        <span >*The data may not be the most accurate due to update delay</span>
+                                                        <span >{t("hint.label")}</span>
                                                     </div>
                                             }
                                         </div>
         
                                         <div className="line-chart">
-                                            <LineChart totalCasesArray={this.state.CasesArray} totalDeathArray={this.state.DeathArray} totalRecoveredArray={this.state.RecoveredArray} datePeriod={this.state.datePeriod}/>
+                                            <LineChart 
+                                                totalCasesArray={this.state.CasesArray} 
+                                                totalDeathArray={this.state.DeathArray} 
+                                                totalRecoveredArray={this.state.RecoveredArray} 
+                                                datePeriod={this.state.datePeriod}
+                                                totalCasesLabel={this.props.lang === "en" ? "Total Cases" : "累计病例"}
+                                                totalDeathsLabel={this.props.lang === "en" ? "Total Deaths" : "累计死亡"}
+                                                totalRecoveredLabel={this.props.lang === "en" ? "Total Recovered" : "累计治愈"}/>
                                         </div>
         
                                         <div className="data-map">
-                                            <span className="title">Map</span>
+                                            <span className="title">{t('map.label')}</span>
                                             <div className="map-buttons">
                                                 <button 
                                                     className={"total-map-button" + (this.state.activeButton === "total" ? " total-active" : "")}
@@ -207,7 +218,7 @@ class Page extends Component {
                                                         maxColor: "#F2994A",
                                                         minColor: "#FBE69E"                         
                                                     })}
-                                                >Total Cases</button>
+                                                >{t("totalCases.label")}</button>
                                                 <button 
                                                     className={"death-map-button" + (this.state.activeButton === "death" ? " death-active" : "")}
                                                     onClick={() => this.setState({
@@ -216,7 +227,7 @@ class Page extends Component {
                                                         maxColor: "#333333",
                                                         minColor: "#BCBCBC"                                         
                                                 })}
-                                                >Deaths</button>
+                                                >{t("Deaths.label")}</button>
                                                 <button 
                                                     className={"recovered-map-button" + (this.state.activeButton === "recovered" ? " recovered-active" : "")}
                                                     onClick={() => this.setState({
@@ -225,19 +236,19 @@ class Page extends Component {
                                                         maxColor: "#27AE60",
                                                         minColor: "#92DEB2"  
                                                 })}
-                                                >Recovered</button>
+                                                >{t("Recovered.label")}</button>
                                             </div>
                                             <Map input={ this.state.data} catorgry={this.state.choosenCategory} maxColor={this.state.maxColor} minColor={this.state.minColor}/>
                                         </div>
         
                                         <div className="data-chart">
-                                            <span className="title">Rank</span>
-                                            <Table data={this.state.data} />
+                                            <span className="title">{t("rank.label")}</span>
+                                            <Table data={this.state.data} lang={this.props.lang}/>
                                         </div>
                                         {
                                             isMobile &&
                                             <div className="hint">
-                                                    <span >*The data may not be the most accurate due to update delay</span>
+                                                    <span >{t("hint.label")}</span>
                                             </div>
                                         }
                                     </div>
@@ -246,7 +257,7 @@ class Page extends Component {
                         </Route>
                         <Route path="/news">
                             <NoSsr>
-                                <News/>
+                                <News lang={this.props.lang}/>
                             </NoSsr>
                         </Route>
                     </div>
@@ -256,4 +267,4 @@ class Page extends Component {
     }
 }
 
-export default Page;
+export default withTranslation()(Page);

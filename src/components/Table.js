@@ -1,46 +1,51 @@
 import React from 'react';
 import MaterialTable from 'material-table'
 import moment from 'moment-timezone'
-
+import { withTranslation } from 'react-i18next';
+import countries from 'i18n-iso-countries';
+import countryList from 'country-list'
+countries.registerLocale(require("i18n-iso-countries/langs/en.json"))
+countries.registerLocale(require("i18n-iso-countries/langs/zh.json"))
 class Table extends React.Component {
 
     render() {
+        const { t } = this.props;
         let dataArray = [];
         const isMobile = window.innerWidth <= 500;
         const pageArray = isMobile ? [12,24,36] : []
         const mobileColumnArray = [
-            { title: "Country", field: "name", width: 110,
+            { title: t("country.label"), field: "name", width: 120,
                 cellStyle : {
                     fontWeight: 500,
             }},
-            { title: "TotalCases", field: "totalCases", width: 110, 
+            { title: t("totalCases.label"), field: "totalCases", width: 120, 
                 cellStyle:{
-                    textAlign: "right"
+                    textAlign: "center"
             }},
-            { title: "NewCases", field:"newCases", width: 110,
+            { title: t("newCases.label"), field:"newCases", width: 120,
                 cellStyle:{
-                textAlign: "right"
+                textAlign: "center"
             }},
-            { title: "TotalDeaths", filed:"totalDeaths", width: 110,
+            { title: t("totalDeaths.label"), filed:"totalDeaths", width: 120,
                 cellStyle:{
-                textAlign: "right"
+                textAlign: "center"
             }},
-            { title: "NewDeaths", field:"newDeaths", width: 110,
+            { title: t("newDeaths.label"), field:"newDeaths", width: 120,
                 cellStyle:{
-                textAlign: "right"
+                textAlign: "center"
             }},
-            { title: "TotalRecovered", field:"totalRecovered", width: 110,
+            { title: t("totalRecovered.label"), field:"totalRecovered", width: 120,
             cellStyle:{
-                textAlign: "right"
+                textAlign: "center"
             }},
         ];
 
         const desktopColumnArray = [
-            { title: "Country", field: "name", width:110,
+            { title: t("country.label"), field: "name", width:110,
                 cellStyle : {
                     fontWeight: 500,
             }},
-            { title: "TotalCases", field: "totalCases", width:110,
+            { title:t("totalCases.label"), field: "totalCases", width:110,
                 cellStyle: {
                     textAlign: "center"
                 }, 
@@ -48,28 +53,28 @@ class Table extends React.Component {
                     textAlign: "center"
                 }
             },
-            { title: "NewCases", field:"newCases",width:110,
+            { title: t("newCases.label"), field:"newCases",width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
             headerStyle: {
                 textAlign: "center"
             }},
-            { title: "TotalDeaths", filed:"totalDeaths",width:110,
+            { title: t("totalDeaths.label"), filed:"totalDeaths",width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
             headerStyle: {
                 textAlign: "center"
             }},
-            { title: "NewDeaths", field:"newDeaths", width:110,
+            { title: t("newDeaths.label"), field:"newDeaths", width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
             headerStyle: {
                 textAlign: "center"
             }},
-            { title: "TotalRecovered", field:"totalRecovered",width:110,
+            { title: t("totalRecovered.label"), field:"totalRecovered",width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
@@ -78,8 +83,33 @@ class Table extends React.Component {
             }},
         ]
         this.props.data.map((data) => {
-            if (data.name === "Hong Kong" || data.name === "Taiwan" || data.name === "Macao"){
-                data.name = "China " + "(" + data.name + ")" + "🇨🇳"
+            if (this.props.lang === "en") {
+                if (data.name === "Hong Kong" || data.name === "Taiwan" || data.name === "Macao"){
+                    data.name = "China (" + data.name + ")🇨🇳"
+                }
+            } else {
+                // console.log(countries.getName(countryList.getCode(data.name), "zh"), countryList.getCode(data.name), data.name)
+                var countryCode = countryList.getCode(data.name);
+                if (countryCode) {
+                    if (countryCode === "HK" || countryCode === "MO") {
+                        data.name = "中国(" + countries.getName(countryCode, "zh")+ ")🇨🇳"
+                    } else {
+                            data.name = countries.getName(countryCode, "zh")
+                    }
+                }
+                if (data.name === "Taiwan") {
+                    data.name = "中国台湾省🇨🇳"
+                } else if (data.name === "USA") {
+                    data.name = "美国"
+                } else if (data.name === "Diamond Princess") {
+                    data.name = "珍珠号邮轮"
+                } else if (data.name === "Iran") {
+                    data.name = "伊朗"
+                } else if (data.name === "UK") {
+                    data.name = "英国"
+                } else if (data.name === "S. Korea") {
+                    data.name = "韩国"
+                }
             }
             dataArray.push({
                 name: data.name,
@@ -98,7 +128,7 @@ class Table extends React.Component {
                     data={dataArray}
                     localization={{
                         toolbar: {
-                            searchPlaceholder: "Search for Country"
+                            searchPlaceholder: t("searchForCountry.label")
                         }
                     }}
                     options={{
@@ -128,7 +158,7 @@ class Table extends React.Component {
     }
 }
 
-export default Table;
+export default withTranslation()(Table);
 
 // import React from 'react';
 // import {makeStyles ,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, InputAdornment, FormControl, InputLabel, Input} from '@material-ui/core'

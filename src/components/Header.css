@@ -18,6 +18,7 @@
     padding-top: 0.3rem;
     color: #b9b9b9;
     font-size: 1rem;
+    display: inline;
 }
 
 .header {
@@ -28,7 +29,7 @@
 .nav-links {
     display: flex;
     justify-content: space-between;
-    width: 40%;
+    width: 60%;
     padding-top: 1.3rem;
 }
 
@@ -47,6 +48,32 @@ a{
     font-size: 1.3rem;
 }
 
+.lang-button {
+    font-size: small;
+    font-weight: 600;
+    background: transparent;
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 3rem;
+    margin-left: 1rem;
+}
+
+.lang-button:hover {
+    background: black;
+    color: white;
+    transform: scale(1.03);
+}
+
+.lang-button:active{
+    background: black;
+    color: white;
+}
+
+.lang-button:focus {
+    outline: 0 !important;
+    
+}
+
 @media (min-width: 1400px) {
     .header {
         display: flex;
@@ -57,6 +84,6 @@ a{
         margin-left: auto;
         display: flex;
         justify-content: space-between;
-        width: 150px;
+        width: 170px;
     }
 }

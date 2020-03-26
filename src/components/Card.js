@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { withTranslation } from 'react-i18next';
 
 const TotalCases = styled.div`
   border-radius: 5px;
@@ -111,55 +112,55 @@ function numberWithCommas(x) {
 }
 
 
-export default class Card extends Component {
+class Card extends Component {
   render() {
-    
+    const { t } = this.props;
     const compareTotalMobile = 
         (this.props.today.TotalCases - this.props.yesterday.TotalCases) >= 0
-        ? <Compare>{"+ " + numberWithCommas(this.props.today.TotalCases - this.props.yesterday.TotalCases) + " in last 24 hours"} </Compare>
-        : <Compare>{"- " + numberWithCommas(this.props.today.TotalCases - this.props.yesterday.TotalCases) + " in last 24 hours"} </Compare>
+        ? <Compare>{"+ " + numberWithCommas(this.props.today.TotalCases - this.props.yesterday.TotalCases) + t("last24Hours.label")} </Compare>
+        : <Compare>{"- " + numberWithCommas(this.props.today.TotalCases - this.props.yesterday.TotalCases) + t("last24Hours.label")} </Compare>
 
     const compareTotalDesktop = 
         (this.props.today.TotalCases - this.props.yesterday.TotalCases) >= 0
         ? <div>
             <Compare>{"+ " + numberWithCommas(this.props.today.TotalCases - this.props.yesterday.TotalCases)} </Compare>
-            <Date> in last 24 hours</Date>
+            <Date>{t("last24Hours.label")}</Date>
           </div>
         : <div>
             <Compare>{"- " + numberWithCommas(this.props.today.TotalCases - this.props.yesterday.TotalCases)} </Compare>
-            <Date> in last 24 hours</Date>
+            <Date>{t("last24Hours.label")}</Date>
           </div>
     
     const compareDeathMobile =
         (this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths) >= 0
-        ? <Compare>{"+ " + numberWithCommas(this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths) + " in last 24 hours"} </Compare>
-        : <Compare>{"- " + numberWithCommas(this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths) + " in last 24 hours"} </Compare>
+        ? <Compare>{"+ " + numberWithCommas(this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths) + t("last24Hours.label")} </Compare>
+        : <Compare>{"- " + numberWithCommas(this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths) + t("last24Hours.label")} </Compare>
 
     const compareDeathDesktop = 
         (this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths) >= 0
         ? <div>
             <Compare>{"+ " + numberWithCommas(this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths)} </Compare>
-            <Date> in last 24 hours</Date>
+            <Date>{t("last24Hours.label")}</Date>
           </div>
         : <div>
             <Compare>{"- " + numberWithCommas(this.props.today.TotalDeaths - this.props.yesterday.TotalDeaths)} </Compare>
-            <Date> in last 24 hours</Date>
+            <Date>{t("last24Hours.label")}</Date>
           </div>
 
     const compareRecoverMobile =
     (this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered) >= 0
-    ? <Compare>{"+ " + numberWithCommas(this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered) + " in last 24 hours"} </Compare>
-    : <Compare>{"- " + numberWithCommas(this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered) + " in last 24 hours"} </Compare>
+    ? <Compare>{"+ " + numberWithCommas(this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered) + t("last24Hours.label")} </Compare>
+    : <Compare>{"- " + numberWithCommas(this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered) + t("last24Hours.label")} </Compare>
 
     const compareRecoverDesktop = 
     (this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered) >= 0
     ? <div>
         <Compare>{"+ " + numberWithCommas(this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered)} </Compare>
-        <Date> in last 24 hours</Date>
+        <Date>{t("last24Hours.label")}</Date>
       </div>
     : <div>
         <Compare>{"- " + numberWithCommas(this.props.today.TotalRecovered - this.props.yesterday.TotalRecovered)} </Compare>
-        <Date> in last 24 hours</Date>
+        <Date>{t("last24Hours.label")}</Date>
       </div>
 
 
@@ -169,7 +170,7 @@ export default class Card extends Component {
     return (
       <div className="summary-card">
         <TotalCases>
-          <Title>Total Cases</Title>
+          <Title>{t("totalCasesCard.label")}</Title>
           <Number>{numberWithCommas(this.props.today.TotalCases)}</Number>
           {
             isMobile
@@ -179,7 +180,7 @@ export default class Card extends Component {
         </TotalCases>
 
         <TotalDeaths>
-          <Title>Total Deaths</Title>
+          <Title>{t("totalDeathsCard.label")}</Title>
           <Number>{numberWithCommas(this.props.today.TotalDeaths)}</Number>
           {
             isMobile
@@ -189,7 +190,7 @@ export default class Card extends Component {
         </TotalDeaths>
 
         <TotalRecovered>
-          <Title>Total Recovered</Title>
+          <Title>{t("totalRecoveredCard.label")}</Title>
           <Number>{numberWithCommas(this.props.today.TotalRecovered)}</Number>
           {
             isMobile
@@ -202,3 +203,5 @@ export default class Card extends Component {
     )
   }
 }
+
+export default withTranslation()(Card);

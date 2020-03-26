@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import PublicIcon from '@material-ui/icons/Public';
+import { useTranslation } from 'react-i18next'
+
 
 // ISO 3166-1 alpha-2
 // ⚠️ No support for IE 11
@@ -26,6 +28,8 @@ const useStyles = makeStyles({
 
 export default function CountrySelect(props) {
   const classes = useStyles();
+  const [t, i18n] = useTranslation();
+  
   return (
     <div className="country-bar">
     <Autocomplete
@@ -51,7 +55,7 @@ export default function CountrySelect(props) {
       renderInput={params => (
         <TextField
           {...params}
-          label="Choose a country"
+          label= {t("searchForCountry.label")}
           variant="outlined"
           inputProps={{
             ...params.inputProps,

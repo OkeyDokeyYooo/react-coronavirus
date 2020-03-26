@@ -1,0 +1,19 @@
+{
+    "title.label": "新型冠状病毒",
+    "subtitle.label": "全球实时动态",
+    "update.label": "数据更新于",
+    "data.label": "统计数据",
+    "news.label": "相关新闻",
+    "overview.label": "概览",
+    "searchForCountry.label": "搜索国家",
+    "totalCases.label": "累计确诊",
+    "totalDeaths.label": "累计死亡",
+    "totalRecovered.label": "累计治愈",
+    "last24Hours.label": "今日新增",
+    "map.label": "疫情地图",
+    "rank.label": "全球数据",
+    "country.label": "国家",
+    "newCases.label": "新增确诊",
+    "newDeaths.label": "新增死亡",
+    "hint.label": "*因时区造成数据库更新延迟的原因，数据准确性会受影响"
+}

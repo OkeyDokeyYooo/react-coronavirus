@@ -1,0 +1,21 @@
+{
+    "title.label": "COVID - 19",
+    "subtitle.label": "GLOBAL UPDATE",
+    "update.label": "Last Updated",
+    "data.label": "Data",
+    "news.label": "News",
+    "overview.label": "Overview",
+    "searchForCountry.label": "Search for Country",
+    "totalCases.label": "TotalCases",
+    "Deaths.label": "Deaths",
+    "Recovered.label": "Recovered",
+    "totalDeaths.label": "Deaths",
+    "totalRecovered.label": "Recovered",
+    "last24Hours.label": "in last 24 hours",
+    "map.label": "Map",
+    "rank.label": "Rank",
+    "country.label": "Country",
+    "newCases.label": "NewCases",
+    "newDeaths.label": "NewDeaths",
+    "hint.label": "*The data may not be the most accurate due to update delay"
+}

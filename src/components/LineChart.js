@@ -1,5 +1,6 @@
 import React, {Component}from 'react';
 import {Line} from "react-chartjs-2";
+import { withTranslation } from 'react-i18next';
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -13,21 +14,21 @@ class LineChart extends Component {
                 labels: this.props.datePeriod,
                 datasets: [
                     {
-                        label: "Total Cases",
+                        label: this.props.totalCasesLabel,
                         data: this.props.totalCasesArray,
                         fill: false,
                         backgroundColor: '#F2994A',
                         borderColor: '#F2994A'
                     },
                     {
-                        label: "Total Recovered",
+                        label: this.props.totalRecoveredLabel,
                         data: this.props.totalRecoveredArray,
                         fill: false,
                         backgroundColor: '#27AE60',
                         borderColor: '#27AE60'
                     },
                     {
-                        label: "Total Death",
+                        label: this.props.totalDeathsLabel,
                         data: this.props.totalDeathArray,
                         fill: false,
                         backgroundColor: '#333333',
@@ -39,27 +40,27 @@ class LineChart extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if (nextProps.totalCasesArray != this.props.totalCasesArray){
+        if (nextProps.totalCasesArray !== this.props.totalCasesArray || nextProps.totalCasesLabel !== this.props.totalCasesLabel){
             this.setState({
                 data: {
                     labels: nextProps.datePeriod,
                     datasets: [
                         {
-                            label: "Total Cases",
+                            label: nextProps.totalCasesLabel,
                             data: nextProps.totalCasesArray,
                             fill: false,
                             backgroundColor: '#F2994A',
                             borderColor: '#F2994A'
                         },
                         {
-                            label: "Total Recovered",
+                            label: nextProps.totalRecoveredLabel,
                             data: nextProps.totalRecoveredArray,
                             fill: false,
                             backgroundColor: '#27AE60',
                             borderColor: '#27AE60'
                         },
                         {
-                            label: "Total Death",
+                            label: nextProps.totalDeathsLabel,
                             data: nextProps.totalDeathArray,
                             fill: false,
                             backgroundColor: '#333333',
@@ -152,4 +153,4 @@ class LineChart extends Component {
     }
 }
 
-export default LineChart;
+export default withTranslation()(LineChart);
