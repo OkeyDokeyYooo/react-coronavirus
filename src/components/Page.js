@@ -188,7 +188,7 @@ class Page extends Component {
                                     <div className="inner-container">
                                         <div className="summary">
                                         <span className="title">{t("overview.label")}</span>
-                                            <CountryBar countries={this.state.countrySelection} onClick={this.handleCountryChange}/>
+                                            <CountryBar countries={this.state.countrySelection} onClick={this.handleCountryChange} lang={this.props.lang}/>
                                             <Card today={this.state.today} yesterday={this.state.yesterday}/>
                                             { !isMobile &&
                                                     <div className="hint">

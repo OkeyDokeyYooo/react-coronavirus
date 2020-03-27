@@ -4,7 +4,11 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import PublicIcon from '@material-ui/icons/Public';
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
+import countries from 'i18n-iso-countries';
+import _ from 'lodash';
+countries.registerLocale(require("i18n-iso-countries/langs/zh.json"))
+
 
 
 // ISO 3166-1 alpha-2
@@ -29,7 +33,34 @@ const useStyles = makeStyles({
 export default function CountrySelect(props) {
   const classes = useStyles();
   const [t, i18n] = useTranslation();
-  
+  var zhCountryList = _.cloneDeep(props.countries);
+  var enCountryList = _.cloneDeep(props.countries);
+
+  if (props.lang === "zh") {
+    zhCountryList.map((country) => {
+      let countryTranslate = countries.getName(country.code, "zh");
+      if (countryTranslate) {
+        if (country.code === "HK" || country.code === "MO") {
+          country.label = "中国（" + countryTranslate + ")" 
+        } else if (country.code === "TW") {
+          country.label = "中国（" + countryTranslate + "省)"
+        } else {
+          country.label = countryTranslate;
+        }
+      }
+    })
+  } else {
+    console.log("Translate to en")
+    enCountryList.map((country) => {
+      if (country.code === "HK" || country.code === "MO") {
+        country.label = "China (" + country.label + ")";
+      } else if (country.code === "TW") {
+        country.label = "China (" + country.label + " Province)"
+      }
+    })
+  }
+  console.log(props.countries)
+
   return (
     <div className="country-bar">
     <Autocomplete
@@ -39,7 +70,7 @@ export default function CountrySelect(props) {
       // onClick={() => props.handleClick("TotalDeaths", "#003366", "#CCE5FF")}
       id="country-select-demo"
       style={{ width: '100%' }}
-      options={props.countries}
+      options={props.lang === "en" ? enCountryList : zhCountryList}
       popupIcon={<PublicIcon />}
       classes={{
         option: classes.option,
@@ -47,7 +78,13 @@ export default function CountrySelect(props) {
       autoHighlight
       getOptionLabel={option => option.label}
       renderOption={option => (
+        (option.code === "HK" || option.code === "MO" || option.code === "TW") ?
+        // if there are HK MO TW, must use China Flag 五星红旗迎风飘扬， 胜利歌声多么响亮！！！！！！！！！！！！！！！！
         <React.Fragment>
+          <span>{countryToFlag("CN")}</span>
+          {option.label} ({option.code})
+        </React.Fragment>
+        :<React.Fragment>
           <span>{countryToFlag(option.code)}</span>
           {option.label} ({option.code})
         </React.Fragment>

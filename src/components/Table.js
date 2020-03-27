@@ -3,6 +3,7 @@ import MaterialTable from 'material-table'
 import moment from 'moment-timezone'
 import { withTranslation } from 'react-i18next';
 import countries from 'i18n-iso-countries';
+import _ from 'lodash';
 countries.registerLocale(require("i18n-iso-countries/langs/zh.json"))
 class Table extends React.Component {
 
@@ -80,7 +81,8 @@ class Table extends React.Component {
                 textAlign: "center"
             }},
         ]
-        this.props.data.map((data) => {
+        var tempData = _.cloneDeep(this.props.data)
+        tempData.map((data) => {
             let tempName;
             if (this.props.lang === "en") {
                 if (data.name === "Hong Kong" || data.name === "Taiwan" || data.name === "Macao"){

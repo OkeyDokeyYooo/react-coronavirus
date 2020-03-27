@@ -17,7 +17,6 @@ class App extends Component {
   }
 
   handleLangChange(lang) {
-    console.log(lang)
     this.setState({lang: lang})
   } 
 
