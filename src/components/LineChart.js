@@ -144,6 +144,11 @@ class LineChart extends Component {
                                 },
                                 position: 'bottom',
                             },
+                            plugins:{
+                                annotation: {
+                                    
+                                }
+                            }
                         }}
                     />
                 }

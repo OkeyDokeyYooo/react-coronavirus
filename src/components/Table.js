@@ -49,7 +49,8 @@ class Table extends React.Component {
                     textAlign: "center"
                 }, 
                 headerStyle: {
-                    textAlign: "center"
+                    textAlign: "center",
+                    whiteSpace: "nowrap"
                 }
             },
             { title: t("newCases.label"), field:"newCases",width:110,
@@ -57,28 +58,33 @@ class Table extends React.Component {
                 textAlign: "center"
             }, 
             headerStyle: {
-                textAlign: "center"
+                textAlign: "center",
+                whiteSpace: "nowrap"
             }},
             { title: t("totalDeaths.label"), filed:"totalDeaths",width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
             headerStyle: {
-                textAlign: "center"
+                textAlign: "center",
+                whiteSpace: "nowrap"
             }},
             { title: t("newDeaths.label"), field:"newDeaths", width:110,
             cellStyle: {
-                textAlign: "center"
+                textAlign: "center",
+                whiteSpace: "nowrap"
             }, 
             headerStyle: {
-                textAlign: "center"
+                textAlign: "center",
+                whiteSpace: "nowrap"
             }},
             { title: t("totalRecovered.label"), field:"totalRecovered",width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
             headerStyle: {
-                textAlign: "center"
+                textAlign: "center",
+                whiteSpace: "nowrap"
             }},
         ]
         var tempData = _.cloneDeep(this.props.data)
