@@ -23,7 +23,7 @@ const resources = {
       "Recovered.label": "Recovered",
       "last24Hours.label": " in last 24 hours",
       "map.label": "Map",
-      "rank.label": "Rank",
+      "rank.label": "Detail",
       "country.label": "Country",
       "newCases.label": "NewCases",
       "newDeaths.label": "NewDeaths",

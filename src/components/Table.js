@@ -113,6 +113,8 @@ class Table extends React.Component {
             })
         })
 
+        dataArray.sort((a ,b) => (a.totalCases > b.totalCases) ? -1 : (a.totalCases < b.totalCases) ? 1 : 0);
+
         return (
             <div className="rank-table">
                 <MaterialTable
