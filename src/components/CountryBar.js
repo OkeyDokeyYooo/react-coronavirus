@@ -50,7 +50,6 @@ export default function CountrySelect(props) {
       }
     })
   } else {
-    console.log("Translate to en")
     enCountryList.map((country) => {
       if (country.code === "HK" || country.code === "MO") {
         country.label = "China (" + country.label + ")";
@@ -59,13 +58,25 @@ export default function CountrySelect(props) {
       }
     })
   }
-  console.log(props.countries)
 
   return (
     <div className="country-bar">
     <Autocomplete
       onChange={(event, value) => {
-        value == null ? props.onClick("Total:") : props.onClick(value.label)
+        if (value){
+          props.onClick(props.countries.find(x => x.code === value.code).label)
+          // if (value.code === "MO") {
+          //   props.onClick("Macao");
+          // } else if (value.code === "HK") {
+          //   props.onClick("Hong Kong");
+          // } else if (value.code === "TW") {
+          //   props.onClick("Taiwan");
+          // } else {
+          //   props.onClick(value.label);
+          // }
+        } else {
+          props.onClick("Total:");
+        }
       }}
       // onClick={() => props.handleClick("TotalDeaths", "#003366", "#CCE5FF")}
       id="country-select-demo"

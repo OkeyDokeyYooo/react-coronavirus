@@ -27,7 +27,7 @@ class News extends Component {
     // Get the article then filter the ones has duplicated
     getNews(pageNum) {
         const today = moment.utc().format('YYYY-MM-DD')
-        const request = "http://18.218.58.203:8000/news/" + today
+        const request = "https://api.covid19.hackhub.cn/news/" + today
         axios.get(request)
             .then(res => {
                 let currNewsList = res.data.news[pageNum - 1]

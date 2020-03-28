@@ -77,9 +77,9 @@ class Page extends Component {
     componentDidMount(){
         const today = moment.utc().format('YYYY-MM-DD');
         // const yesterday = moment.utc().subtract(1, 'days').format('YYYY-MM-DD');
-        const requestForToday = Axios.get("http://18.218.58.203:8000/entries/" + today);
+        const requestForToday = Axios.get("https://api.covid19.hackhub.cn/entries/" + today);
         // const requestForYesterday = Axios.get("http://18.218.58.203:8000/entries/" + yesterday);
-        const requestForTotal = Axios.get("http://18.218.58.203:8000/entries/");
+        const requestForTotal = Axios.get("https://api.covid19.hackhub.cn/entries/");
 
         setTimeout(() => { Axios.all([requestForToday, requestForTotal])
             .then(Axios.spread((...responses) => {
@@ -150,12 +150,11 @@ class Page extends Component {
     }
 
     handleCountryChange(country) {
-        // console.log(country)
+        console.log(country)
         let CasesArray = [];
         let DeathArray = [];
         let RecoveredArray = [];
 
-        console.log(this.state.todayData)
         this.state.totalData.map((data) => {
             let currentData = this.extractData(data, country)
             CasesArray.push(currentData.TotalCases);
