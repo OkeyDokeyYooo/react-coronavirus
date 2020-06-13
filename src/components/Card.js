@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 
 const TotalCases = styled.div`
   border-radius: 5px;
-  background: #db7414;
+  background: #F2994A;
   // border: 2px solid #73AD21;
   padding: 12px;
   height: 8rem;
@@ -25,7 +25,7 @@ const TotalCases = styled.div`
 
 const TotalDeaths = styled.div`
   border-radius: 5px;
-  background: #262524;
+  background: #333333;
   // border: 2px solid #73AD21;
   padding: 12px;
   height: 8rem;
@@ -47,7 +47,7 @@ const TotalDeaths = styled.div`
 
 const TotalRecovered = styled.div`
   border-radius: 5px;
-  background: #609111;
+  background: #27AE60;
   // border: 2px solid #73AD21;
   padding: 12px;
   height: 8rem;

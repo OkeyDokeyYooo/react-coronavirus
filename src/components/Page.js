@@ -85,7 +85,6 @@ class Page extends Component {
             .then(Axios.spread((...responses) => {
                 const requestForToday = responses[0];
                 const requestForTotal = responses[1];
-                // console.log(requestForTotal);
                 let CasesArray = [];
                 let DeathArray = [];
                 let RecoveredArray = [];

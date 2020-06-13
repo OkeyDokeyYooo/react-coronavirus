@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const historySchema = new Schema({
   data: {
     labels: [{type: String}],
-    totalCases: [{type: number}],
-    newCases: [{type: number}]
+    totalCases: [{type: Number}],
+    newCases: [{type: Number}]
   }
 });
 

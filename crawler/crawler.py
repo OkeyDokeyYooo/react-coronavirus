@@ -268,6 +268,8 @@ def atoi(str):
     #  str = str.strip()
     #  str = re.findall('(^[\+\-0]*\d+)\D*,', str)
     #  result = int(''.join(str))
+    if str == "N/A": 
+        return None
     str = str.replace(',', '').replace('+', '')
     result = int(str) if str != "" else None
     return result
@@ -289,6 +291,11 @@ for row in table.find_all('tr'):
     # print(d)
     data.append(d)   
 
+# for i, entry in enumerate(data):
+#     if entry['Country,Other'] == 'World':
+#         del data[i]
+#         break
+
 
 for entry in data:
     key = entry['Country,Other']
@@ -302,7 +309,47 @@ for entry in data:
     entry['ActiveCases'] = atoi(entry['ActiveCases'])
     entry['TotalRecovered'] = atoi(entry['TotalRecovered'])
     entry['Serious'] = atoi(entry['Serious'])
-    # print(entry)
+
+tempData = []
+
+for i, entry in enumerate(data):
+    if entry['name'] == 'World':
+        todayData = entry
+        continue
+    elif entry['name'] == 'South America':
+        # print('South America')  
+        continue
+    elif entry['name'] == 'Europe':
+        # print('Europe')
+        continue
+    elif entry['name'] == 'North America':
+        # print('North America')
+        continue
+    elif entry['name'] == 'Asia':
+        # print('Asia')
+        continue
+    elif entry['name'] == 'Africa':
+        # print('Africa')
+        continue
+    elif entry['name'] == 'South Africa':
+        # print('South Africa')
+        continue
+    elif entry['name'] == '':
+        # print("kong")
+        continue
+    elif entry['name'] == 'Oceania':
+        # print("Oceania")
+        continue
+    elif entry['name'] == 'Total:':
+        continue
+    else:
+        tempData.append(entry)
+
+data = tempData
+# print(data)
+
+# with open('data.json', 'w') as fp:
+#     json.dump(data, fp)
 
 today = datetime.now(timezone.utc)
 
@@ -310,7 +357,9 @@ date = today.strftime("%Y-%m-%d")
 
 yesterday = (today - timedelta(1)).strftime("%Y-%m-%d")
 
-r_today = data[len(data)-1]
+r_today = todayData
+r_today['name'] = 'Total:'
+data.append(r_today)
 # print(r_today)
 
 r_yesterday = requests.get("http://localhost:8080/entries/" + yesterday)

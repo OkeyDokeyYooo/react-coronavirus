@@ -25,7 +25,7 @@ class Table extends React.Component {
                 cellStyle:{
                 textAlign: "center"
             }},
-            { title: t("totalDeaths.label"), filed:"totalDeaths", width: 120,
+            { title: t("totalDeaths.label"), field:"totalDeaths", width: 120,
                 cellStyle:{
                 textAlign: "center"
             }},
@@ -61,7 +61,7 @@ class Table extends React.Component {
                 textAlign: "center",
                 whiteSpace: "nowrap"
             }},
-            { title: t("totalDeaths.label"), filed:"totalDeaths",width:110,
+            { title: t("totalDeaths.label"), field:"totalDeaths",width:110,
             cellStyle: {
                 textAlign: "center"
             }, 
@@ -120,7 +120,6 @@ class Table extends React.Component {
         })
 
         dataArray.sort((a ,b) => (a.totalCases > b.totalCases) ? -1 : (a.totalCases < b.totalCases) ? 1 : 0);
-
         return (
             <div className="rank-table">
                 <MaterialTable
