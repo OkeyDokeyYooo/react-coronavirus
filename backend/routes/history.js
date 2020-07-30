@@ -6,7 +6,11 @@ let History = require('../models/history.model');
 const app = express();
 
 router.route('/').get((req, res) => {       //get method
-  History.find()       //mongoose method to find all the users; return a promise
+  History.find({
+    "date": {
+      $gte: (new Date(new Date()).getTime() - (30 * 24 * 60 * 60 * 1000))
+    }
+  })       //mongoose method to find all the users; return a promise
     .then(histories => res.json(histories))     //return a json that we got from the database
     .catch(err => res.status(400).json('Error: ' + err));       //error message
 });

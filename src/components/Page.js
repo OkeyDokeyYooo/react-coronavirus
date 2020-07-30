@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Route } from 'react-router-dom';
 import Axios from 'axios';
-import moment from 'moment-timezone';
+import moment, { months } from 'moment-timezone';
 import NoSsr from '@material-ui/core/NoSsr';
 import ReactLoading from 'react-loading';
 import { withTranslation } from 'react-i18next';
@@ -91,7 +91,13 @@ class Page extends Component {
                 let countrySelection = [];
                 
                 // get the summary array from get all the data
-                requestForTotal.data.map((data) => {
+                const monthAgo = moment.utc().subtract(1, 'months').format('YYYY-MM-DD')
+                console.log(monthAgo)
+                const pastAMonthData = requestForTotal.data.filter(data => {
+                    return moment(data._id).isAfter(monthAgo)
+                })
+                console.log(pastAMonthData)
+                pastAMonthData.map((data) => {
                     let currentData = this.extractData(data, this.state.label)
                     CasesArray.push(currentData.TotalCases);
                     DeathArray.push(currentData.TotalDeaths);
@@ -128,7 +134,7 @@ class Page extends Component {
                     CasesArray: CasesArray,
                     DeathArray: DeathArray,
                     RecoveredArray: RecoveredArray,
-                    datePeriod: getDates("2020-03-03", moment(requestForToday.data.updatedAt).format("YYYY-MM-DD").toString()),
+                    datePeriod: getDates(monthAgo, moment(requestForToday.data.updatedAt).format("YYYY-MM-DD").toString()),
                     countrySelection: countrySelection,
                     todayData: todayData,
                     yesterdayData: yesterdayData,
