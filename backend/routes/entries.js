@@ -6,7 +6,13 @@ let Entry = require('../models/entry.model');
 const app = express();
 
 router.route('/').get((req, res) => {       //get method
-  Entry.find()       //mongoose method to find all the users; return a promise
+  console.log((new Date(new Date()).getTime() - (30 * 24 * 60 * 60 * 1000)))
+
+  Entry.find({
+    "createdAt": {
+      $gte: (new Date(new Date()).getTime() - (30 * 24 * 60 * 60 * 1000))
+    }
+  })       //mongoose method to find all the users; return a promise
     .then(entries => res.json(entries))     //return a json that we got from the database
     .catch(err => res.status(400).json('Error: ' + err));       //error message
 });
