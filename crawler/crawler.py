@@ -364,19 +364,19 @@ r_today['name'] = 'Total:'
 data.append(r_today)
 # print(r_today)
 
-# r_yesterday = requests.get("http://localhost:8080/entries/" + yesterday)
-# r_yesterday = json.loads(r_yesterday.text).get('trk')
-# r_yesterday = r_yesterday[len(r_yesterday)-1]
+r_yesterday = requests.get("http://localhost:8080/entries/" + yesterday)
+r_yesterday = json.loads(r_yesterday.text).get('trk')
+r_yesterday = r_yesterday[len(r_yesterday)-1]
 
 diff = {}
 
-# diff['TotalCases'] = r_today['TotalCases'] - r_yesterday['TotalCases']
-# diff['NewCases'] = r_today['NewCases'] - r_yesterday['NewCases']
-# diff['TotalDeaths'] = r_today['TotalDeaths'] - r_yesterday['TotalDeaths']
-# diff['TotalRecovered'] = r_today['TotalRecovered'] - r_yesterday['TotalRecovered']
+diff['TotalCases'] = r_today['TotalCases'] - r_yesterday['TotalCases']
+diff['NewCases'] = r_today['NewCases'] - r_yesterday['NewCases']
+diff['TotalDeaths'] = r_today['TotalDeaths'] - r_yesterday['TotalDeaths']
+diff['TotalRecovered'] = r_today['TotalRecovered'] - r_yesterday['TotalRecovered']
 
-# d = requests.delete('http://localhost:8080/entries/' + date)
-# print(d.text)
+d = requests.delete('http://localhost:8080/entries/' + date)
+print(d.text)
 r = requests.post('http://localhost:8080/entries/add', json={"_id": date, "trk": data, "diff": diff})
 
 print(r.text)
