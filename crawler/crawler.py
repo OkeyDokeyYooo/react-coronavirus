@@ -368,7 +368,7 @@ data.append(r_today)
 # r_yesterday = json.loads(r_yesterday.text).get('trk')
 # r_yesterday = r_yesterday[len(r_yesterday)-1]
 
-# diff = {}
+diff = {}
 
 # diff['TotalCases'] = r_today['TotalCases'] - r_yesterday['TotalCases']
 # diff['NewCases'] = r_today['NewCases'] - r_yesterday['NewCases']
