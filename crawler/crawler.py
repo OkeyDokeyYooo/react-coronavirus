@@ -363,7 +363,7 @@ r_today = todayData
 r_today['name'] = 'Total:'
 data.append(r_today)
 # print(r_today)
-
+print(yesterday)
 r_yesterday = requests.get("http://localhost:8080/entries/" + yesterday)
 r_yesterday = json.loads(r_yesterday.text).get('trk')
 r_yesterday = r_yesterday[len(r_yesterday)-1]
