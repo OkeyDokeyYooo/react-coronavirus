@@ -11,13 +11,13 @@ data = []
 
 for i in range(5):
     page = i + 1
-    url = 'http://newsapi.org/v2/top-headlines?q=coronavirus&language=en&apiKey=3342f15b61a04cb99d24ec6748ac1845&page=' + str(page)
+    url = 'http://newsapi.org/v2/top-headlines?q=coronavirus&language=en&apiKey=26ab6be16f024d5c80402cee5df0d848&page=' + str(page)
     # print(str(page))
     # print(type(str(page)))
     response = requests.get(url)
     response.encoding = chardet.detect(response.content)['encoding']
     text = json.loads(response.text)
-    print(text)
+    # print(text)
     data.append(text['articles'])
 
 # print(data)
