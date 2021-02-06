@@ -10,15 +10,15 @@ import requests
 data = []
 
 for i in range(5):
-  page = i + 1
-  url = 'http://newsapi.org/v2/top-headlines?q=coronavirus&language=en&apiKey=3342f15b61a04cb99d24ec6748ac1845&page=' + str(page)
-  # print(str(page))
-  # print(type(str(page)))
-  response = requests.get(url)
-  response.encoding = chardet.detect(response.content)['encoding']
-  text = json.loads(response.text)
-  # print(text['articles'])
-  data.append(text['articles'])
+    page = i + 1
+    url = 'http://newsapi.org/v2/top-headlines?q=coronavirus&language=en&apiKey=3342f15b61a04cb99d24ec6748ac1845&page=' + str(page)
+    # print(str(page))
+    # print(type(str(page)))
+    response = requests.get(url)
+    response.encoding = chardet.detect(response.content)['encoding']
+    text = json.loads(response.text)
+    print(text)
+    data.append(text['articles'])
 
 # print(data)
 
